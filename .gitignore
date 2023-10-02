@@ -158,6 +158,7 @@ cython_debug/
 datasets/TREC2021/
 datasets/TREC2022/
 datasets/TREC2023/
+datasets/SemEval2023/
 data_json/
 wandb
 
