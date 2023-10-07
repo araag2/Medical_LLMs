@@ -2,14 +2,17 @@ import os
 import argparse
 import json
 import torch
-import tqdm
 import typing
 import random
 
+from tqdm import tqdm
 from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
-def safe_open_w(path: str) -> TextIO:
+#if "SLURM_JOB_ID" not in os.environ:
+#    device = "CPU"
+
+def safe_open_w(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     return open(path, 'w', encoding='utf8')
 
@@ -51,12 +54,24 @@ def label_2_SemEval2023(labels : dict) -> dict:
 def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     res_labels = {}
     with torch.inference_mode():
-        for q_id in tqdm.tqdm(queries):
-            input_ids = tokenizer(queries[q_id], return_tensors="pt",).input_ids.to("cuda")
+        for q_id in tqdm(queries):
+            input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
             outputs = model.generate(input_ids)
             res_labels[q_id] = textlabel_2_binarylabel(tokenizer.decode(outputs[0]))
-            print(res_labels[q_id])
-    quit()
+    return res_labels
+
+def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
+    res_labels = [[],[]]
+    for q_id in pred_labels:
+        res_labels[0].append(gold_labels[q_id]["gold_label"])
+        res_labels[1].append(pred_labels[q_id])
+
+    accuracy = accuracy_score(res_labels[0], res_labels[1])
+    precision = precision_score(res_labels[0], res_labels[1])
+    recall = recall_score(res_labels[0], res_labels[1])
+    f1 = f1_score(res_labels[0], res_labels[1])
+
+    return {"accuracy" : accuracy, "precision" : precision, "recall" : recall, "f1" : f1}
 
 def main():
     parser = argparse.ArgumentParser()
@@ -66,7 +81,7 @@ def main():
     # Path to corpus file
     parser.add_argument('--dataset_path', type=str, help='path to corpus file', default="../../datasets/SemEval2023/CT_corpus.json")
     # Path to queries, qrels and prompt files
-    parser.add_argument('--queries', type=str, help='path to queries file', default="queries/SemEval2023/queries2023_train.json")
+    parser.add_argument('--queries', type=str, help='path to queries file', default="queries/queries2023_train.json")
     parser.add_argument('--qrels', type=str, help='path to qrels file', default="qrels/qrels2023_train.json")
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/T5prompts.json")
 
@@ -93,20 +108,25 @@ def main():
     # Replace prompt with query info
     queries_dict = {}
     for q_id in queries:
-        queries_dict[q_id] = generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompts)
-        queries_dict["gold_label"] = textlabel_2_binarylabel(qrels[q_id]["Label"])
+        queries_dict[q_id] = {}
+        queries_dict[q_id]["text"] = generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompts)
+        queries_dict[q_id]["gold_label"] = textlabel_2_binarylabel(qrels[q_id]["Label"])
 
-    
     
     # 0-shot inference from queries
     pred_labels = query_inference(model, tokenizer, queries_dict)
 
+    # Compute metrics
+    metrics = calculate_metrics(pred_labels, queries_dict)
+
     # Format to SemEval2023 format
-    results = label_2_SemEval2023(results)
+    formated_results = label_2_SemEval2023(pred_labels)
+
+    print(metrics)
 
     # Output Res
     with safe_open_w((f'{args.output_dir}{args.model_name}_0-shot_train-set.json')) as output_file:
-        output_file.write(json.dumps(pred_labels, ensure_ascii=False, indent=4))
+        output_file.write(json.dumps(formated_results, ensure_ascii=False, indent=4))
 
 if __name__ == '__main__':
     main()
