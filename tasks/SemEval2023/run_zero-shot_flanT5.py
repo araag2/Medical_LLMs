@@ -43,12 +43,18 @@ def textlabel_2_binarylabel(text_label: str) -> int:
         return 1
     elif text_label in CONTRADICTION_LABELS:
         return 0
+    print("Executed a Random choice because the label was not found.")
     return random.randint(0,1)
 
 def label_2_SemEval2023(labels : dict) -> dict:
     res = {}
     for q_id in labels:
-        res[q_id] = {"Prediction" : "Entailment" if labels[q_id] == 1 else "Contradiction"}
+        pred = "None" # random.choice(["Entailment", "Contradiction"])
+        if labels[q_id] == 1:
+            pred = "Entailment"
+        elif labels[q_id] == 0:
+            pred = "Contradiction"
+        res[q_id] = {"Prediction" : pred}
     return res
 
 def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
@@ -57,7 +63,7 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
         for q_id in tqdm(queries):
             input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
             outputs = model.generate(input_ids)
-            res_labels[q_id] = textlabel_2_binarylabel(tokenizer.decode(outputs[0]))
+            res_labels[q_id] = textlabel_2_binarylabel(tokenizer.decode(outputs[0])[5:][:-4].strip())
     return res_labels
 
 def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
@@ -76,7 +82,7 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
 def main():
     parser = argparse.ArgumentParser()
     # Model name to use (downloaded from huggingface)
-    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='google/flan-t5-small')
+    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='google/flan-t5-base')
     
     # Path to corpus file
     parser.add_argument('--dataset_path', type=str, help='path to corpus file', default="../../datasets/SemEval2023/CT_corpus.json")
@@ -110,9 +116,8 @@ def main():
     for q_id in queries:
         queries_dict[q_id] = {}
         queries_dict[q_id]["text"] = generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompts)
-        queries_dict[q_id]["gold_label"] = textlabel_2_binarylabel(qrels[q_id]["Label"])
+        queries_dict[q_id]["gold_label"] = textlabel_2_binarylabel(qrels[q_id]["Label"].strip())
 
-    
     # 0-shot inference from queries
     pred_labels = query_inference(model, tokenizer, queries_dict)
 
