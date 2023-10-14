@@ -61,7 +61,8 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     res_labels = {}
     with torch.inference_mode():
         for q_id in tqdm(queries):
-            input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
+            print(f'length of query is {len(queries[q_id]["text"])}')
+            input_ids = tokenizer(queries[q_id]["text"][:2000], return_tensors="pt").input_ids.to("cuda")
             outputs = model.generate(input_ids)
             res_labels[q_id] = textlabel_2_binarylabel(tokenizer.decode(outputs[0])[5:][:-4].strip())
     return res_labels
@@ -82,7 +83,7 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
 def main():
     parser = argparse.ArgumentParser()
     # Model name to use (downloaded from huggingface)
-    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='google/flan-t5-base')
+    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='google/flan-t5-xxl')
     
     # Path to corpus file
     parser.add_argument('--dataset_path', type=str, help='path to corpus file', default="../../datasets/SemEval2023/CT_corpus.json")
