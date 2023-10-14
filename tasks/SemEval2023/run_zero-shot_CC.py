@@ -8,7 +8,7 @@ import random
 from tqdm import tqdm
 from huggingface_hub import login
 from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
-from transformers import T5Tokenizer, T5ForConditionalGeneration
+from transformers import LlamaTokenizer, LlamaForConditionalGeneration
 
 #if "SLURM_JOB_ID" not in os.environ:
 #    device = "CPU"
@@ -110,8 +110,8 @@ def main():
     # Login to huggingface
     login(token=os.environ["HUGGINGFACE_TOKEN"])
 
-    tokenizer = T5Tokenizer.from_pretrained(args.model_name)
-    model = T5ForConditionalGeneration.from_pretrained(args.model_name, device_map="auto")
+    tokenizer = LlamaTokenizer.from_pretrained(args.model_name)
+    model = LlamaForConditionalGeneration.from_pretrained(args.model_name, device_map="auto")
 
     # Load dataste, queries, qrels and prompts
     #dataset = json.load(open(args.dataset_path))

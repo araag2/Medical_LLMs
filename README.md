@@ -13,7 +13,6 @@ All sets are balanced in labels, having 50% of Entailment and Contradiction
 | Dev   | 200  | 140  | 60  | 
 | Test  | 500  | 229  | 271 |
 
-
 ### Baseline Results
 
 #### Train Set (0-shot)
@@ -34,7 +33,7 @@ All sets are balanced in labels, having 50% of Entailment and Contradiction
 | flanT5-base | 0.34 | 0.55 | 0.25 | - |
 | flanT5-large | 0.57 | 0.61 | 0.53 | - |
 | flanT5-xl | 0.69 | 0.61 | 0.79 | - |
-| flanT5-xxl | 0.67 | - | - | - |
+| flanT5-xxl | 0.71 | 0.59 | 0.88 | - |
 
 #### Dev Set (fine-tuned)
 
