@@ -62,7 +62,8 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     with torch.inference_mode():
         for q_id in tqdm(queries):
             print(f'length of query is {len(queries[q_id]["text"])}')
-            input_ids = tokenizer(queries[q_id]["text"][:2000], return_tensors="pt").input_ids.to("cuda")
+            #input_ids = tokenizer(queries[q_id]["text"][:5000], return_tensors="pt").input_ids.to("cuda")
+            input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
             outputs = model.generate(input_ids)
             res_labels[q_id] = textlabel_2_binarylabel(tokenizer.decode(outputs[0])[5:][:-4].strip())
     return res_labels
@@ -83,13 +84,15 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
 def main():
     parser = argparse.ArgumentParser()
     # Model name to use (downloaded from huggingface)
-    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='google/flan-t5-xxl')
+    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='wanglab/ClinicalCamel-70B')
     
+    used_set = "dev" # train | dev | test
+
     # Path to corpus file
     parser.add_argument('--dataset_path', type=str, help='path to corpus file', default="../../datasets/SemEval2023/CT_corpus.json")
     # Path to queries, qrels and prompt files
-    parser.add_argument('--queries', type=str, help='path to queries file', default="queries/queries2023_train.json")
-    parser.add_argument('--qrels', type=str, help='path to qrels file', default="qrels/qrels2023_train.json")
+    parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2023_{used_set}.json')
+    parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/T5prompts.json")
 
     # Evaluation metrics to use 
@@ -100,7 +103,7 @@ def main():
     #
 
     # Output directory
-    parser.add_argument('--output_dir', type=str, help='path to output_dir', default="../outputs/")
+    parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
     args = parser.parse_args()
 
     tokenizer = T5Tokenizer.from_pretrained(args.model_name)
@@ -131,7 +134,7 @@ def main():
     print(metrics)
 
     # Output Res
-    with safe_open_w((f'{args.output_dir}{args.model_name}_0-shot_train-set.json')) as output_file:
+    with safe_open_w((f'{args.output_dir}{args.model_name.split("/")[-1]}_0-shot_{used_set}-set.json')) as output_file:
         output_file.write(json.dumps(formated_results, ensure_ascii=False, indent=4))
 
 if __name__ == '__main__':
