@@ -8,7 +8,7 @@ import random
 from tqdm import tqdm
 from huggingface_hub import login
 from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
-from transformers import LlamaTokenizer, LlamaForConditionalGeneration
+from transformers import LlamaTokenizer, LlamaForCausalLM
 
 #if "SLURM_JOB_ID" not in os.environ:
 #    device = "CPU"
@@ -45,6 +45,7 @@ def textlabel_2_binarylabel(text_label: str) -> int:
     elif text_label in CONTRADICTION_LABELS:
         return 0
     print("Executed a Random choice because the label was not found.")
+    print(text_label)
     return random.randint(0,1)
 
 def label_2_SemEval2023(labels : dict) -> dict:
@@ -63,8 +64,8 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     with torch.inference_mode():
         for q_id in tqdm(queries):
             print(f'length of query is {len(queries[q_id]["text"])}')
-            #input_ids = tokenizer(queries[q_id]["text"][:5000], return_tensors="pt").input_ids.to("cuda")
-            input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
+            input_ids = tokenizer(queries[q_id]["text"][:2000], return_tensors="pt").input_ids.to("cuda")
+            #input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
             outputs = model.generate(input_ids)
             res_labels[q_id] = textlabel_2_binarylabel(tokenizer.decode(outputs[0])[5:][:-4].strip())
     return res_labels
@@ -85,7 +86,7 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
 def main():
     parser = argparse.ArgumentParser()
     # Model name to use (downloaded from huggingface)
-    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='wanglab/ClinicalCamel-70B')
+    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='TheBloke/qCammel-13-GPTQ')
     
     used_set = "dev" # train | dev | test
 
@@ -108,10 +109,10 @@ def main():
     args = parser.parse_args()
 
     # Login to huggingface
-    login(token=os.environ["HUGGINGFACE_TOKEN"])
+    #login(token=os.environ["HUGGINGFACE_TOKEN"])
 
+    model = LlamaForCausalLM.from_pretrained(args.model_name, device_map="auto")
     tokenizer = LlamaTokenizer.from_pretrained(args.model_name)
-    model = LlamaForConditionalGeneration.from_pretrained(args.model_name, device_map="auto")
 
     # Load dataste, queries, qrels and prompts
     #dataset = json.load(open(args.dataset_path))
