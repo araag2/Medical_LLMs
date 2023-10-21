@@ -24,8 +24,9 @@ All sets are balanced in labels, having 50% of Entailment and Contradiction
 | flanT5-large | 0.53 | 0.56 | 0.49 | - |
 | flanT5-xl | 0.67 | 0.59 | 0.77 | - |
 | flanT5-xxl | 0.69 | 0.61 | 0.79 | - |
-| qCammel-13-GPTQ | - | - | - | - |
-| Asclepius-Llama2-13B | 0.62 | 0.59 | 0.64 | - |
+
+#| qCammel-13-GPTQ | 0.64 | 0.60 | 0.69 | Need to experiment with different prompts |
+#| Asclepius-Llama2-13B | 0.62 | 0.59 | 0.64 | Need to experiment with different prompts |
 
 #### Dev Set (0-shot)
 
@@ -36,7 +37,9 @@ All sets are balanced in labels, having 50% of Entailment and Contradiction
 | flanT5-large | 0.57 | 0.61 | 0.53 | - |
 | flanT5-xl | 0.69 | 0.61 | 0.79 | - |
 | flanT5-xxl | 0.71 | 0.59 | 0.88 | - |
-| Asclepius-Llama2-13B | 0.61 | 0.59 | 0.63 | - |
+
+#| qCammel-13-GPTQ | 0.65 | 0.62 | 0.68 | Need to experiment with different prompts |
+#| Asclepius-Llama2-13B | 0.61 | 0.59 | 0.63 | Need to experiment with different prompts |
 
 #### Dev Set (fine-tuned)
 

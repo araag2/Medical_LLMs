@@ -63,13 +63,10 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     res_labels = {}
     with torch.inference_mode():
         for q_id in tqdm(queries):
-            print(f'length of query is {len(queries[q_id]["text"])}')
+            #print(f'length of query is {len(queries[q_id]["text"])}')
             #input_ids = tokenizer(queries[q_id]["text"][:2000], return_tensors="pt").input_ids.to("cuda")
             input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
-            outputs = model.generate(input_ids, max_new_tokens=4)
-            print(outputs)
-            print(tokenizer.decode(outputs[0]))
-            quit()
+            outputs = model.generate(input_ids)
             res_labels[q_id] = textlabel_2_binarylabel(tokenizer.decode(outputs[0])[5:][:-4].strip())
     return res_labels
 
@@ -86,26 +83,30 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
 
     return {"accuracy" : accuracy, "precision" : precision, "recall" : recall, "f1" : f1}
 
+def calculate_prompt_score(model : object, tokenizer : object, queries : dict, qrels : dict, ) -> dict:
+    return calculate_metrics(pred_labels, queries_dict)
+
 def main():
     parser = argparse.ArgumentParser()
     # Model name to use (downloaded from huggingface)
-    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='/user/home/aguimas/data/PhD/models/TheBloke-qCammel-70-x-GPTQ-gptq-3bit-128g/')
+    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='TheBloke/qCammel-70-x-GPTQ/tree/gptq-3bit-128g-actorder_True')
     
-    used_set = "dev" # train | dev | test
+    used_set = "dev" # evaluation dataset
 
     # Path to corpus file
     parser.add_argument('--dataset_path', type=str, help='path to corpus file', default="../../datasets/SemEval2023/CT_corpus.json")
     # Path to queries, qrels and prompt files
     parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2023_{used_set}.json')
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
-    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/T5prompts.json")
+
+    # Base prompts to use for Evolution
+    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/EAprompts.json")
 
     # Evaluation metrics to use 
     #
     # Model parameters
     #
     # LLM generation parameters
-    #
 
     # Output directory
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
@@ -136,14 +137,9 @@ def main():
     # Compute metrics
     metrics = calculate_metrics(pred_labels, queries_dict)
 
-    # Format to SemEval2023 format
-    formated_results = label_2_SemEval2023(pred_labels)
-
-    print(metrics)
-
     # Output Res
-    with safe_open_w((f'{args.output_dir}{args.model_name.split("/")[-1]}_0-shot_{used_set}-set.json')) as output_file:
-        output_file.write(json.dumps(formated_results, ensure_ascii=False, indent=4))
+    #with safe_open_w((f'{args.output_dir}{args.model_name.split("/")[-1]}_0-shot_{used_set}-set.json')) as output_file:
+    #    output_file.write(json.dumps(formated_results, ensure_ascii=False, indent=4))
 
 if __name__ == '__main__':
     main()
