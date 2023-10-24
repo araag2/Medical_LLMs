@@ -55,6 +55,8 @@ In order to use the Clinical Cammel models, we will obtain them from [huggingfac
 
 Alpaca Template (_alp{prompt_used}): `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$task_prompt\n### Response:`
 
+Asclepius Template (_asclp{prompt_used}): `You are an intelligent clinical languge model.\nBelow is a snippet of clinical trial data and a following instruction from a healthcare professional. Write a response that appropriately completes the instruction. The response should provide the accurate answer to the instruction, while being concise.\n[Discharge Summary Begin]\nNotes go here\n[Discharge Summary End]\n\n[Instruction Begin]\n{prompt}\n[Instruction End]`
+
 Base T5 Prompt (t5): `$premise \n Question: Does this imply that $hypothesis? $options`
 
 #### Perplexity
@@ -63,6 +65,15 @@ Instead of trying to generate "Entailment" and "Contradiction", it's also possib
 
 We will denote these differences by using `_gen` when the full generation is processed, and `_perp` when the perplexity score is used.
 
+#### Model Links
+[Asclepius-Llama2-13B](https://huggingface.co/starmpcc/Asclepius-Llama2-13B)
+[Asclepius-13B-GPTQ](https://huggingface.co/TheBloke/Asclepius-13B-GPTQ)
+
+[qCammel-13-GPTQ](https://huggingface.co/TheBloke/qCammel-13-GPTQ)
+[Cammel-13B-Combined-Data-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Combined-Data-GPTQ)
+[qCammel-70-x-GPTQ](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ)
+[qCammel-70-x-GPTQ-gptq-3bit-128g](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ/tree/gptq-3bit-128g-actorder_True)
+
 ---
 
 #### Train Set (0-shot)
@@ -70,14 +81,14 @@ We will denote these differences by using `_gen` when the full generation is pro
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
-| qCammel-13-GPTQ_(t5)_(gen) | 0.64 | 0.60 | 0.69 | Need to experiment with different prompts |
-| Asclepius-Llama2-13B_(t5)_(gen) | 0.62 | 0.59 | 0.64 | Need to experiment with different prompts |
+| qCammel-13-GPTQ_(t5)_(gen) | 0.64 | 0.60 | 0.69 | - |
+| Asclepius-Llama2-13B_(t5)_(gen) | 0.62 | 0.59 | 0.64 | - |
 
 #### Dev Set (0-shot)
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
-| qCammel-13-GPTQ_(t5)_(gen) | 0.65 | 0.62 | 0.68 | Need to experiment with different prompts |
-| Asclepius-Llama2-13B_(t5)_(gen) | 0.61 | 0.59 | 0.63 | Need to experiment with different prompts |
+| qCammel-13-GPTQ_(t5)_(gen) | 0.65 | 0.62 | 0.68 | - |
+| Asclepius-Llama2-13B_(t5)_(gen) | 0.61 | 0.59 | 0.63 | - |
 
 ---

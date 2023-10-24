@@ -4,6 +4,7 @@ import json
 import torch
 import typing
 import random
+import re
 
 from tqdm import tqdm
 from huggingface_hub import login
@@ -44,9 +45,9 @@ def textlabel_2_binarylabel(text_label: str) -> int:
         return 1
     elif text_label in CONTRADICTION_LABELS:
         return 0
-    print("Executed a Random choice because the label was not found.")
-    print(text_label)
-    return random.randint(0,1)
+    print(f'Text label: [{text_label}.] This label executed a Random choice because the label was not found.')
+    #return random.randint(0,1)
+    return 1
 
 def label_2_SemEval2023(labels : dict) -> dict:
     res = {}
@@ -62,15 +63,18 @@ def label_2_SemEval2023(labels : dict) -> dict:
 def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     res_labels = {}
     with torch.inference_mode():
+        print(f'Entered query_inference')
         for q_id in tqdm(queries):
-            print(f'length of query is {len(queries[q_id]["text"])}')
+            #print(f'length of query is {len(queries[q_id]["text"])}')
             #input_ids = tokenizer(queries[q_id]["text"][:2000], return_tensors="pt").input_ids.to("cuda")
             input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
-            outputs = model.generate(input_ids, max_new_tokens=50)
-            print(outputs)
-            print(tokenizer.decode(outputs[0][outputs[0].shape[0]:]))
-            quit()
-            res_labels[q_id] = textlabel_2_binarylabel(tokenizer.decode(outputs[0])[5:][:-4].strip())
+            outputs = model.generate(input_ids, max_new_tokens=20)
+            decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
+            print(f'The decoded output of query = {q_id} was {decoded_output}')
+            decoded_output_sub = re.sub("[(</s>)\.]", "", decoded_output) #TODO: This is removing the s characters from the output
+            print(f're_sub of decoded output {decoded_output_sub}')
+            #res_labels[q_id] = textlabel_2_binarylabel(re.sub('[(</s>)\.]', '', decoded_output))
+    quit()
     return res_labels
 
 def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
@@ -89,8 +93,9 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
 def main():
     parser = argparse.ArgumentParser()
     # Model name to use (downloaded from huggingface)
-    # ../models/TheBloke-qCammel-70-x-GPTQ-gptq-3bit-128g/
-    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='TheBloke/CAMEL-13B-Combined-Data-GPTQ')
+    # '/user/home/aguimas/data/PhD/models/TheBloke-qCammel-70-x-GPTQ-gptq-3bit-128g/'
+    # 'TheBloke/CAMEL-13B-Combined-Data-GPTQ'
+    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='TheBloke/qCammel-13-GPTQ')
     
     used_set = "dev" # train | dev | test
 
@@ -100,7 +105,7 @@ def main():
     parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2023_{used_set}.json')
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
     # "prompts/T5prompts.json"
-    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/qCammelprompts.json")
+    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/qCammelPrompts.json")
 
     # Evaluation metrics to use 
     #
@@ -113,15 +118,18 @@ def main():
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
     args = parser.parse_args()
 
+    print(f'Model used: {args.model_name} and prompt template: {args.prompts}')
+
     # Login to huggingface
     #login(token=os.environ["HUGGINGFACE_TOKEN"])
 
-    #model = LlamaForCausalLM.from_pretrained(args.model_name, device_map="auto")
-    model = AutoModelForCausalLM.from_pretrained(args.model_name, device_map="auto", trust_remote_code=True, revision="main")
-    #tokenizer = LlamaTokenizer.from_pretrained(args.model_name)
-    tokenizer = AutoTokenizer.from_pretrained(args.model_name)
+    model = LlamaForCausalLM.from_pretrained(args.model_name, device_map="auto")
+    tokenizer = LlamaTokenizer.from_pretrained(args.model_name)
 
-    # Load dataste, queries, qrels and prompts
+    #model = AutoModelForCausalLM.from_pretrained(args.model_name, device_map="auto", trust_remote_code=True, revision="main")
+    #tokenizer = AutoTokenizer.from_pretrained(args.model_name)
+
+    # Load dataset, queries, qrels and prompts
     #dataset = json.load(open(args.dataset_path))
     queries = json.load(open(args.queries))
     qrels = json.load(open(args.qrels))
