@@ -51,16 +51,33 @@ In order to obtain these results, I used [Flan-T5 from huggingface](https://hugg
 
 In order to use the Clinical Cammel models, we will obtain them from [huggingface hub](https://huggingface.co/TheBloke), as it very easily allows us to quantize and test different model sizes. 
 
+#### Prompts
+
+Alpaca Template (_alp{prompt_used}): `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$task_prompt\n### Response:`
+
+Base T5 Prompt (t5): `$premise \n Question: Does this imply that $hypothesis? $options`
+
+#### Perplexity
+
+Instead of trying to generate "Entailment" and "Contradiction", it's also possible to analize the output probabilities of the tokens, not requiring the model to explicity generate those tokens. 
+
+We will denote these differences by using `_gen` when the full generation is processed, and `_perp` when the perplexity score is used.
+
+---
+
 #### Train Set (0-shot)
+
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
-| qCammel-13-GPTQ | 0.64 | 0.60 | 0.69 | Need to experiment with different prompts |
-| Asclepius-Llama2-13B | 0.62 | 0.59 | 0.64 | Need to experiment with different prompts |
+| qCammel-13-GPTQ_(t5)_(gen) | 0.64 | 0.60 | 0.69 | Need to experiment with different prompts |
+| Asclepius-Llama2-13B_(t5)_(gen) | 0.62 | 0.59 | 0.64 | Need to experiment with different prompts |
 
 #### Dev Set (0-shot)
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
-| qCammel-13-GPTQ | 0.65 | 0.62 | 0.68 | Need to experiment with different prompts |
-| Asclepius-Llama2-13B | 0.61 | 0.59 | 0.63 | Need to experiment with different prompts |
+| qCammel-13-GPTQ_(t5)_(gen) | 0.65 | 0.62 | 0.68 | Need to experiment with different prompts |
+| Asclepius-Llama2-13B_(t5)_(gen) | 0.61 | 0.59 | 0.63 | Need to experiment with different prompts |
+
+---
