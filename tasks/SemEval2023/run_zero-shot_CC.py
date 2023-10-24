@@ -66,9 +66,9 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
             print(f'length of query is {len(queries[q_id]["text"])}')
             #input_ids = tokenizer(queries[q_id]["text"][:2000], return_tensors="pt").input_ids.to("cuda")
             input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
-            outputs = model.generate(input_ids, max_new_tokens=4)
+            outputs = model.generate(input_ids, max_new_tokens=50)
             print(outputs)
-            print(tokenizer.decode(outputs[0]))
+            print(tokenizer.decode(outputs[0][outputs[0].shape[0]:]))
             quit()
             res_labels[q_id] = textlabel_2_binarylabel(tokenizer.decode(outputs[0])[5:][:-4].strip())
     return res_labels
@@ -89,7 +89,8 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
 def main():
     parser = argparse.ArgumentParser()
     # Model name to use (downloaded from huggingface)
-    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='/user/home/aguimas/data/PhD/models/TheBloke-qCammel-70-x-GPTQ-gptq-3bit-128g/')
+    # ../models/TheBloke-qCammel-70-x-GPTQ-gptq-3bit-128g/
+    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='TheBloke/CAMEL-13B-Combined-Data-GPTQ')
     
     used_set = "dev" # train | dev | test
 
@@ -98,7 +99,8 @@ def main():
     # Path to queries, qrels and prompt files
     parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2023_{used_set}.json')
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
-    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/T5prompts.json")
+    # "prompts/T5prompts.json"
+    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/qCammelprompts.json")
 
     # Evaluation metrics to use 
     #

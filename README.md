@@ -13,36 +13,54 @@ All sets are balanced in labels, having 50% of Entailment and Contradiction
 | Dev   | 200  | 140  | 60  | 
 | Test  | 500  | 229  | 271 |
 
-### Baseline Results
+---
+
+### T5 Results
+
+In order to obtain these results, I used [Flan-T5 from huggingface](https://huggingface.co/google/flan-t5-base), and used the following generation prompt: `$premise \n Question: Does this imply that $hypothesis? $options`, checking the outputs for "Entailment" or "Contradiction".
 
 #### Train Set (0-shot)
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
-| flanT5-small | 0.02 | 0.50 | 0.50 | Always Contradiction |
+| flanT5-small | - | - | - | Always Contradiction |
 | flanT5-base | 0.32 | 0.50 | 0.23 | - |
 | flanT5-large | 0.53 | 0.56 | 0.49 | - |
 | flanT5-xl | 0.67 | 0.59 | 0.77 | - |
 | flanT5-xxl | 0.69 | 0.61 | 0.79 | - |
 
-#| qCammel-13-GPTQ | 0.64 | 0.60 | 0.69 | Need to experiment with different prompts |
-#| Asclepius-Llama2-13B | 0.62 | 0.59 | 0.64 | Need to experiment with different prompts |
-
 #### Dev Set (0-shot)
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
-| flanT5-small | 0.00 | 0.00 | 0.00 | Always Contradiction |
+| flanT5-small | - | - | - | Always Contradiction |
 | flanT5-base | 0.34 | 0.55 | 0.25 | - |
 | flanT5-large | 0.57 | 0.61 | 0.53 | - |
 | flanT5-xl | 0.69 | 0.61 | 0.79 | - |
 | flanT5-xxl | 0.71 | 0.59 | 0.88 | - |
-
-#| qCammel-13-GPTQ | 0.65 | 0.62 | 0.68 | Need to experiment with different prompts |
-#| Asclepius-Llama2-13B | 0.61 | 0.59 | 0.63 | Need to experiment with different prompts |
 
 #### Dev Set (fine-tuned)
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
 | flanT5-xl | 0.754 | 0.59 | 0.831 | - |
+
+---
+
+### qCammel family Results
+
+In order to use the Clinical Cammel models, we will obtain them from [huggingface hub](https://huggingface.co/TheBloke), as it very easily allows us to quantize and test different model sizes. 
+
+#### Train Set (0-shot)
+
+| **Metrics**    | F1-score | Precision | Recall | Notes |
+|:-------------- |:--:|:--:|:--:|:--:|
+| qCammel-13-GPTQ | 0.64 | 0.60 | 0.69 | Need to experiment with different prompts |
+| Asclepius-Llama2-13B | 0.62 | 0.59 | 0.64 | Need to experiment with different prompts |
+
+#### Dev Set (0-shot)
+
+| **Metrics**    | F1-score | Precision | Recall | Notes |
+|:-------------- |:--:|:--:|:--:|:--:|
+| qCammel-13-GPTQ | 0.65 | 0.62 | 0.68 | Need to experiment with different prompts |
+| Asclepius-Llama2-13B | 0.61 | 0.59 | 0.63 | Need to experiment with different prompts |
