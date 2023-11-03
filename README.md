@@ -53,9 +53,9 @@ In order to use the Clinical Cammel models, we will obtain them from [huggingfac
 
 #### Prompts
 
-Alpaca Template (_alp{prompt_used}): `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$task_prompt\n### Response:`
+Alpaca Template (_alp + {prompt_used}): `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$task_prompt\n### Response:`
 
-Asclepius Template (_asclp{prompt_used}): `You are an intelligent clinical languge model.\nBelow is a snippet of clinical trial data and a following instruction from a healthcare professional. Write a response that appropriately completes the instruction. The response should provide the accurate answer to the instruction, while being concise.\n[Discharge Summary Begin]\nNotes go here\n[Discharge Summary End]\n\n[Instruction Begin]\n{prompt}\n[Instruction End]`
+Asclepius Template (_asclp + {prompt_used}): `You are an intelligent clinical languge model.\nBelow is a snippet of clinical trial data and a following instruction from a healthcare professional. Write a response that appropriately completes the instruction. The response should provide the accurate answer to the instruction, while being concise.\n\n[Instruction Begin]\n{prompt}\n[Instruction End]`
 
 Base T5 Prompt (t5): `$premise \n Question: Does this imply that $hypothesis? $options`
 
@@ -70,25 +70,41 @@ We will denote these differences by using `_gen` when the full generation is pro
 [Asclepius-13B-GPTQ](https://huggingface.co/TheBloke/Asclepius-13B-GPTQ)
 
 [qCammel-13-GPTQ](https://huggingface.co/TheBloke/qCammel-13-GPTQ)
-[Cammel-13B-Combined-Data-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Combined-Data-GPTQ)
+[qCammel-13B-Combined-Data-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Combined-Data-GPTQ)
+[qCammel-13B-Role-Playing-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Role-Playing-Data-GPTQ)
 [qCammel-70-x-GPTQ](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ)
 [qCammel-70-x-GPTQ-gptq-3bit-128g](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ/tree/gptq-3bit-128g-actorder_True)
 
 ---
 
-#### Train Set (0-shot)
-
-
-| **Metrics**    | F1-score | Precision | Recall | Notes |
-|:-------------- |:--:|:--:|:--:|:--:|
-| qCammel-13-GPTQ_(t5)_(gen) | 0.64 | 0.60 | 0.69 | - |
-| Asclepius-Llama2-13B_(t5)_(gen) | 0.62 | 0.59 | 0.64 | - |
-
 #### Dev Set (0-shot)
 
+##### Using Alpaca Template (_alp) + T5 prompt yes/no (t5) + generation
+
+Prompt: `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$premise \n Question: Does this imply that $hypothesis?\n Respond by outputting Yes or No. Be as accurate as possible. \n\n\n### Response:`
+
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
-| qCammel-13-GPTQ_(t5)_(gen) | 0.65 | 0.62 | 0.68 | - |
-| Asclepius-Llama2-13B_(t5)_(gen) | 0.61 | 0.59 | 0.63 | - |
+| Asclepius-Llama2-13B_(apl{t5})_(gen) | - | - | - | - |
+| Asclepius-13B-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen) | 0.635 | 0.53 | 0.80 | - |
+| qCammel-13-Combined-Data-GPTQ_(apl{t5})_(gen) | 0.57 | 0.525 | 0.63 | - |
+| qCammel-13-Role-Playing-GPTQ_(apl{t5})_(gen) | 0.60 | 0.52 | 0.72 | 17 forced yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen) | 0.705 | 0.67 | 0.74 | - |
+
+##### Using Alpaca Template (_alp) + T5 prompt entailment/contradiction (t5) + generation
+
+Prompt: `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$premise \n Question: Does this imply that $hypothesis?\n Respond by outputting Entailment or Contradiction. Be as accurate as possible. \n\n\n### Response:`
+
+| **Metrics**    | F1-score | Precision | Recall | Notes |
+|:-------------- |:--:|:--:|:--:|:--:|
+| Asclepius-Llama2-13B_(apl{t5})_(gen) | - | - | - | - |
+| Asclepius-13B-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-13-Combined-Data-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-13-Role-Playing-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen) | - | - | - | - |
 
 ---

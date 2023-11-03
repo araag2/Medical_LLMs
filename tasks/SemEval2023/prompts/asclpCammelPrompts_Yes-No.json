@@ -1,0 +1,6 @@
+{
+    "baseline_prompt" : "You are an intelligent clinical languge model.\nBelow is a snippet of clinical trial data and a following instruction from a healthcare professional. Write a response that appropriately completes the instruction. The response should provide the accurate answer to the instruction, while being concise.\n\n[Instruction Begin]\n\n\n### Instruction:\n$premise \n Question: Does this imply that $hypothesis?\n $options\n\n### Response:\n[Instruction End]",
+    "primary_premise" : "Primary trial evidence are $primary_evidence",
+    "secondary_premise" : " and Secondary trial evidence are $secondary_evidence",
+    "options" : "Respond by outputting Yes or No. Be as accurate as possible."
+}

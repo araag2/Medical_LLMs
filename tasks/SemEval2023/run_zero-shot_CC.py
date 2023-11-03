@@ -6,6 +6,7 @@ import typing
 import random
 import re
 
+from auto_gptq import exllama_set_max_input_length
 from tqdm import tqdm
 from huggingface_hub import login
 from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
@@ -45,7 +46,7 @@ def textlabel_2_binarylabel(text_label: str) -> int:
         return 1
     elif text_label in CONTRADICTION_LABELS:
         return 0
-    print(f'Text label: [{text_label}.] This label executed a Random choice because the label was not found.')
+    print(f'Text label: [{text_label=}.] This label executed a Random choice because the label was not found.')
     #return random.randint(0,1)
     return 1
 
@@ -63,19 +64,34 @@ def label_2_SemEval2023(labels : dict) -> dict:
 def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     res_labels = {}
     with torch.inference_mode():
-        print(f'Entered query_inference')
         for q_id in tqdm(queries):
+            #input_ids = tokenizer(queries[q_id]["text"][200:] + queries[q_id]["text"][-1800:], return_tensors="pt").input_ids.to("cuda")
+            input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
+            outputs = model.generate(input_ids, max_new_tokens=100)
+            decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
+            decoded_output_sub = re.sub("[,!\.]+", " ", decoded_output)
+            decoded_output_sub = re.sub("(\\n)+", " ", decoded_output_sub)
+            decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output_sub)
+            print(f'The postprocessed decoded output was {decoded_output_sub.split(" ")=}')
+            res_labels[q_id] = textlabel_2_binarylabel(decoded_output_sub.split(" ")[0])
+    return res_labels
+
+def debug_query_inference(model : object, tokenizer : object, queries : dict) -> dict:
+    res_labels = {}
+    with torch.inference_mode():
+        print(f'Entered query_inference')
+        for q_id in tqdm(list(queries.keys())[:10]):
             #print(f'length of query is {len(queries[q_id]["text"])}')
             #input_ids = tokenizer(queries[q_id]["text"][:2000], return_tensors="pt").input_ids.to("cuda")
             input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
-            outputs = model.generate(input_ids, max_new_tokens=20)
+            outputs = model.generate(input_ids, max_new_tokens=100)
             decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
-            print(f'The decoded output of query = {q_id} was {decoded_output}')
-            decoded_output_sub = re.sub("[(</s>)\.]", "", decoded_output) #TODO: This is removing the s characters from the output
-            print(f're_sub of decoded output {decoded_output_sub}')
-            #res_labels[q_id] = textlabel_2_binarylabel(re.sub('[(</s>)\.]', '', decoded_output))
-    quit()
-    return res_labels
+            print(f'The decoded output of {q_id=} was {decoded_output=}')
+            #decoded_output_sub = re.sub("[,!\.]*(\\n)*(<\/s>)*", " ", decoded_output).split(" ")[0] #TODO: This is removing the s characters from the output
+            decoded_output = re.sub("[,!\.]*(\\n)*(<\/s>)*", " ", decoded_output)
+            print(f'The postprocessed decoded output of {q_id=} was {decoded_output=}')
+            res_labels[q_id] = textlabel_2_binarylabel(decoded_output.split(" ")[0])
+    return res_labels 
 
 def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
     res_labels = [[],[]]
@@ -83,20 +99,27 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
         res_labels[0].append(gold_labels[q_id]["gold_label"])
         res_labels[1].append(pred_labels[q_id])
 
-    accuracy = accuracy_score(res_labels[0], res_labels[1])
     precision = precision_score(res_labels[0], res_labels[1])
     recall = recall_score(res_labels[0], res_labels[1])
     f1 = f1_score(res_labels[0], res_labels[1])
 
-    return {"accuracy" : accuracy, "precision" : precision, "recall" : recall, "f1" : f1}
+    return {"f1" : f1, "precision" : precision, "recall" : recall}
 
 def main():
     parser = argparse.ArgumentParser()
     # Model name to use (downloaded from huggingface)
+    #[Asclepius-Llama2-13B](https://huggingface.co/starmpcc/Asclepius-Llama2-13B)
+    #[Asclepius-13B-GPTQ](https://huggingface.co/TheBloke/Asclepius-13B-GPTQ)
+    #[qCammel-13-GPTQ](https://huggingface.co/TheBloke/qCammel-13-GPTQ)
+    #[qCammel-13B-Combined-Data-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Combined-Data-GPTQ)
+    #[qCammel-13B-Role-Playing-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Role-Playing-Data-GPTQ)
+    #[qCammel-70-x-GPTQ](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ)
+    #[qCammel-70-x-GPTQ-gptq-3bit-128g](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ/tree/gptq-3bit-128g-actorder_True)
+
     # '/user/home/aguimas/data/PhD/models/TheBloke-qCammel-70-x-GPTQ-gptq-3bit-128g/'
     # 'TheBloke/CAMEL-13B-Combined-Data-GPTQ'
-    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='TheBloke/qCammel-13-GPTQ')
-    
+    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='TheBloke/CAMEL-13B-Role-Playing-Data-GPTQ')
+
     used_set = "dev" # train | dev | test
 
     # Path to corpus file
@@ -105,7 +128,7 @@ def main():
     parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2023_{used_set}.json')
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
     # "prompts/T5prompts.json"
-    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/qCammelPrompts.json")
+    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/qCammelPrompts_Ent-Cont.json")
 
     # Evaluation metrics to use 
     #
@@ -126,6 +149,16 @@ def main():
     model = LlamaForCausalLM.from_pretrained(args.model_name, device_map="auto")
     tokenizer = LlamaTokenizer.from_pretrained(args.model_name)
 
+    #model = AutoModelForCausalLM.from_pretrained(args.model_name,
+    #                                            torch_dtype=torch.float16,
+    #                                            device_map="auto",
+    #                                            revision="gptq-3bit--1g-actorder_True")
+    #tokenizer = AutoTokenizer.from_pretrained(args.model_name, use_fast=True)
+
+    #model = exllama_set_max_input_length(model, 4096)
+
+    
+
     #model = AutoModelForCausalLM.from_pretrained(args.model_name, device_map="auto", trust_remote_code=True, revision="main")
     #tokenizer = AutoTokenizer.from_pretrained(args.model_name)
 
@@ -142,7 +175,7 @@ def main():
         queries_dict[q_id]["text"] = generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompts)
         queries_dict[q_id]["gold_label"] = textlabel_2_binarylabel(qrels[q_id]["Label"].strip())
 
-    # 0-shot inference from queries
+    # 0-shot inference from queries TODO
     pred_labels = query_inference(model, tokenizer, queries_dict)
 
     # Compute metrics
