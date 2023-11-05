@@ -66,7 +66,7 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     with torch.inference_mode():
         for q_id in tqdm(queries):
             #input_ids = tokenizer(queries[q_id]["text"][400:] + queries[q_id]["text"][-2000:], return_tensors="pt").input_ids.to("cuda")
-            input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
+            input_ids = tokenizer(queries[q_id]["text"], do_sample= True, return_tensors="pt").input_ids.to("cuda")
             outputs = model.generate(input_ids, max_new_tokens=100)
             decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
             decoded_output_sub = re.sub("[,!\.]+", " ", decoded_output)
@@ -128,7 +128,7 @@ def main():
     parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2023_{used_set}.json')
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
     # "prompts/T5prompts.json"
-    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/TestT5Prompt_Yes-No.json")
+    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/qCammelPrompts_Yes-No_CoT.json")
 
     # Evaluation metrics to use 
     #
@@ -141,7 +141,7 @@ def main():
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
     args = parser.parse_args()
 
-    print(f'\n\nModel used: {args.model_name=} and prompt template: {args.prompts=}\n\n')
+    print(f'Model used: {args.model_name} and prompt template: {args.prompts}')
 
     # Login to huggingface
     #login(token=os.environ["HUGGINGFACE_TOKEN"])
@@ -168,8 +168,6 @@ def main():
     qrels = json.load(open(args.qrels))
     prompts = json.load(open(args.prompts))
 
-    print(f'\n\nPrompt Text: {prompts=}\n\n')
-
     # Replace prompt with query info
     queries_dict = {}
     for q_id in queries:
@@ -178,7 +176,7 @@ def main():
         queries_dict[q_id]["gold_label"] = textlabel_2_binarylabel(qrels[q_id]["Label"].strip())
 
     # 0-shot inference from queries TODO
-    pred_labels = query_inference(model, tokenizer, queries_dict)
+    pred_labels = debug_query_inference(model, tokenizer, queries_dict)
 
     # Compute metrics
     metrics = calculate_metrics(pred_labels, queries_dict)

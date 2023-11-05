@@ -1,12 +1,12 @@
 {
     "1adc970c-d433-44d0-aa09-d3834986f7a2": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "6b9162d0-0816-46d4-81af-c60028dcc63b": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "0b6cc8e3-69ee-4a91-b93d-2ad3fddce65f": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "cc1f712a-2116-4e40-9810-f315e3fa5ff8": {
         "Prediction": "Entailment"
@@ -15,7 +15,7 @@
         "Prediction": "Entailment"
     },
     "43ee7645-ce1e-42d5-9a74-3e379f6f367b": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "0cef8c8e-7986-46c7-a597-c5733a9899c0": {
         "Prediction": "Entailment"
@@ -33,7 +33,7 @@
         "Prediction": "Entailment"
     },
     "4a75574c-fa86-4e62-a210-81c7b98a3807": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "d0b50aeb-aad8-4a8d-aae6-5c58a7d382c7": {
         "Prediction": "Entailment"
@@ -48,13 +48,13 @@
         "Prediction": "Entailment"
     },
     "961a956e-fece-4baa-a2ad-d3a5320bd9d2": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "97fd111c-6969-43ab-93af-b3dff09960e5": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "eb1bfb08-eba0-4130-b328-00f56c0f84a6": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "b1219e71-fbf5-4bba-8a93-a27ae444e3e1": {
         "Prediction": "Entailment"
@@ -66,7 +66,7 @@
         "Prediction": "Entailment"
     },
     "c10eea1a-5768-442d-ae07-20b4f8f4b583": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "2ef186d0-b4ab-44de-b785-a63e9e95851a": {
         "Prediction": "Entailment"
@@ -78,19 +78,19 @@
         "Prediction": "Entailment"
     },
     "2825d63b-8f22-4fb8-829f-9567845251c6": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "6b35bc10-f591-4b84-abac-40a74be949fa": {
         "Prediction": "Entailment"
     },
     "a5baab2c-9c32-4301-a574-4ba5a0c2eb00": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "70677d5f-7022-404c-8410-d1f89366d92f": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "f46a7d27-a94f-4389-a1a0-4a8f5177b354": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "fe876bb0-7ce3-4197-81ad-920f1f77938e": {
         "Prediction": "Entailment"
@@ -99,19 +99,19 @@
         "Prediction": "Entailment"
     },
     "4f705481-5dd0-414c-b375-c56e8c235b42": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "614d7ade-0fa7-4d77-bc19-1d3a2f2f48c2": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "c09fa61c-967a-40ae-96b0-c87b7cde237b": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "4309860d-042d-45a4-8a0a-a9fdd075247a": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "f2275929-7cfe-4bb1-a9f6-6bd0c4d5bf85": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "59cd7909-00c3-4c23-9a08-a42dbc8eabdd": {
         "Prediction": "Entailment"
@@ -123,13 +123,13 @@
         "Prediction": "Entailment"
     },
     "fb360514-14be-45ab-8b74-ea5a7eb181d7": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "7137dec6-5c98-4156-8035-7bbaaf0b649d": {
         "Prediction": "Entailment"
     },
     "015dd869-db90-45a9-a951-9dc7dc2b2e01": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "3a4003f6-ff1c-43d8-be48-f767266b2cf5": {
         "Prediction": "Entailment"
@@ -138,13 +138,13 @@
         "Prediction": "Entailment"
     },
     "f3cb9150-32c6-4877-9a87-4fac45a24948": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "9d8b26d6-d574-4717-88b6-77458bc683f3": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "51be7c95-8da4-419c-950c-91ebdd2c3fe5": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "07042b0f-d422-49c3-8d53-81319927a4b3": {
         "Prediction": "Entailment"
@@ -153,34 +153,34 @@
         "Prediction": "Entailment"
     },
     "88668508-dfd4-4a39-91cd-cf1654a6dfc4": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "dca4c9f7-bb2a-4f73-b390-93b7ced87c73": {
         "Prediction": "Entailment"
     },
     "e7604382-09cd-43b4-998f-a51b33f25c5a": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "75affd49-4905-4d43-9a5c-ef795281bac4": {
         "Prediction": "Entailment"
     },
     "2e76c74a-b6dd-47d8-a674-c1e80b0a3a65": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "8c6314f7-34f5-42a7-ba66-b95d050a6315": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "f114846e-79d8-4712-add0-bb34b65d418f": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "812bd63c-4bfb-49cb-8fa9-baa3f8f6dabe": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "b1d28450-fc7d-496a-9c7c-bf711b28f8e4": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "c7dc582a-4a58-4cb5-b980-b2d2b6a128c3": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "a805f174-2707-4302-a195-05153ea8523e": {
         "Prediction": "Entailment"
@@ -189,7 +189,7 @@
         "Prediction": "Entailment"
     },
     "b8eaa8fd-61cf-4ca9-aaec-267d61c1fae3": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "2729a321-709b-4392-9604-dd7237bedb17": {
         "Prediction": "Entailment"
@@ -204,13 +204,13 @@
         "Prediction": "Entailment"
     },
     "565d7982-aa9a-4c01-987c-1d67bc9c212d": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "7271e0db-bb82-423f-ad95-5ffa84fab97e": {
         "Prediction": "Entailment"
     },
     "6402e13a-7cfb-4774-b7f9-80ecb79fda2a": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "734423d5-4b47-4448-ab98-811015d626f0": {
         "Prediction": "Entailment"
@@ -222,16 +222,16 @@
         "Prediction": "Entailment"
     },
     "175044aa-72b1-405d-8506-30002f5098e4": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "045ad91e-44fa-42cc-ac22-a7aab26a9009": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "00822101-fa21-4a26-bf45-3b1f535da005": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "06f798d1-2956-4903-83e9-58a41fa425f7": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "8648c7df-582a-42a9-9330-414b2430ac56": {
         "Prediction": "Entailment"
@@ -243,13 +243,13 @@
         "Prediction": "Entailment"
     },
     "d1b217ae-76f3-4ba6-958e-5b2558703ba4": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "8ddf8b88-6e06-4c71-9e28-45f73a637af0": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "0ea29bd5-20be-40ea-8ad7-705d283d1d48": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "e147796d-2edd-42d1-ac53-300fb8bd5eb6": {
         "Prediction": "Contradiction"
@@ -258,7 +258,7 @@
         "Prediction": "Entailment"
     },
     "06fad978-1dc3-46f5-b45f-5ac6577f28b9": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "878c09e7-3fd9-404e-921e-5b549e9578fb": {
         "Prediction": "Entailment"
@@ -273,7 +273,7 @@
         "Prediction": "Entailment"
     },
     "a3390ae6-d41d-4dc7-899e-de9534adfd6b": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "17bbea92-8f92-41f3-9b9d-cf6e62cf6798": {
         "Prediction": "Entailment"
@@ -297,13 +297,13 @@
         "Prediction": "Entailment"
     },
     "f0273b8c-460d-46fe-9c52-8ff4b08e439b": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "bc2024fc-5b39-4fa6-badf-f034d6fe8bb8": {
         "Prediction": "Entailment"
     },
     "c2217d42-e90c-4ffe-b084-e653b9ace4d5": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "080da381-b5dd-46d3-99c4-18112da153c1": {
         "Prediction": "Entailment"
@@ -312,13 +312,13 @@
         "Prediction": "Entailment"
     },
     "ec1e269e-470d-43d9-8f23-8a19a5c96fcc": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "21611c2a-e6eb-4012-a209-9b6781e1f260": {
         "Prediction": "Entailment"
     },
     "d1b7105d-0b7d-4b10-92a7-d63243ff0629": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "7f3fe97e-68ee-470f-b06e-21cdddb67aa8": {
         "Prediction": "Entailment"
@@ -339,34 +339,34 @@
         "Prediction": "Entailment"
     },
     "b9e29ea8-6847-40d4-b5c3-81c496101695": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "2a2c16a7-f427-4fdb-8153-94aac304e4b8": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "618a3ae1-b22c-4c35-86a6-190c1b5b5d21": {
         "Prediction": "Entailment"
     },
     "e62f5a3f-0091-4980-9822-db8f4dc2502a": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "4a41ac73-538a-43e5-b7ce-8c8e2d56286e": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "75a65913-5655-4377-b441-ecdd4dd75175": {
         "Prediction": "Entailment"
     },
     "1329dec6-fb2c-4219-9db6-3fef9d94b316": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "29b2fa29-5a76-4877-95bb-1a8de7973d33": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "7edba90d-076d-4f55-b9d6-a1765ceb48bd": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "ba9daeb9-796d-49ab-a30c-4d8acbdf4d37": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "1314146f-2869-4525-8034-7f732d238385": {
         "Prediction": "Entailment"
@@ -375,13 +375,13 @@
         "Prediction": "Entailment"
     },
     "1f6a14ae-e22b-4b40-b389-217570dbf38e": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "5c1e360c-fd93-4dd4-b855-71ba416d34cb": {
         "Prediction": "Entailment"
     },
     "c7a953b0-ac96-4e0a-9c1d-98cf8af2861d": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "48f516ff-abb4-4312-9b00-02f53fb16218": {
         "Prediction": "Entailment"
@@ -402,10 +402,10 @@
         "Prediction": "Entailment"
     },
     "553f00ea-5197-4233-b1e0-e5727856b599": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "57b2ae97-0d1d-4d5d-bc4b-109e8e5acb32": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "215a5c4a-d90c-4500-8284-0679ce311734": {
         "Prediction": "Entailment"
@@ -414,10 +414,10 @@
         "Prediction": "Entailment"
     },
     "7d52734c-0801-413d-9ae2-d190b972cde5": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "5de9caeb-9dd5-4535-8fe3-289450d9c626": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "bebfc78e-b35f-4677-8342-9567a7e795a1": {
         "Prediction": "Entailment"
@@ -426,7 +426,7 @@
         "Prediction": "Entailment"
     },
     "751fd763-89fa-4d52-8bda-f09b490a5e78": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "c40fdf91-9f81-454a-bba9-ec5c950cef6e": {
         "Prediction": "Entailment"
@@ -438,31 +438,31 @@
         "Prediction": "Entailment"
     },
     "3cb71095-8e01-40dc-bbf5-eeffed55f354": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "09fc4356-6154-427e-b710-ed5df6470aff": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "446f3c69-0de5-475c-a8e2-ff40ece90672": {
         "Prediction": "Entailment"
     },
     "cdadcb0a-20c5-47f7-a63a-39f5c6f26ae2": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "f0e845f9-8991-45b5-a520-51e934756f7a": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "a0065d58-e03b-4dd0-9c81-cbbf651a6d45": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "b2cdbcb8-de26-4a44-8a94-dd68c13f7e41": {
         "Prediction": "Entailment"
     },
     "973f090a-8967-4d75-bb8e-6166c868337c": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "79ca2ee8-6c9c-40e6-a87c-925b50d3d3d2": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "1d1f57f8-85f7-448c-a4bb-15957da568fd": {
         "Prediction": "Entailment"
@@ -480,10 +480,10 @@
         "Prediction": "Entailment"
     },
     "5d0ccb93-71ec-4079-92c6-d7cbf951a7bb": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "f04d9695-81b8-4d70-877b-59caddf901bd": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "f42e1874-343a-43ed-bb0c-884509c4793c": {
         "Prediction": "Entailment"
@@ -498,58 +498,58 @@
         "Prediction": "Entailment"
     },
     "5c975af8-6b7f-4a5d-b4a6-257c76763ce9": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "1c4e3fe3-b5fe-4ea3-8d9e-0ce1502080e7": {
         "Prediction": "Entailment"
     },
     "8e91e404-086e-4063-8d54-83d1b8ebd969": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "b8322b23-a4f6-4cba-9761-be826b509de7": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "4519d1cf-7f78-4aa8-85d6-ac94f7eb75a3": {
         "Prediction": "Entailment"
     },
     "4b97a844-8d52-48bb-8eda-ca205268f016": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "2a03c17f-3afe-40f1-a0db-4b876ee8c700": {
         "Prediction": "Entailment"
     },
     "3ba42f68-a643-4d10-afd0-cbb358d05a6f": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "0a079cca-abde-42cf-9cec-a76e7a380e14": {
         "Prediction": "Entailment"
     },
     "9c033072-5f94-4d79-af47-126d531f0d6e": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "a52b2d4f-0b06-4960-a9c3-88cb92df0980": {
         "Prediction": "Entailment"
     },
     "a792bbac-0e8a-4bf7-9cc5-56fad481e2fb": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "1842904b-5371-49ee-b6f4-8831b879098b": {
         "Prediction": "Entailment"
     },
     "324562e6-2b61-4a07-b937-86f99689f2d5": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "74e376d7-5713-43f3-93f1-9608059c9547": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "0e609fad-9a28-4fb6-90b6-32a731e3b02c": {
         "Prediction": "Entailment"
     },
     "236780db-9e59-4dc9-8da0-e786287011cf": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "6d621974-c719-46df-8a50-d94e49583e33": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "a9907a2e-254a-45ca-af50-3e44fd2f7af3": {
         "Prediction": "Entailment"
@@ -564,10 +564,10 @@
         "Prediction": "Entailment"
     },
     "a9bb6de9-c6f8-4c99-81cd-f101cbaab387": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "7e5fd062-6ec3-480f-ab0e-e117eba2ffe7": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "016943fa-57ea-4293-8131-03292ea1836c": {
         "Prediction": "Entailment"
@@ -576,16 +576,16 @@
         "Prediction": "Entailment"
     },
     "62be4676-099f-4c42-8029-773af8fde6f7": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "1180dd58-61b8-4c48-ab00-7d458e68c85b": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "566bdc2d-7c4a-4547-87da-ac81447ecca8": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "d310ec4e-993e-4827-8dc5-9aca053972db": {
-        "Prediction": "Contradiction"
+        "Prediction": "Entailment"
     },
     "a5617ae4-05a3-42d0-9e14-141de5f8c010": {
         "Prediction": "Entailment"

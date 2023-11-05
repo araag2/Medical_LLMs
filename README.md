@@ -73,13 +73,48 @@ We will denote these differences by using `_gen` when the full generation is pro
 [qCammel-13B-Combined-Data-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Combined-Data-GPTQ)
 [qCammel-13B-Role-Playing-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Role-Playing-Data-GPTQ)
 [qCammel-70-x-GPTQ](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ)
+[qCammel-70-x-GPTQ-gptq-4bit-128g](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ/tree/gptq-4bit-128g-actorder_True)
 [qCammel-70-x-GPTQ-gptq-3bit-128g](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ/tree/gptq-3bit-128g-actorder_True)
 
 ---
 
 #### Dev Set (0-shot)
 
-##### Using Alpaca Template (_alp) + T5 prompt yes/no (t5) + generation
+##### Testing different task prompts (with apl{t5} + gen)
+
+`"1" : "$premise \n Based on the paragraph above can we conclude that $hypothesis? $options",`
+`"2" : "$premise \n Based on that paragraph can we conclude that this sentence is true? $hypothesis $options",`
+`"3" : "$premise \n Can we draw the following conclusion? $hypothesis $options",`
+`"4" : "$premise \n Does this next sentence follow, given the preceding text? $hypothesis $options",`
+`"5" : "$premise \n Can we infer the following? $hypothesis $options",`
+`"6" : "Read the following paragraph and determine if the hypothesis is true: $premise \n Hypothesis: $hypothesis \n $options",`
+`"7" : "Read the text and determine if the sentence is true: $premise \n Hypothesis: $hypothesis \n $options",`
+`"8" : "Can we draw the following hypothesis from the context? Context: $premise \n Hypothesis: $hypothesis \n $options",`
+`"9" : "Determine if the sentence is true based on the text below: $hypothesis \n $premise \n  $options",`
+`"10" : "$premise \n Question: Does this imply that $hypothesis? $options"`
+
+
+{'f1': 0.57, 'precision': 0.57, 'recall': 0.57}
+{'f1': 0.6689895470383276, 'precision': 0.5133689839572193, 'recall': 0.96}
+{'f1': 0.6689895470383276, 'precision': 0.5133689839572193, 'recall': 0.96}
+{'f1': 0.6573426573426574, 'precision': 0.5053763440860215, 'recall': 0.94}
+
+| **Metrics**    | F1-score | Precision | Recall | Notes |
+|:-------------- |:--:|:--:|:--:|:--:|
+| qCammel-13-GPTQ_(apl{t5})_(gen)_1  | 0.57 | 0.57 | 0.57 | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_2  | 0.67 | 0.51 | 0.96 | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_3  | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_4  | 0.66 | 0.51 | 0.94 | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_5  | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_6  | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_7  | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_8  | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_9  | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_10 | 0.635 | 0.530 | 0.800 | - |
+
+---
+
+##### Using Alpaca Template (_alp) + T5 prompt yes/no (t5) + generation (gen)
 
 Prompt: `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$premise \n Question: Does this imply that $hypothesis?\n Respond by outputting Yes or No. Be as accurate as possible. \n\n\n### Response:`
 
@@ -90,21 +125,33 @@ Prompt: `Below is an instruction that describes a task. Write a response that ap
 | qCammel-13-GPTQ_(apl{t5})_(gen) | 0.635 | 0.53 | 0.80 | - |
 | qCammel-13-Combined-Data-GPTQ_(apl{t5})_(gen) | 0.57 | 0.525 | 0.63 | - |
 | qCammel-13-Role-Playing-GPTQ_(apl{t5})_(gen) | 0.60 | 0.52 | 0.72 | 17 forced yes |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen) | 0.67 | 0.68 | 0.65 | had to reduce max len to 2k tokens |
 | qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen) | 0.705 | 0.67 | 0.74 | - |
 
-##### Using Alpaca Template (_alp) + T5 prompt entailment/contradiction (t5) + generation
+##### Using Alpaca Template (_alp) + T5 prompt entailment/contradiction (t5) + generation (gen)
 
 Prompt: `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$premise \n Question: Does this imply that $hypothesis?\n Respond by outputting Entailment or Contradiction. Be as accurate as possible. \n\n\n### Response:`
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
-| Asclepius-Llama2-13B_(apl{t5})_(gen) | - | - | - | - |
-| Asclepius-13B-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen) | 0.632 | 0.53 | 0.79 | - |
+| qCammel-13-Combined-Data-GPTQ_(apl{t5})_(gen) | 0.48 | 0.49 | 0.48 | - |
+| qCammel-13-Role-Playing-GPTQ_(apl{t5})_(gen) | 0.52 | 0.51 | 0.54 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen) | 0.67 | 0.505 | 1 | 198/200 Entailment |
+
+---
+
+##### Using Alpaca Template (_alp) + T5 prompt yes/no (t5) + generation with CoT (gen-CoT)
+
+Prompt: `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$premise \n Question: Does this imply that $hypothesis?\n Respond by outputting Yes or No. Be as accurate as possible. \n\n\n### Response:`
+
+| **Metrics**    | F1-score | Precision | Recall | Notes |
+|:-------------- |:--:|:--:|:--:|:--:|
 | qCammel-13-GPTQ_(apl{t5})_(gen) | - | - | - | - |
 | qCammel-13-Combined-Data-GPTQ_(apl{t5})_(gen) | - | - | - | - |
 | qCammel-13-Role-Playing-GPTQ_(apl{t5})_(gen) | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen) | - | - | - | had to reduce max len to 2k tokens |
 | qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen) | - | - | - | - |
 
 ---
