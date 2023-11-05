@@ -55,7 +55,7 @@ In order to use the Clinical Cammel models, we will obtain them from [huggingfac
 
 Alpaca Template (_alp + {prompt_used}): `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$task_prompt\n### Response:`
 
-Asclepius Template (_asclp + {prompt_used}): `You are an intelligent clinical languge model.\nBelow is a snippet of clinical trial data and a following instruction from a healthcare professional. Write a response that appropriately completes the instruction. The response should provide the accurate answer to the instruction, while being concise.\n\n[Instruction Begin]\n{prompt}\n[Instruction End]`
+Asclepius Template (_asclp + {prompt_used}): `You are an intelligent clinical language model.\nBelow is a snippet of clinical trial data and a following instruction from a healthcare professional. Write a response that appropriately completes the instruction. The response should provide the accurate answer to the instruction, while being concise.\n\n[Instruction Begin]\n{prompt}\n[Instruction End]`
 
 Base T5 Prompt (t5): `$premise \n Question: Does this imply that $hypothesis? $options`
 
@@ -116,7 +116,7 @@ We will denote these differences by using `_gen` when the full generation is pro
 | qCammel-13-GPTQ_(apl{t5})_(gen)_4  | 0.66 | 0.51 | 0.94 | mostly yes |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_5  | 0.65 | 0.50 | 0.98 | all yes |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_6  | 0.66 | 0.5 | 1.0 | all yes |
-| qCammel-13-GPTQ_(apl{t5})_(gen)_7  | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_7  | 0.66 | 0.5 | 1.0 | all yes |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_8  | - | - | - | - |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_9  | - | - | - | - |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_10 | 0.635 | 0.530 | 0.800 | - |
@@ -142,8 +142,8 @@ Prompt: `Below is an instruction that describes a task. Write a response that ap
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
-| Asclepius-Llama2-13B_(apl{t5})_(gen) | - | - | - | - |
-| Asclepius-13B-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| Asclepius-Llama2-13B_(apl{t5})_(gen) | 0.55 | 0.54 | 0.56 | - |
+| Asclepius-13B-GPTQ_(apl{t5})_(gen) | 0.56 | 0.51 | 0.62 | - |
 | qCammel-13-GPTQ_(apl{t5})_(gen) | 0.635 | 0.53 | 0.80 | - |
 | qCammel-13-Combined-Data-GPTQ_(apl{t5})_(gen) | 0.57 | 0.525 | 0.63 | - |
 | qCammel-13-Role-Playing-GPTQ_(apl{t5})_(gen) | 0.60 | 0.52 | 0.72 | 17 forced yes |
@@ -156,6 +156,8 @@ Prompt: `Below is an instruction that describes a task. Write a response that ap
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
+| Asclepius-Llama2-13B_(apl{t5})_(gen) | 0.49 | 0.45 | 0.54 | - |
+| Asclepius-13B-GPTQ_(apl{t5})_(gen) | 0.49 | 0.41 | 0.61 | - |
 | qCammel-13-GPTQ_(apl{t5})_(gen) | 0.632 | 0.53 | 0.79 | - |
 | qCammel-13-Combined-Data-GPTQ_(apl{t5})_(gen) | 0.48 | 0.49 | 0.48 | - |
 | qCammel-13-Role-Playing-GPTQ_(apl{t5})_(gen) | 0.52 | 0.51 | 0.54 | - |
