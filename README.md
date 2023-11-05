@@ -93,24 +93,31 @@ We will denote these differences by using `_gen` when the full generation is pro
 `"9" : "Determine if the sentence is true based on the text below: $hypothesis \n $premise \n  $options",`
 `"10" : "$premise \n Question: Does this imply that $hypothesis? $options"`
 
-
-{'f1': 0.57, 'precision': 0.57, 'recall': 0.57}
-{'f1': 0.6689895470383276, 'precision': 0.5133689839572193, 'recall': 0.96}
-{'f1': 0.6689895470383276, 'precision': 0.5133689839572193, 'recall': 0.96}
-{'f1': 0.6573426573426574, 'precision': 0.5053763440860215, 'recall': 0.94}
-
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
 | qCammel-13-GPTQ_(apl{t5})_(gen)_1  | 0.57 | 0.57 | 0.57 | - |
-| qCammel-13-GPTQ_(apl{t5})_(gen)_2  | 0.67 | 0.51 | 0.96 | - |
-| qCammel-13-GPTQ_(apl{t5})_(gen)_3  | - | - | - | - |
-| qCammel-13-GPTQ_(apl{t5})_(gen)_4  | 0.66 | 0.51 | 0.94 | - |
-| qCammel-13-GPTQ_(apl{t5})_(gen)_5  | - | - | - | - |
-| qCammel-13-GPTQ_(apl{t5})_(gen)_6  | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_2  | 0.67 | 0.51 | 0.96 | mostly yes |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_3  | 0.65 | 0.63 | 0.85 | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_4  | 0.66 | 0.51 | 0.94 | mostly yes |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_5  | 0.65 | 0.50 | 0.98 | all yes |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_6  | 0.66 | 0.5 | 1.0 | all yes |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_7  | - | - | - | - |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_8  | - | - | - | - |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_9  | - | - | - | - |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_10 | 0.635 | 0.530 | 0.800 | - |
+
+| **Metrics**    | F1-score | Precision | Recall | Notes |
+|:-------------- |:--:|:--:|:--:|:--:|
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen)_1  | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen)_2  | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen)_3  | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen)_4  | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen)_5  | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen)_6  | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen)_7  | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen)_8  | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen)_9  | - | - | - | - |
+| qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen)_10 | 0.705 | 0.67 | 0.74 | - |
 
 ---
 
