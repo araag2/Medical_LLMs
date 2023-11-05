@@ -117,8 +117,8 @@ We will denote these differences by using `_gen` when the full generation is pro
 | qCammel-13-GPTQ_(apl{t5})_(gen)_5  | 0.65 | 0.50 | 0.98 | all yes |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_6  | 0.66 | 0.5 | 1.0 | all yes |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_7  | 0.66 | 0.5 | 1.0 | all yes |
-| qCammel-13-GPTQ_(apl{t5})_(gen)_8  | - | - | - | - |
-| qCammel-13-GPTQ_(apl{t5})_(gen)_9  | - | - | - | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_8  | 0.67 | 0.61 | 0.75 | - |
+| qCammel-13-GPTQ_(apl{t5})_(gen)_9  | 0.64 | 0.0.58 | 0.71 | - |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_10 | 0.635 | 0.530 | 0.800 | - |
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
