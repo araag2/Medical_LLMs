@@ -161,7 +161,7 @@ Prompt: `Below is an instruction that describes a task. Write a response that ap
 | qCammel-13-GPTQ_(apl{t5})_(gen) | 0.632 | 0.53 | 0.79 | - |
 | qCammel-13-Combined-Data-GPTQ_(apl{t5})_(gen) | 0.48 | 0.49 | 0.48 | - |
 | qCammel-13-Role-Playing-GPTQ_(apl{t5})_(gen) | 0.52 | 0.51 | 0.54 | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen) | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen) | 0.66 | 0.50 | 0.96 | 192/200 Entailment |
 | qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen) | 0.67 | 0.505 | 1 | 198/200 Entailment |
 
 ---
