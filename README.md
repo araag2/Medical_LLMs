@@ -67,13 +67,19 @@ We will denote these differences by using `_gen` when the full generation is pro
 
 #### Model Links
 [Asclepius-Llama2-13B](https://huggingface.co/starmpcc/Asclepius-Llama2-13B)
+
 [Asclepius-13B-GPTQ](https://huggingface.co/TheBloke/Asclepius-13B-GPTQ)
 
 [qCammel-13-GPTQ](https://huggingface.co/TheBloke/qCammel-13-GPTQ)
+
 [qCammel-13B-Combined-Data-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Combined-Data-GPTQ)
+
 [qCammel-13B-Role-Playing-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Role-Playing-Data-GPTQ)
+
 [qCammel-70-x-GPTQ](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ)
+
 [qCammel-70-x-GPTQ-gptq-4bit-128g](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ/tree/gptq-4bit-128g-actorder_True)
+
 [qCammel-70-x-GPTQ-gptq-3bit-128g](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ/tree/gptq-3bit-128g-actorder_True)
 
 ---
@@ -83,14 +89,23 @@ We will denote these differences by using `_gen` when the full generation is pro
 ##### Testing different task prompts (with apl{t5} + gen)
 
 `"1" : "$premise \n Based on the paragraph above can we conclude that $hypothesis? $options",`
+
 `"2" : "$premise \n Based on that paragraph can we conclude that this sentence is true? $hypothesis $options",`
+
 `"3" : "$premise \n Can we draw the following conclusion? $hypothesis $options",`
+
 `"4" : "$premise \n Does this next sentence follow, given the preceding text? $hypothesis $options",`
+
 `"5" : "$premise \n Can we infer the following? $hypothesis $options",`
+
 `"6" : "Read the following paragraph and determine if the hypothesis is true: $premise \n Hypothesis: $hypothesis \n $options",`
+
 `"7" : "Read the text and determine if the sentence is true: $premise \n Hypothesis: $hypothesis \n $options",`
+
 `"8" : "Can we draw the following hypothesis from the context? Context: $premise \n Hypothesis: $hypothesis \n $options",`
+
 `"9" : "Determine if the sentence is true based on the text below: $hypothesis \n $premise \n  $options",`
+
 `"10" : "$premise \n Question: Does this imply that $hypothesis? $options"`
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
@@ -151,7 +166,7 @@ Prompt: `Below is an instruction that describes a task. Write a response that ap
 
 ##### Using Alpaca Template (_alp) + T5 prompt yes/no (t5) + generation with CoT (gen-CoT)
 
-Prompt: `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$premise \n Question: Does this imply that $hypothesis?\n Respond by outputting Yes or No. Be as accurate as possible. \n\n\n### Response:`
+Prompt: `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n$premise \n Question: Does this imply that $hypothesis?\n Let's think step by step, and end by outputting Yes or No. Be as accurate as possible. \n\n\n### Response:`
 
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
