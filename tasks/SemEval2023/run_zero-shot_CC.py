@@ -6,6 +6,7 @@ import typing
 import random
 import re
 
+from datetime import datetime
 from auto_gptq import exllama_set_max_input_length
 from tqdm import tqdm
 from huggingface_hub import login
@@ -61,6 +62,14 @@ def label_2_SemEval2023(labels : dict) -> dict:
         res[q_id] = {"Prediction" : pred}
     return res
 
+def create_qid_prompt_label_dict(queries : dict, qrels : dict, prompts : dict) -> dict:
+    queries_dict = {}
+    for q_id in queries:
+        queries_dict[q_id] = {}
+        queries_dict[q_id]["text"] = generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompts)
+        queries_dict[q_id]["gold_label"] = textlabel_2_binarylabel(qrels[q_id]["Label"].strip())
+    return queries_dict
+
 def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     res_labels = {}
     with torch.inference_mode():
@@ -105,6 +114,23 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
 
     return {"f1" : f1, "precision" : precision, "recall" : recall}
 
+def output_task_results(output_dir : str, model_name : str, used_set : str, results : dict):
+    with safe_open_w(f'{output_dir}task_output/{model_name.split("/")[-1]}_0-shot_{used_set}-set.json') as output_file:
+        output_file.write(json.dumps(results, ensure_ascii=False, indent=4))
+
+def output_full_metrics(args : dict, full_prompt : str, used_set : str, metrics : dict):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
+
+    results = {"timestamp" : timestamp}
+    for arg in args:
+        results[arg] = args[arg]
+    results["prompt"] = full_prompt
+    results["set"] = used_set
+    results["metrics"] = metrics
+
+    with safe_open_w(f'{args.output_dir}args_output/{timestamp}_{args.model_name.split("/")[-1]}_{used_set}-set.json') as output_file:
+        output_file.write(json.dumps(results, ensure_ascii=False, indent=4))
+
 def main():
     parser = argparse.ArgumentParser()
     # Model name to use (downloaded from huggingface)
@@ -141,8 +167,6 @@ def main():
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
     args = parser.parse_args()
 
-    print(f'\n\nModel used: {args.model_name=} and prompt template: {args.prompts=}\n\n')
-
     # Login to huggingface
     #login(token=os.environ["HUGGINGFACE_TOKEN"])
 
@@ -157,25 +181,14 @@ def main():
 
     #model = exllama_set_max_input_length(model, 4096)
 
-    
-
-    #model = AutoModelForCausalLM.from_pretrained(args.model_name, device_map="auto", trust_remote_code=True, revision="main")
-    #tokenizer = AutoTokenizer.from_pretrained(args.model_name)
-
     # Load dataset, queries, qrels and prompts
     #dataset = json.load(open(args.dataset_path))
     queries = json.load(open(args.queries))
     qrels = json.load(open(args.qrels))
     prompts = json.load(open(args.prompts))
 
-    print(f'\n\nPrompt Text: {prompts=}\n\n')
-
     # Replace prompt with query info
-    queries_dict = {}
-    for q_id in queries:
-        queries_dict[q_id] = {}
-        queries_dict[q_id]["text"] = generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompts)
-        queries_dict[q_id]["gold_label"] = textlabel_2_binarylabel(qrels[q_id]["Label"].strip())
+    queries_dict = create_qid_prompt_label_dict(queries, qrels, prompts)
 
     # 0-shot inference from queries TODO
     pred_labels = query_inference(model, tokenizer, queries_dict)
@@ -186,11 +199,8 @@ def main():
     # Format to SemEval2023 format
     formated_results = label_2_SemEval2023(pred_labels)
 
-    print(metrics)
-
-    # Output Res
-    with safe_open_w((f'{args.output_dir}{args.model_name.split("/")[-1]}_0-shot_{used_set}-set.json')) as output_file:
-        output_file.write(json.dumps(formated_results, ensure_ascii=False, indent=4))
+    output_task_results(args.output_dir, args.model_name, used_set, formated_results)
+    output_full_metrics(args, prompts, metrics)
 
 if __name__ == '__main__':
     main()
