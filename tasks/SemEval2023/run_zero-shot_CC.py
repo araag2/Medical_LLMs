@@ -11,7 +11,7 @@ from auto_gptq import exllama_set_max_input_length
 from tqdm import tqdm
 from huggingface_hub import login
 from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
-from transformers import LlamaTokenizer, LlamaForCausalLM, AutoTokenizer, AutoModelForCausalLM
+from transformers import GPTQConfig, LlamaTokenizer, LlamaForCausalLM, AutoTokenizer, AutoModelForCausalLM
 
 #if "SLURM_JOB_ID" not in os.environ:
 #    device = "CPU"
@@ -74,8 +74,8 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     res_labels = {}
     with torch.inference_mode():
         for q_id in tqdm(queries):
-            #input_ids = tokenizer(queries[q_id]["text"][400:] + queries[q_id]["text"][-2000:], return_tensors="pt").input_ids.to("cuda")
-            input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
+            input_ids = tokenizer(queries[q_id]["text"][:1300] + queries[q_id]["text"][-1300:], return_tensors="pt").input_ids.to("cuda")
+            #input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
             outputs = model.generate(input_ids, max_new_tokens=100)
             decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
             decoded_output_sub = re.sub("[,!\.]+", " ", decoded_output)
@@ -119,11 +119,11 @@ def output_task_results(output_dir : str, model_name : str, used_set : str, resu
         output_file.write(json.dumps(results, ensure_ascii=False, indent=4))
 
 def output_full_metrics(args : dict, full_prompt : str, used_set : str, metrics : dict):
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
 
     results = {"timestamp" : timestamp}
-    for arg in args:
-        results[arg] = args[arg]
+    for arg in vars(args):
+        results[arg] = getattr(args, arg)
     results["prompt"] = full_prompt
     results["set"] = used_set
     results["metrics"] = metrics
@@ -144,7 +144,7 @@ def main():
 
     # '/user/home/aguimas/data/PhD/models/TheBloke-qCammel-70-x-GPTQ-gptq-3bit-128g/'
     # 'TheBloke/CAMEL-13B-Combined-Data-GPTQ'
-    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='TheBloke/qCammel-13-GPTQ')
+    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='TheBloke/qCammel-70-x-GPTQ')
 
     used_set = "dev" # train | dev | test
 
@@ -170,8 +170,13 @@ def main():
     # Login to huggingface
     #login(token=os.environ["HUGGINGFACE_TOKEN"])
 
+    # TODO: Check LlamaModel here too
+    #model = AutoModelForCausalLM.from_pretrained(args.model_name, device_map="auto", quantization_config = GPTQConfig(bits=4, exllama_config={"version":2}, desc_act=True))
     model = LlamaForCausalLM.from_pretrained(args.model_name, device_map="auto")
-    tokenizer = LlamaTokenizer.from_pretrained(args.model_name)
+    model.quantize_config = GPTQConfig(bits=4, exllama_config={"version":2}, desc_act=True)
+    model = exllama_set_max_input_length(model, 4096)
+    
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name)
 
     #model = AutoModelForCausalLM.from_pretrained(args.model_name,
     #                                            torch_dtype=torch.float16,
@@ -195,12 +200,11 @@ def main():
 
     # Compute metrics
     metrics = calculate_metrics(pred_labels, queries_dict)
+    output_full_metrics(args, prompts, used_set, metrics)
 
     # Format to SemEval2023 format
     formated_results = label_2_SemEval2023(pred_labels)
-
-    output_task_results(args.output_dir, args.model_name, used_set, formated_results)
-    output_full_metrics(args, prompts, metrics)
+    #output_task_results(args.output_dir, args.model_name, used_set, formated_results)
 
 if __name__ == '__main__':
     main()
