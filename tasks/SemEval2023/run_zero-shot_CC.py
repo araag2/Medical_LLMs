@@ -159,7 +159,7 @@ def main():
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
     # "prompts/T5prompts.json"
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/GA_generated-prompts.json")
-    parser.add_argument('--prompt_id', type=str, help='id of the prompt to use', default='1_5')
+    parser.add_argument('--prompt_id', type=str, help='id of the prompt to use', default='3_8')
 
     # Evaluation metrics to use 
     #

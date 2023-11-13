@@ -250,5 +250,8 @@ Max token limit per model:
 ##### NVIDIA A100-PCIE-40GB 
 [qCammel-13-GPTQ] - 4096 tokens
 [qCammel-70-x-GPTQ] - 2600 tokens (Can use more tokens than 4-bit because doesn't use group size)
-[qCammel-70-x-GPTQ-gptq-4bit-128g] - 2050 tokens
-[qCammel-70-x-GPTQ-gptq-3bit-128g] - 4096 tokens
+[qCammel-70-x-GPTQ-4bit-32g] - 1250 tokens
+[qCammel-70-x-GPTQ-4bit-64g] - 1650 tokens
+[qCammel-70-x-GPTQ-4bit-128g] - 2050 tokens
+[qCammel-70-x-GPTQ-3bit-1g] - 4096 tokens
+[qCammel-70-x-GPTQ-3bit-128g] - 4096 tokens
