@@ -121,20 +121,18 @@ We will denote these differences by using `_gen` when the full generation is pro
 | qCammel-13-GPTQ_(apl{t5})_(gen)_9  | 0.64 | 0.58 | 0.71 | - |
 | qCammel-13-GPTQ_(apl{t5})_(gen)_10 | 0.635 | 0.530 | 0.800 | - |
 
-
-
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1  | 0.71 | 0.63 | 0.82 | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_2  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_4  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_6  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_7  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_9  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10 | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1  | 0.71 | 0.63 | 0.82 | x |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_2  | 0.65 | 0.65 | 0.65 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3  | 0.70 | 0.61 | 0.83 | x |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_4  | 0.59 | 0.57 | 0.60 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5  | 0.70 | 0.56 | 0.94 | x |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_6  | 0.62 | 0.68 | 0.57 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_7  | 0.60 | 0.64 | 0.57 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8  | 0.69 | 0.57 | 0.88 | x |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_9  | 0.55 | 0.53 | 0.58 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10 | 0.72 | 0.61 | 0.86 | x |
 
 ---
 
@@ -180,6 +178,69 @@ Prompt: `Below is an instruction that describes a task. Write a response that ap
 | qCammel-70-x-GPTQ_(apl{t5})_(gen) | - | - | - | had to reduce max len to 2k tokens |
 | qCammel-70-x-GPTQ-gptq-3bit-128g_(apl{t5})_(gen) | - | - | - | - |
 
+---
+
+#### New Prompts Generation
+`"1" : "$premise \n Based on the paragraph above can we conclude that $hypothesis? $options",`
+`"3" : "$premise \n Can we draw the following conclusion? $hypothesis $options",`
+`"5" : "$premise \n Can we infer the following? $hypothesis $options",`
+`"8" : "Can we draw the following hypothesis from the context? Context: $premise \n Hypothesis: $hypothesis \n $options",`
+`"10" : "$premise \n Question: Does this imply that $hypothesis? $options"`
+
+Using these base prompts and gpt3.5-turbo, I generated the following prompts:
+`"1_3"  : "$premise Can we draw a reasonable conclusion regarding $hypothesis? Consider the $options",`
+`"1_5"  : "$premise Can we draw a conclusion regarding $hypothesis based on the provided information? Consider the $options",`
+`"1_8"  : "$premise Can we derive a conclusion regarding $hypothesis from the information provided? Consider the $options",`
+`"1_10" : "$premise \n Given the context, is it reasonable to assume that $hypothesis? $options",`
+
+`"3_1"  : "$premise Considering the information provided, can we draw the conclusion that $hypothesis? $options",`
+`"3_5"  : "$premise \n Can we deduce the following? $hypothesis $options",`
+`"3_8"  : "Can we infer the following hypothesis based on the given $premise? Hypothesis: $hypothesis $options",`
+`"3_10" : "$premise Assuming $hypothesis, what are the $options to consider?",`
+
+`"5_1"  : "Can we infer whether $premise supports the hypothesis that $hypothesis? $options ",`
+`"5_3"  : "$premise Can we deduce the following outcome? $hypothesis $options", `
+`"5_8"  : "Can we draw a plausible hypothesis based on the given context? Context: $premise Hypothesis: $hypothesis $options",`
+`"5_10" : "$premise \n Question: Can we infer the following? $hypothesis $options ",`
+
+`"8_1"  : "Can we draw a plausible hypothesis from the given context? Context: $premise  Hypothesis: $hypothesis $options",`
+`"8_3"  : "Can we infer the following outcome from the given scenario? Scenario: $premise \n Outcome: $hypothesis \n $options",`
+`"8_5"  : "Can we derive the following hypothesis based on the given $premise? Furthermore, can we deduce the validity of $hypothesis considering $options?",`
+`"8_10"  : "Considering the context outlined in $premise, can we deduce $hypothesis? Evaluate the following options: $options",`
+
+`"10_1" : "Given the information provided, is it reasonable to infer that $hypothesis based on the $premise? $options",`
+`"10_3" : "$premise \n Can we infer that $hypothesis? $options", `
+`"10_5" : "$premise \n Can we deduce the following? $hypothesis $options",`
+`"10_8" : "Given the context: $premise Is it reasonable to conclude: $hypothesis?$options"`
+
+    "metrics": {
+        "f1": 0.6470588235294118,
+        "precision": 0.6346153846153846,
+        "recall": 0.66
+    }
+
+| **Metrics**    | F1-score | Precision | Recall | Notes |
+|:-------------- |:--:|:--:|:--:|:--:|
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-3   | 0.66 | 0.54 | 0.84 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-5   | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-8   | 0.64 | 0.54 | 0.79 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-10  | 0.67 | 0.56 | 0.82 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-1   | 0.65 | 0.63 | 0.66 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-5   | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-8   | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-10  | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5-1   | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5-3   | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5-8   | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5-10  | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8-1   | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8-3   | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8-5   | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8-10  | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10-1  | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10-3  | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10-5  | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10-8  | - | - | - | - |
 ---
 
 #### Other notes

@@ -1,5 +1,4 @@
 import os
-import argparse
 import json
 import torch
 import typing
@@ -7,14 +6,8 @@ import random
 import re
 
 from datetime import datetime
-from auto_gptq import exllama_set_max_input_length
 from tqdm import tqdm
-from huggingface_hub import login
-from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
-from transformers import GPTQConfig, LlamaTokenizer, LlamaForCausalLM, AutoTokenizer, AutoModelForCausalLM
-
-#if "SLURM_JOB_ID" not in os.environ:
-#    device = "CPU"
+from sklearn.metrics import f1_score, precision_score, recall_score
 
 def safe_open_w(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -28,18 +21,14 @@ def extract_info_from_query(query : dict) -> dict:
         relevant_info["secondary_evidence"] = query["Secondary_id_txt"]
     return relevant_info
 
-def generate_query_from_prompt(text_to_replace: dict, prompt_dict: dict, prompt_id : str = None) -> str:
+def generate_query_from_prompt(text_to_replace: dict, prompt_dict: dict) -> str:
     premise = prompt_dict["primary_premise"].replace("$primary_evidence", text_to_replace["primary_evidence"])
     if "secondary_premise" in text_to_replace:
         premise += prompt_dict["secondary_premise"].replace("$secondary_evidence", text_to_replace["secondary_evidence"])
     options = prompt_dict["options"]
     
-    base_prompt = None
-    if prompt_id != None:
-        base_prompt = prompt_dict["base_prompt"].replace("$new_prompt", prompt_dict[prompt_id])
-    else:
-        base_prompt = prompt_dict["base_prompt"].replace("$new_prompt", prompt_dict["10"])
-    res = base_prompt.replace("$premise", premise).replace("$hypothesis", text_to_replace["hypothesis"]).replace("$options", options)
+    # "$premise \n Question: Does this imply that $hypothesis? $options"
+    res = prompt_dict["baseline_prompt"].replace("$premise", premise).replace("$hypothesis", text_to_replace["hypothesis"]).replace("$options", options)
 
     return res
 
@@ -66,11 +55,11 @@ def label_2_SemEval2023(labels : dict) -> dict:
         res[q_id] = {"Prediction" : pred}
     return res
 
-def create_qid_prompt_label_dict(queries : dict, qrels : dict, prompts : dict, prompt_id : str) -> dict:
+def create_qid_prompt_label_dict(queries : dict, qrels : dict, prompts : dict) -> dict:
     queries_dict = {}
     for q_id in queries:
         queries_dict[q_id] = {}
-        queries_dict[q_id]["text"] = generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompts, prompt_id)
+        queries_dict[q_id]["text"] = generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompts)
         queries_dict[q_id]["gold_label"] = textlabel_2_binarylabel(qrels[q_id]["Label"].strip())
     return queries_dict
 
@@ -123,6 +112,7 @@ def output_task_results(output_dir : str, model_name : str, used_set : str, resu
         output_file.write(json.dumps(results, ensure_ascii=False, indent=4))
 
 def output_full_metrics(args : dict, full_prompt : str, used_set : str, metrics : dict):
+
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
 
     results = {"timestamp" : timestamp}
@@ -132,73 +122,12 @@ def output_full_metrics(args : dict, full_prompt : str, used_set : str, metrics 
     results["set"] = used_set
     results["metrics"] = metrics
 
-    with safe_open_w(f'{args.output_dir}args_output/{timestamp}_{args.model_name.split("/")[-1]}_{used_set}-set.json') as output_file:
+    with safe_open_w(f'{args.output_dir}ea_outputs/args_output/{timestamp}_{args.model_optimize_name.split("/")[-1]}_{used_set}-set.json') as output_file:
         output_file.write(json.dumps(results, ensure_ascii=False, indent=4))
 
-def main():
-    parser = argparse.ArgumentParser()
-    # Model name to use (downloaded from huggingface)
-    #[Asclepius-Llama2-13B](https://huggingface.co/starmpcc/Asclepius-Llama2-13B)
-    #[Asclepius-13B-GPTQ](https://huggingface.co/TheBloke/Asclepius-13B-GPTQ)
-    #[qCammel-13-GPTQ](https://huggingface.co/TheBloke/qCammel-13-GPTQ)
-    #[qCammel-13B-Combined-Data-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Combined-Data-GPTQ)
-    #[qCammel-13B-Role-Playing-GPTQ](https://huggingface.co/TheBloke/CAMEL-13B-Role-Playing-Data-GPTQ)
-    #[qCammel-70-x-GPTQ](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ)
-    #[qCammel-70-x-GPTQ-gptq-3bit-128g](https://huggingface.co/TheBloke/qCammel-70-x-GPTQ/tree/gptq-3bit-128g-actorder_True)
-
-    # '/user/home/aguimas/data/PhD/models/TheBloke-qCammel-70-x-GPTQ-gptq-3bit-128g/'
-    # 'TheBloke/CAMEL-13B-Combined-Data-GPTQ'
-    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='TheBloke/qCammel-70-x-GPTQ')
-
-    used_set = "dev" # train | dev | test
-
-    # Path to corpus file
-    parser.add_argument('--dataset_path', type=str, help='path to corpus file', default="../../datasets/SemEval2023/CT_corpus.json")
-    # Path to queries, qrels and prompt files
-    parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2023_{used_set}.json')
-    parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
-    # "prompts/T5prompts.json"
-    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/GA_generated-prompts.json")
-    parser.add_argument('--prompt_id', type=str, help='id of the prompt to use', default='1_5')
-
-    # Evaluation metrics to use 
-    #
-    # Model parameters
-    #
-    # LLM generation parameters
-    #
-
-    # Output directory
-    parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
-    args = parser.parse_args()
-
-    # Login to huggingface
-    #login(token=os.environ["HUGGINGFACE_TOKEN"])
-
-    # TODO: Check LlamaModel here too
-    #model = AutoModelForCausalLM.from_pretrained(args.model_name, device_map="auto", quantization_config = GPTQConfig(bits=4, exllama_config={"version":2}, desc_act=True))
-    model = LlamaForCausalLM.from_pretrained(args.model_name, device_map="auto")
-    model.quantize_config = GPTQConfig(bits=4, exllama_config={"version":2}, desc_act=True)
-    model = exllama_set_max_input_length(model, 4096)
-    
-    tokenizer = AutoTokenizer.from_pretrained(args.model_name)
-
-    #model = AutoModelForCausalLM.from_pretrained(args.model_name,
-    #                                            torch_dtype=torch.float16,
-    #                                            device_map="auto",
-    #                                            revision="gptq-3bit--1g-actorder_True")
-    #tokenizer = AutoTokenizer.from_pretrained(args.model_name, use_fast=True)
-
-    #model = exllama_set_max_input_length(model, 4096)
-
-    # Load dataset, queries, qrels and prompts
-    #dataset = json.load(open(args.dataset_path))
-    queries = json.load(open(args.queries))
-    qrels = json.load(open(args.qrels))
-    prompts = json.load(open(args.prompts))
-
+def full_evaluate_prompt(model: object, tokenizer: object, queries: dict, qrels: dict, prompts: dict, args : object, used_set : str) -> dict:
     # Replace prompt with query info
-    queries_dict = create_qid_prompt_label_dict(queries, qrels, prompts, args.prompt_id)
+    queries_dict = create_qid_prompt_label_dict(queries, qrels, prompts)
 
     # 0-shot inference from queries TODO
     pred_labels = query_inference(model, tokenizer, queries_dict)
@@ -207,9 +136,4 @@ def main():
     metrics = calculate_metrics(pred_labels, queries_dict)
     output_full_metrics(args, prompts, used_set, metrics)
 
-    # Format to SemEval2023 format
-    formated_results = label_2_SemEval2023(pred_labels)
-    #output_task_results(args.output_dir, args.model_name, used_set, formated_results)
-
-if __name__ == '__main__':
-    main()
+    return metrics

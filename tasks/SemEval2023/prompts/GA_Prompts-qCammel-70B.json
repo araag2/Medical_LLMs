@@ -1,0 +1,20 @@
+{
+    "parent_prompts" : {
+        "1" : {"text" : "$premise \n Based on the paragraph above can we conclude that $hypothesis? $options", "metrics" : {"f1": 0.71,"precision": 0.63,"recall": 0.82}},
+        "3" : {"text" : "$premise \n Can we draw the following conclusion? $hypothesis $options", "metrics" : {"f1": 0.70, "precision": 0.61, "recall": 0.83}},
+        "5" : {"text" :"$premise \n Can we infer the following? $hypothesis $options", "metrics" : {"f1": 0.70,"precision": 0.56,"recall": 0.94}},
+        "8" : {"text" : "Can we draw the following hypothesis from the context? Context: $premise \n Hypothesis: $hypothesis \n $options", "metrics" : {"f1": 0.69, "precision": 0.57,"recall": 0.88}},
+        "10" : {"text" : "$premise \n Question: Does this imply that $hypothesis? $options", "metrics" : {"f1": 0.72, "precision": 0.61, "recall": 0.86}}
+    },
+    
+    "base_prompt" : "Below is an instruction that describes a task. Write a response that appropriately completes the request. \n\n### Instruction:\n$new_prompt\n\n### Response:",
+    "primary_premise" : "Primary trial evidence are $primary_evidence",
+    "secondary_premise" : " and Secondary trial evidence are $secondary_evidence",
+    "options" : "Respond by outputting Yes or No. Be as accurate as possible.",
+    
+    "ea_prompt" : "Query: \n Please follow the instruction step-by-step to generate a better prompt.\n 1. Cross over the following prompts and generate a new prompt:\nPrompt 1: $prompt1\nPrompt 2: $prompt2\n 2. Mutate the prompt generated in Step 1 and generate a final prompt bracketed with <prompt> and </prompt>.",
+
+    "ea_prompt_force-no-remove" : "Query: \n Please follow the instruction step-by-step to generate a better prompt.\n 1. Cross over the following prompts and generate a new prompt, that must contain $premise, $hypothesis and $options:\nPrompt 1: $prompt1\nPrompt 2: $prompt2\n 2. Mutate the prompt generated in Step 1 and generate a final prompt bracketed with <prompt> and </prompt>.",
+
+    "de_prompt" : "Query:\n Please follow the instruction step-by-step to generate a better prompt.\n1. Identify the different parts between the Prompt 1 and Prompt 2:\nPrompt 1: $prompt1 \n Prompt 2: $prompt2 \n 2. Randomly mutate the different parts \n 3. Combine the different parts with Prompt 3, selectively replace it with the different parts in Step 2 and generate a new prompt.\nPrompt 3: $prompt3\n4. Cross over the prompt in the Step 3 with the following basic prompt and generate a final prompt bracketed with <prompt> and </prompt>: Basic Prompt: $basic_prompt"
+}
