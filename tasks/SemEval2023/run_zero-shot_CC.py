@@ -132,6 +132,8 @@ def output_full_metrics(args : dict, full_prompt : str, used_set : str, metrics 
     results["set"] = used_set
     results["metrics"] = metrics
 
+    results["formated_metrics"] =f'| {args.model_name.split("/")[-1]}_(aplt5)_(gen)_{args.prompt_id}   | {metrics["f1"]:.2f} | {metrics["precision"]:.2f} | {metrics["recall"]:.2f} | - |'
+
     with safe_open_w(f'{args.output_dir}args_output/{timestamp}_{args.model_name.split("/")[-1]}_{used_set}-set.json') as output_file:
         output_file.write(json.dumps(results, ensure_ascii=False, indent=4))
 
@@ -159,7 +161,7 @@ def main():
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
     # "prompts/T5prompts.json"
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/GA_generated-prompts.json")
-    parser.add_argument('--prompt_id', type=str, help='id of the prompt to use', default='3_8')
+    parser.add_argument('--prompt_id', type=str, help='id of the prompt to use', default='8_10')
 
     # Evaluation metrics to use 
     #

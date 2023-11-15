@@ -121,6 +121,7 @@ def output_full_metrics(args : dict, full_prompt : str, used_set : str, metrics 
     results["prompt"] = full_prompt
     results["set"] = used_set
     results["metrics"] = metrics
+    results["formated_metrics"] =f'| {args.model_optimize_name.split("/")[-1]}_(aplt5)_(gen)_   | {metrics["f1"]} | {metrics["precision"]} | {metrics["recall"]} | - |'
 
     with safe_open_w(f'{args.output_dir}ea_outputs/args_output/{timestamp}_{args.model_optimize_name.split("/")[-1]}_{used_set}-set.json') as output_file:
         output_file.write(json.dumps(results, ensure_ascii=False, indent=4))

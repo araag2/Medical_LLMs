@@ -213,34 +213,29 @@ Using these base prompts and gpt3.5-turbo, I generated the following prompts:
 `"10_5" : "$premise \n Can we deduce the following? $hypothesis $options",`
 `"10_8" : "Given the context: $premise Is it reasonable to conclude: $hypothesis?$options"`
 
-    "metrics": {
-        "f1": 0.6470588235294118,
-        "precision": 0.6346153846153846,
-        "recall": 0.66
-    }
-
 | **Metrics**    | F1-score | Precision | Recall | Notes |
 |:-------------- |:--:|:--:|:--:|:--:|
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-3   | 0.66 | 0.54 | 0.84 | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-5   | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-8   | 0.64 | 0.54 | 0.79 | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-10  | 0.67 | 0.56 | 0.82 | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-1   | 0.65 | 0.63 | 0.66 | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-5   | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-8   | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-10  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5-1   | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5-3   | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5-8   | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5-10  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8-1   | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8-3   | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8-5   | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8-10  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10-1  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10-3  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10-5  | - | - | - | - |
-| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10-8  | - | - | - | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-3    | 0.66 | 0.54 | 0.84 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-5    | 0.61 | 0.55 | 0.68 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-8    | 0.64 | 0.54 | 0.79 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-10   | 0.67 | 0.56 | 0.82 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-1    | 0.65 | 0.63 | 0.66 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-5    | 0.69 | 0.55 | 0.94 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-8    | 0.67 | 0.54 | 0.91 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3_10   | 0.65 | 0.49 | 0.94 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5_1    | 0.61 | 0.50 | 0.78 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5_3    | 0.70 | 0.55 | 0.96 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5_8    | 0.69 | 0.53 | 0.98 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5_10   | 0.71 | 0.59 | 0.91 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8_1    | 0.68 | 0.52 | 0.96 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8_3    | 0.63 | 0.56 | 0.73 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8_5    | 0.67 | 0.50 | 1.00 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8_10   | 0.65 | 0.54 | 0.84 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10_1   | 0.58 | 0.52 | 0.67 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10_3   | 0.71 | 0.60 | 0.89 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10_5   | 0.69 | 0.55 | 0.94 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10_8   | 0.69 | 0.58 | 0.84 | - |
+
 ---
 
 #### Other notes
