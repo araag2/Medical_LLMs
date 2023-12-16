@@ -28,7 +28,7 @@ def generate_query_from_prompt(text_to_replace: dict, prompt_dict: dict) -> str:
     options = prompt_dict["options"]
     
     # "$premise \n Question: Does this imply that $hypothesis? $options"
-    res = prompt_dict["baseline_prompt"].replace("$premise", premise).replace("$hypothesis", text_to_replace["hypothesis"]).replace("$options", options)
+    res = prompt_dict["prompt"].replace("$premise", premise).replace("$hypothesis", text_to_replace["hypothesis"]).replace("$options", options)
 
     return res
 
@@ -77,6 +77,19 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
             print(f'The postprocessed decoded output was {decoded_output_sub.split(" ")=}')
             res_labels[q_id] = textlabel_2_binarylabel(decoded_output_sub.split(" ")[0])
     return res_labels
+
+def single_query_inference(model : object, tokenizer : object, prompt : str) -> str:
+    with torch.inference_mode():
+        print(f'{prompt=}')
+        input_ids = tokenizer(prompt, return_tensors="pt").input_ids.to("cuda")
+        outputs = model.generate(input_ids, max_new_tokens=100)
+        decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
+        decoded_output_sub = re.sub("[,!\.]+", " ", decoded_output)
+        decoded_output_sub = re.sub("(\\n)+", " ", decoded_output_sub)
+        decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output_sub)
+        print(f'The postprocessed decoded output was {decoded_output_sub=}')
+        quit()
+    return decoded_output_sub
 
 def debug_query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     res_labels = {}
