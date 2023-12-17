@@ -238,6 +238,33 @@ Using these base prompts and gpt3.5-turbo, I generated the following prompts:
 
 ---
 
+LLaMa-2-chat-hf
+
+| **Metrics**    | F1-score | Precision | Recall | Notes |
+|:-------------- |:--:|:--:|:--:|:--:|
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-3    | 0.58 | 0.52 | 0.67 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-5    | 0.68 | 0.52 | 0.96 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-8    | 0.68 | 0.52 | 0.96 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_1-10   | 0.64 | 0.57 | 0.73 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-1    | 0.58 | 0.52 | 0.67 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-5    | 0.66 | 0.59 | 0.75 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3-8    | 0.67 | 0.54 | 0.91 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_3_10   | 0.70 | 0.55 | 0.96 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5_1    | 0.67 | 0.52 | 0.96 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5_3    | 0.68 | 0.53 | 0.96 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5_8    | 0.69 | 0.53 | 0.98 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_5_10   | 0.71 | 0.59 | 0.91 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8_1    | 0.68 | 0.52 | 0.96 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8_3    | 0.63 | 0.56 | 0.73 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8_5    | 0.67 | 0.50 | 1.00 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_8_10   | 0.52 | 0.54 | 0.50 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10_1   | 0.68 | 0.52 | 0.96 | mostly yes |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10_3   | 0.47 | 0.54 | 0.42 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10_5   | 0.47 | 0.54 | 0.42 | - |
+| qCammel-70-x-GPTQ_(apl{t5})_(gen)_10_8   | 0.66 | 0.59 | 0.75 | - |
+
+---
+
 #### Other notes
 
 Max token limit per model:
