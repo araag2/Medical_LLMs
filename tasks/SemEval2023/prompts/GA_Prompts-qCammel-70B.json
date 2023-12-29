@@ -12,7 +12,9 @@
     "secondary_premise" : " and Secondary trial evidence are $secondary_evidence",
     "options" : "Respond by outputting Yes or No. Be as accurate as possible.",
     
-    "ea_prompt" : "Please follow the instruction step-by-step to generate a better prompt.\nStep 1. Cross over the following prompts and generate a new prompt, that must contain $premise, $hypothesis and $options exactly once each:\nPrompt 1: $prompt_1\nPrompt 2: $prompt_2\nStep 2. Mutate the prompt generated in Step 1 and generate a final prompt that must contain $premise, $hypothesis and $options exactly once each, bracketed with <prompt> and </prompt>.",
+    "ea_prompt" : "Please follow the instruction step-by-step to generate a better prompt\n###INSTRUCTION:\nCross over the following prompts and generate a new prompt, that must contain <premise>, <hypothesis> and <options> exactly once each:\nPrompt 1: <prompt_1>\nPrompt 2: <prompt_2>\n### RESPONSE:\n",
+
+    "ea_prompt_llama" : "Cross over the following prompts and generate a new prompt, that must contain $premise, $hypothesis and $options exactly once each:\nPrompt 1: <prompt_1>\nPrompt 2: <prompt_2>\nAnswer: ",
 
     "ea_prompt_step_1" : "Please follow the instruction step-by-step to generate a better prompt.\nCross over the following prompts and generate a new prompt, that must contain $premise, $hypothesis and $options exactly once each:\nPrompt 1: $prompt_1\nPrompt 2: $prompt_2\n",
 

@@ -44,7 +44,7 @@ def ea_generate_prompts_OAI(model_name: str, ea_prompt: str, prompt_1: str, prom
     return response.choices.message.content
 
 def ea_generate_prompts_qCammel(model : object, tokenizer : object, ea_prompt : str, prompt_1 : str, prompt_2 : str) -> str:
-    new_prompt = ea_prompt.replace("$prompt_1", prompt_1).replace("$prompt_2", prompt_2)
+    new_prompt = ea_prompt.replace("<prompt_1>", prompt_1).replace("<prompt_2>", prompt_2)
     return GA_evaluation.single_query_inference(model, tokenizer, new_prompt)
 
 def ea_generate_pairs(curr_parent_prompts: dict, base_prompt: dict) -> dict:
@@ -73,9 +73,10 @@ def sort_prompts_by_score(prompt_metrics_1: dict, prompt_metrics_2: dict, min_pr
 def main():
     parser = argparse.ArgumentParser()
 
+    #TheBloke/Llama-2-70B-Chat-GPTQ
     parser.add_argument('--model_optimize_name', type=str, help='name of the model used to fine-tune prompts for', default='TheBloke/qCammel-70-x-GPTQ')
 
-    parser.add_argument('--model_gen_prompts_name', type=str, help='name of the model used to generate and combine prompts', default='TheBloke/qCammel-70-x-GPTQ')
+    parser.add_argument('--model_gen_prompts_name', type=str, help='name of the model used to generate and combine prompts', default='mistralai/Mistral-7B-Instruct-v0.2')
 
     used_set = "dev" # train | dev | test
 
@@ -108,7 +109,7 @@ def main():
 
     model = LlamaForCausalLM.from_pretrained(args.model_optimize_name, device_map="auto")
     model.quantize_config = GPTQConfig(bits=4, exllama_config={"version":2}, desc_act=True)
-    model = exllama_set_max_input_length(model, 4096)
+    #model = exllama_set_max_input_length(model, 4096)
 
     tokenizer = AutoTokenizer.from_pretrained(args.model_optimize_name)
 
@@ -128,10 +129,10 @@ def main():
             pair_content = possible_pairs[pair_id]
             #print(f'{pair_content=}')
             #print(f'{prompts["ea_prompt_force-no-remove"]=} {pair_content["prompt_1"]=} {pair_content["prompt_2"]=}')
-            pair_content["new_prompt"] = ea_generate_prompts_qCammel(model, tokenizer, prompts["ea_prompt"], pair_content["prompt_1"]["text"], pair_content["prompt_2"]["text"])
+            pair_content["new_prompt"] = ea_generate_prompts_qCammel(model, tokenizer, prompts["ea_prompt_llama"], pair_content["prompt_1"]["text"], pair_content["prompt_2"]["text"])
             new_pairs[pair_id]["prompt"] = pair_content
-            #print(f'{new_pairs=}')
-            new_pairs[pair_id]["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, queries, qrels, pair_content, args, used_set)
+
+            #new_pairs[pair_id]["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, queries, qrels, pair_content, args, used_set)
             #print(f'The metrics of {pair_id=} {pair_content=} were {new_pairs[pair_id]["metrics"]=}')
 
         # TO:DO Update curr_parent_prompts
