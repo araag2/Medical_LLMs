@@ -58,14 +58,13 @@ def create_qid_prompt_label_dict(queries : dict, qrels : dict, prompt : str) -> 
     for q_id in queries:
         queries_dict[q_id] = { 
             "text" : generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompt), 
-            "gold_label" : textlabel_2_binarylabel(qrels[q_id]["Label"].strip())
+            "gold_label" : textlabel_2_binarylabel([qrels[q_id]["Label"].strip()])
         }
     return queries_dict
 
 def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     res_labels = {}
     with torch.inference_mode():
-        i = 0
         for q_id in tqdm(queries):
             input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
             #input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
@@ -76,9 +75,6 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
             decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output_sub)
             print(f'The postprocessed decoded output was {decoded_output_sub.split(" ")[:10]=}')
             res_labels[q_id] = textlabel_2_binarylabel(decoded_output_sub.split(" ")[:10])
-            i += 1
-            if i > 10:
-                break
     return res_labels
 
 def single_query_inference(model : object, tokenizer : object, prompt : str) -> str:
@@ -110,10 +106,9 @@ def debug_query_inference(model : object, tokenizer : object, queries : dict) ->
     return res_labels 
 
 def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
-    print(f'{gold_labels=}{pred_labels=}')
     res_labels = [[],[]]
     for q_id in pred_labels:
-        print(f'{gold_labels[q_id]["gold_label"]=}{pred_labels[q_id]=}')
+        print(f'{gold_labels[q_id]["gold_label"]=} {pred_labels[q_id]=}')
         res_labels[0].append(gold_labels[q_id]["gold_label"])
         res_labels[1].append(pred_labels[q_id])
 
@@ -207,7 +202,7 @@ def main():
 
     combination_prompts = generate_pos_prompts(prompts)
 
-    for prompt_id, prompt in combination_prompts["combination_prompts"].items():
+    for prompt_id, prompt in tqdm(combination_prompts["combination_prompts"].items()):
         full_evaluate_prompt(model, tokenizer, queries, qrels, prompt_id, prompt, args, used_set)
     
 
