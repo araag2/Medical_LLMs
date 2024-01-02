@@ -26,11 +26,13 @@ def main():
         with open(args.sort_folder + json_f, 'r') as f:
             data = json.load(f)
             sorted_res["scores_precision"].append({key : data[key] for key in data if key in ["prompt", "metrics", "formated_metrics"]})
+            sorted_res["scores_precision"][-1]["id"] = sorted_res["scores_precision"][-1]["formated_metrics"].split('|')[1].rstrip()[-7:]
+            sorted_res["scores_precision"][-1]["prompt_partions"] = sorted_res["scores_precision"][-1]["prompt"].split("\n\n")
     
-    sorted_res["scores_precision"].sort(key=lambda x: x["metrics"]["precision"], reverse=True)
-    sorted_res["scores_f1"] = sorted(sorted_res["scores_precision"], key=lambda x: x["metrics"]["f1"], reverse=True)
+    sorted_res["scores_precision"] = sorted(sorted_res["scores_precision"], key=lambda x: x["metrics"]["precision"], reverse=True)[:20]
+    sorted_res["scores_f1"] = sorted(sorted_res["scores_precision"], key=lambda x: x["metrics"]["f1"], reverse=True)[:20]
 
-    with safe_open_w(f'{args.output_dir}sorted_base_prompts.json') as f:
+    with safe_open_w(f'{args.output_dir}EA_base_prompts.json') as f:
         json.dump(sorted_res, f, indent=4)
 
 if __name__ == '__main__':
