@@ -149,7 +149,7 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
-outputs/
+
 
 # Cython debug symbols
 cython_debug/
@@ -161,6 +161,8 @@ datasets/TREC2022/
 datasets/TREC2023/
 datasets/SemEval2023/
 data_json/
+outputs/combination_output/
+outputs/args_output/
 wandb
 
 # PyCharm
