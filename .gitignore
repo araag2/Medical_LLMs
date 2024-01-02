@@ -161,8 +161,8 @@ datasets/TREC2022/
 datasets/TREC2023/
 datasets/SemEval2023/
 data_json/
-outputs/combination_output/
-outputs/args_output/
+combination_output/
+args_output/
 wandb
 
 # PyCharm
