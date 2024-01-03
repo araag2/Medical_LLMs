@@ -4,6 +4,7 @@ import json
 import torch
 import typing
 import random
+import itertools 
 import re
 import GA_evaluation
 
@@ -69,6 +70,56 @@ def sort_prompts_by_score(prompt_metrics_1: dict, prompt_metrics_2: dict, min_pr
         return -1
     return eligible_1["f1"] - eligible_2["f1"]
 
+def mutate_parent_prompts(model : object, tokenizer : object, mutate_prompt : object, relevant_segments : str, prompts_to_mutate : list[dict]) -> list[dict]:
+    mutated_prompts = []
+    with torch.inference_mode():
+        for prompt in prompts_to_mutate:
+            prompt_dict = {"prompt" : "", "prompt_partions" : [part for part in prompt["prompt_partions"]], "id" : f'mutated_{prompt["id"]}'}
+
+            for segment in relevant_segments:
+                mutate_str = mutate_prompt["mutate_prompt"].replace("$prompt", prompt_dict["prompt_partions"][segment])
+
+                input_ids = tokenizer(mutate_str, return_tensors="pt").input_ids.to("cuda") 
+                outputs = model.generate(input_ids, max_new_tokens=len(prompt_dict["prompt_partions"][segment]+10), top_k = 5, do_sample=True)
+
+                decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
+                decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output)
+                print(f'Mutation output was {decoded_output_sub=}')
+                prompt_dict["prompt_partions"][segment] = decoded_output_sub
+
+            prompt_dict["prompt"] = "\n\n".join(prompt_dict["prompt_partions"]) 
+            mutated_prompts.append(prompt_dict)
+    return mutated_prompts
+
+def combine_curr_prompts(model : object, tokenizer : object, combine_prompt : object, relevant_segments : str, prompts_to_combine : list[dict], n_combinations : int) -> list[dict]:
+    # Random pairs of prompts
+    random_pairs = list(itertools.combinations(prompts_to_combine, 2))
+    random_pairs.shuffle()
+    random_pairs = random_pairs[:n_combinations]
+
+    combined_prompts = []
+    with torch.inference_mode():
+        for prompt_1, prompt_2 in random_pairs:
+            prompt_dict = {"prompt" : "", "prompt_partions" : [part for part in prompt_1["prompt_partions"]], "id" : f'mutated_{prompt_2["id"]}'}
+
+            for segment in relevant_segments:
+                combine_str = combine_prompt["combine_prompt"].replace("$prompt_1", prompt_1["prompt_partions"][segment]).replace("$prompt_2", prompt_2["prompt_partions"][segment+1])
+
+                max_len = max(len(prompt_1["prompt_partions"][segment]), len(prompt_2["prompt_partions"][segment])) + 10
+
+                input_ids = tokenizer(combine_str, return_tensors="pt").input_ids.to("cuda") 
+                outputs = model.generate(input_ids, max_new_tokens=max_len, top_k = 5, do_sample=True)
+
+                decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
+                decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output)
+                print(f'Combination output was {decoded_output_sub=}')
+
+                prompt_dict["prompt_partions"][segment] = decoded_output_sub
+
+            prompt_dict["prompt"] = "\n\n".join(prompt_dict["prompt_partions"]) 
+            combined_prompts.append(prompt_dict)
+    return combined_prompts
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -87,7 +138,7 @@ def main():
     parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2023_{used_set}.json')
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
     # "prompts/T5prompts.json"
-    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/GA_Prompts-qCammel-70B.json")
+    parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/EA_Mistral_Prompts.json")
 
     # Evaluation metrics to use 
     #
@@ -97,18 +148,21 @@ def main():
     #
 
     # Output directory
-    parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
+    parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/ea_output/")
 
     # GA parameters
-    parser.add_argument('--n_iterations', type=str, help='number of iterations to run GA on', default="3")
-    parser.add_argument('--n_prompts', type=str, help='number of prompts to generate per iteration', default="5")
-    parser.add_argument('--min_precision', type=str, help='minimum precision for a prompt to be considered', default="0.50")
-    parser.add_argument('--max_recall', type=str, help='maximum recall for a prompt to be considered', default="0.92")
+    parser.add_argument('--n_iterations', type=int, help='number of iterations to run GA on', default=3)
+    parser.add_argument('--n_prompts', type=int, help='number of prompts to generate per iteration', default=15)
+    parser.add_argument('--top_k', type=int, help='number of prompts keep for future generations', default=5)
+    parser.add_argument('--combinations', type=int, help='number of combinations to generate', default=15)
+    parser.add_argument('--metric', type=str, help='metric to keep top_k prompts of previous iteration', default="precision")
+    parser.add_argument('--min_precision', type=float, help='minimum precision for a prompt to be considered', default=0.50)
+    parser.add_argument('--max_recall', type=float, help='maximum recall for a prompt to be considered', default=0.92)
 
     args = parser.parse_args()
 
-    model = LlamaForCausalLM.from_pretrained(args.model_optimize_name, device_map="auto")
-    model.quantize_config = GPTQConfig(bits=4, exllama_config={"version":2}, desc_act=True)
+    model = AutoModelForCausalLM.from_pretrained(args.model_optimize_name, device_map="auto")
+    #model.quantize_config = GPTQConfig(bits=4, exllama_config={"version":2}, desc_act=True)
     #model = exllama_set_max_input_length(model, 4096)
 
     tokenizer = AutoTokenizer.from_pretrained(args.model_optimize_name)
@@ -118,24 +172,32 @@ def main():
     qrels = json.load(open(args.qrels))
     prompts = json.load(open(args.prompts))
 
+    relevant_prompt_segments = [0, 1, 4, 6]
+
     # TODO: get base metrics from file
-    curr_parent_prompts = {num_prompt : prompts["parent_prompts"][num_prompt] for num_prompt in prompts["parent_prompts"]}
+    curr_parent_prompts = [ {key : prompt[key] for key in prompt if key in ["prompt", "metrics", "prompt_partions", "id"]} for prompt in prompts["scores_precision"][:args.top_k]]
+
     for i in tqdm(range(1, int(args.n_iterations)+1)):
-        # Generate new prompts from pairs of parent prompts
-        possible_pairs = ea_generate_pairs(curr_parent_prompts, prompts)
-        new_pairs = {}
-        for pair_id in tqdm(possible_pairs):
-            new_pairs[pair_id] = {}
-            pair_content = possible_pairs[pair_id]
-            #print(f'{pair_content=}')
-            #print(f'{prompts["ea_prompt_force-no-remove"]=} {pair_content["prompt_1"]=} {pair_content["prompt_2"]=}')
-            pair_content["new_prompt"] = ea_generate_prompts_qCammel(model, tokenizer, prompts["ea_prompt_llama"], pair_content["prompt_1"]["text"], pair_content["prompt_2"]["text"])
-            new_pairs[pair_id]["prompt"] = pair_content
+        # Mutate current prompts, generating top_k new prompts
+        curr_prompts = mutate_parent_prompts(model, tokenizer, prompts["mutate_prompt"], relevant_prompt_segments, curr_parent_prompts)
 
-            #new_pairs[pair_id]["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, queries, qrels, pair_content, args, used_set)
-            #print(f'The metrics of {pair_id=} {pair_content=} were {new_pairs[pair_id]["metrics"]=}')
+        # Combine current prompts, generating new prompts
+        curr_prompts = combine_curr_prompts(model, tokenizer, prompts["combine_prompt"], relevant_prompt_segments, curr_prompts + curr_parent_prompts, args.combinations)
 
-        # TO:DO Update curr_parent_prompts
+        # Evaluate new prompts
+        for prompt in tqdm(curr_prompts):
+            prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, queries, qrels, prompt, args, used_set)["metrics"]
+        
+        curr_prompts = curr_prompts + curr_parent_prompts
+
+        # Sort curr_prompts by score
+        curr_prompts.sort(key=lambda x: x["metrics"][args.metric], reverse=True)
+        # Output iter res to file
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+
+        with safe_open_w(f'{args.output_dir}{timestamp}_EA-Mistral_iter-{i}.json') as f:
+            json.dump(curr_prompts, f, indent=4)
+        curr_parent_prompts = curr_prompts[:args.top_k]
 
 if __name__ == '__main__':
     main()

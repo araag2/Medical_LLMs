@@ -35,7 +35,7 @@ Consider the problem of re-writing a textual instruction, in which the objective
 
 #### Prompt to Combine Instructions
 
-Consider the problem of combining two different textual instructions, pertaining to the same task. The objective is to rephrase the main information common to the two descriptions, while keeping their meaning and intent. The combined instruction can either be shorter, summarizing the main points while keeping consistency with the original intent, or it can be made longer, by adding definitions and further clarifications while at the same time avoiding the inclusion of incorrect information. The combined instruction should be concise and direct, and it should inform the execution of the task in a clearer way than the original instructions. Considering the aforementioned task description, combine the two textual instruction show next in quotes.
+Consider the problem of combining two different textual instructions, pertaining to the same task. The objective is to rephrase the main information common to the two descriptions, while keeping their meaning and intent. The combined instruction can either be shorter, summarizing the main points while keeping consistency with the original intent, or it can be made longer, by adding definitions and further clarifications while at the same time avoiding the inclusion of incorrect information. The combined instruction should be concise and direct, and it should inform the execution of the task in a clearer way than the original instructions. Considering the aforementioned task description, combine the two textual instructions show next in quotes.
 
 #### 5 Prompts describing the task at hand
 
