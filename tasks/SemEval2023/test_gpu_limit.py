@@ -1,9 +1,13 @@
 import argparse
 import torch
+import os
 
 from auto_gptq import exllama_set_max_input_length
 from tqdm import tqdm
 from transformers import GPTQConfig, LlamaTokenizer, LlamaForCausalLM, AutoTokenizer, AutoModelForCausalLM
+
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 def main():
     parser = argparse.ArgumentParser()
