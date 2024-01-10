@@ -8,29 +8,20 @@ import itertools
 import re
 import GA_evaluation
 
-from openai import OpenAI
 from datetime import datetime
-from auto_gptq import exllama_set_max_input_length
 from tqdm import tqdm
 from sklearn.metrics import f1_score, precision_score, recall_score
 from transformers import GPTQConfig, LlamaTokenizer, LlamaForCausalLM, AutoTokenizer, AutoModelForCausalLM
 
-if "SLURM_JOB_ID" not in os.environ:
-    device = "CPU"
+#if "SLURM_JOB_ID" not in os.environ:
+#    device = "CPU"
+
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 def safe_open_w(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     return open(path, 'w', encoding='utf8')
-
-    premise = prompt_dict["primary_premise"].replace("$primary_evidence", text_to_replace["primary_evidence"])
-    if "secondary_premise" in text_to_replace:
-        premise += prompt_dict["secondary_premise"].replace("$secondary_evidence", text_to_replace["secondary_evidence"])
-    options = prompt_dict["options"]
-    
-    # "$premise \n Question: Does this imply that $hypothesis? $options"
-    res = prompt_dict["baseline_prompt"].replace("$premise", premise).replace("$hypothesis", text_to_replace["hypothesis"]).replace("$options", options)
-
-    return res
 
 def ea_generate_prompts_OAI(model_name: str, ea_prompt: str, prompt_1: str, prompt_2: str) -> str:
     new_prompt = ea_prompt.replace("$prompt_1", prompt_1).replace("$prompt_2", prompt_2)
@@ -80,7 +71,7 @@ def mutate_parent_prompts(model : object, tokenizer : object, mutate_prompt : ob
                 mutate_str = mutate_prompt["mutate_prompt"].replace("$prompt", prompt_dict["prompt_partions"][segment])
 
                 input_ids = tokenizer(mutate_str, return_tensors="pt").input_ids.to("cuda") 
-                outputs = model.generate(input_ids, max_new_tokens=len(prompt_dict["prompt_partions"][segment]+10), top_k = 5, do_sample=True)
+                outputs = model.generate(input_ids, max_new_tokens=len(prompt_dict["prompt_partions"][segment]*2), top_k = 5, do_sample=True)
 
                 decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
                 decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output)
@@ -105,7 +96,7 @@ def combine_curr_prompts(model : object, tokenizer : object, combine_prompt : ob
             for segment in relevant_segments:
                 combine_str = combine_prompt["combine_prompt"].replace("$prompt_1", prompt_1["prompt_partions"][segment]).replace("$prompt_2", prompt_2["prompt_partions"][segment+1])
 
-                max_len = max(len(prompt_1["prompt_partions"][segment]), len(prompt_2["prompt_partions"][segment])) + 10
+                max_len = max(len(prompt_1["prompt_partions"][segment]), len(prompt_2["prompt_partions"][segment]))*2
 
                 input_ids = tokenizer(combine_str, return_tensors="pt").input_ids.to("cuda") 
                 outputs = model.generate(input_ids, max_new_tokens=max_len, top_k = 5, do_sample=True)
@@ -125,18 +116,18 @@ def main():
     parser = argparse.ArgumentParser()
 
     #TheBloke/Llama-2-70B-Chat-GPTQ
-    parser.add_argument('--model_optimize_name', type=str, help='name of the model used to fine-tune prompts for', default='TheBloke/qCammel-70-x-GPTQ')
+    #parser.add_argument('--model_optimize_name', type=str, help='name of the model used to fine-tune prompts for', default='TheBloke/qCammel-70-x-GPTQ')
 
-    parser.add_argument('--model_gen_prompts_name', type=str, help='name of the model used to generate and combine prompts', default='mistralai/Mistral-7B-Instruct-v0.2')
+    parser.add_argument('--model_name', type=str, help='name of the model used to generate and combine prompts', default='mistralai/Mistral-7B-Instruct-v0.2')
 
-    used_set = "dev" # train | dev | test
+    used_set = "train" # train | dev | test
 
     # Path to corpus file
-    parser.add_argument('--dataset_path', type=str, help='path to corpus file', default="../../datasets/SemEval2023/CT_corpus.json")
+    parser.add_argument('--dataset_path', type=str, help='path to corpus file', default="../../datasets/SemEval2024/CT_corpus.json")
 
     # Path to queries, qrels and prompt files
-    parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2023_{used_set}.json')
-    parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
+    parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2024_{used_set}.json')
+    parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2024_{used_set}.json')
     # "prompts/T5prompts.json"
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/EA_Mistral_Prompts.json")
 
@@ -161,11 +152,11 @@ def main():
 
     args = parser.parse_args()
 
-    model = AutoModelForCausalLM.from_pretrained(args.model_optimize_name, device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained(args.model_name, device_map="auto")
     #model.quantize_config = GPTQConfig(bits=4, exllama_config={"version":2}, desc_act=True)
     #model = exllama_set_max_input_length(model, 4096)
 
-    tokenizer = AutoTokenizer.from_pretrained(args.model_optimize_name)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name)
 
     # Load dataset, queries, qrels and prompts
     queries = json.load(open(args.queries))
@@ -174,7 +165,6 @@ def main():
 
     relevant_prompt_segments = [0, 1, 4, 6]
 
-    # TODO: get base metrics from file
     curr_parent_prompts = [ {key : prompt[key] for key in prompt if key in ["prompt", "metrics", "prompt_partions", "id"]} for prompt in prompts["scores_precision"][:args.top_k]]
 
     for i in tqdm(range(1, int(args.n_iterations)+1)):

@@ -11,6 +11,8 @@ from tqdm import tqdm
 from sklearn.metrics import f1_score, precision_score, recall_score
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 def safe_open_w(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -42,7 +44,7 @@ def textlabel_2_binarylabel(text_label: list[str]) -> int:
     #return random.randint(0,1)
     return 1
 
-def label_2_SemEval2023(labels : dict) -> dict:
+def label_2_SemEval2024(labels : dict) -> dict:
     res = {}
     for q_id in labels:
         pred = "None" # random.choice(["Entailment", "Contradiction"])
@@ -176,11 +178,11 @@ def main():
     used_set = "dev" # train | dev | test
 
     # Path to corpus file
-    parser.add_argument('--dataset_path', type=str, help='path to corpus file', default="../../datasets/SemEval2023/CT_corpus.json")
+    parser.add_argument('--dataset_path', type=str, help='path to corpus file', default="../../datasets/SemEval2024/CT_corpus.json")
 
     # Path to queries, qrels and prompt files
-    parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2023_{used_set}.json')
-    parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2023_{used_set}.json')
+    parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2024_{used_set}.json')
+    parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2024_{used_set}.json')
     # "prompts/T5prompts.json"
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/MistralPrompts.json")
 
@@ -205,6 +207,5 @@ def main():
     for prompt_id, prompt in tqdm(combination_prompts["combination_prompts"].items()):
         full_evaluate_prompt(model, tokenizer, queries, qrels, prompt_id, prompt, args, used_set)
     
-
 if __name__ == '__main__':
     main()
