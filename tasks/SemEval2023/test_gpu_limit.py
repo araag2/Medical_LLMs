@@ -11,7 +11,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='TheBloke/qCammel-70-x-GPTQ')
+    parser.add_argument('--model_name', type=str, help='name of the T5 model used', default='mistralai/Mistral-7B-Instruct-v0.2')
     args = parser.parse_args()
 
     model = LlamaForCausalLM.from_pretrained(args.model_name, device_map="auto")
@@ -20,7 +20,7 @@ def main():
     #                                            device_map="auto",
     #                                            revision="gptq-4bit-128g-actorder_True")
     model.quantize_config = GPTQConfig(bits=4, exllama_config={"version":2}, desc_act=True)
-    model = exllama_set_max_input_length(model, 4096)
+    #model = exllama_set_max_input_length(model, 4096)
     tokenizer = LlamaTokenizer.from_pretrained(args.model_name)
 
     print(f'Tokenized {args.model_name=} tokens')

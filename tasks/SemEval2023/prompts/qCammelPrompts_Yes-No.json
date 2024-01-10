@@ -1,6 +1,0 @@
-{
-    "base_prompt" : "Below is an instruction that describes a task. Write a response that appropriately completes the request. \n\n### Instruction:\n$premise \n Question: Does this imply that $hypothesis?\n $options\n\n### Response:",
-    "primary_premise" : "Primary trial evidence are $primary_evidence",
-    "secondary_premise" : " and Secondary trial evidence are $secondary_evidence",
-    "options" : "Respond by outputting Yes or No. Be as accurate as possible."
-}
