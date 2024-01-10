@@ -17,7 +17,7 @@ from transformers import GPTQConfig, LlamaTokenizer, LlamaForCausalLM, AutoToken
 #    device = "CPU"
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "5"
 
 def safe_open_w(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -61,20 +61,26 @@ def sort_prompts_by_score(prompt_metrics_1: dict, prompt_metrics_2: dict, min_pr
         return -1
     return eligible_1["f1"] - eligible_2["f1"]
 
-def mutate_parent_prompts(model : object, tokenizer : object, mutate_prompt : object, relevant_segments : str, prompts_to_mutate : list[dict]) -> list[dict]:
+def tokenize_and_gen(model : object, tokenizer : object, prompt : str, max_len : int) -> str:
+    tokenized = tokenizer(prompt, return_tensors="pt")
+    tokenized["input_ids"] = tokenized.input_ids.to(device="cuda")
+    tokenized["attention_mask"] = tokenized.attention_mask.to(device="cuda")
+    outputs =  model.generate(**tokenized, max_new_tokens=max_len, top_k = 5, do_sample=True)
+    return tokenizer.decode(outputs[0][tokenized["input_ids"].shape[1]:]).strip()
+
+def mutate_parent_prompts(model : object, tokenizer : object, mutate_prompt : str, relevant_segments : str, prompts_to_mutate : list[dict]) -> list[dict]:
     mutated_prompts = []
     with torch.inference_mode():
         for prompt in prompts_to_mutate:
             prompt_dict = {"prompt" : "", "prompt_partions" : [part for part in prompt["prompt_partions"]], "id" : f'mutated_{prompt["id"]}'}
 
             for segment in relevant_segments:
-                mutate_str = mutate_prompt["mutate_prompt"].replace("$prompt", prompt_dict["prompt_partions"][segment])
+                mutate_str = mutate_prompt.replace("$prompt", prompt_dict["prompt_partions"][segment])
 
-                input_ids = tokenizer(mutate_str, return_tensors="pt").input_ids.to("cuda") 
-                outputs = model.generate(input_ids, max_new_tokens=len(prompt_dict["prompt_partions"][segment]*2), top_k = 5, do_sample=True)
-
-                decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
+                decoded_output = tokenize_and_gen(model, tokenizer, mutate_str, len(prompt_dict["prompt_partions"][segment])+ 10)
+                decoded_output = decoded_output if ":" not in decoded_output else decoded_output[decoded_output.index(":")+2:]
                 decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output)
+                decoded_output_sub = re.sub("\"", "", decoded_output_sub)
                 print(f'Mutation output was {decoded_output_sub=}')
                 prompt_dict["prompt_partions"][segment] = decoded_output_sub
 
@@ -82,10 +88,10 @@ def mutate_parent_prompts(model : object, tokenizer : object, mutate_prompt : ob
             mutated_prompts.append(prompt_dict)
     return mutated_prompts
 
-def combine_curr_prompts(model : object, tokenizer : object, combine_prompt : object, relevant_segments : str, prompts_to_combine : list[dict], n_combinations : int) -> list[dict]:
+def combine_curr_prompts(model : object, tokenizer : object, combine_prompt : str, relevant_segments : str, prompts_to_combine : list[dict], n_combinations : int) -> list[dict]:
     # Random pairs of prompts
     random_pairs = list(itertools.combinations(prompts_to_combine, 2))
-    random_pairs.shuffle()
+    random.shuffle(random_pairs)
     random_pairs = random_pairs[:n_combinations]
 
     combined_prompts = []
@@ -94,15 +100,14 @@ def combine_curr_prompts(model : object, tokenizer : object, combine_prompt : ob
             prompt_dict = {"prompt" : "", "prompt_partions" : [part for part in prompt_1["prompt_partions"]], "id" : f'mutated_{prompt_2["id"]}'}
 
             for segment in relevant_segments:
-                combine_str = combine_prompt["combine_prompt"].replace("$prompt_1", prompt_1["prompt_partions"][segment]).replace("$prompt_2", prompt_2["prompt_partions"][segment+1])
+                combine_str = combine_prompt.replace("$prompt_1", prompt_1["prompt_partions"][segment]).replace("$prompt_2", prompt_2["prompt_partions"][segment])
 
-                max_len = max(len(prompt_1["prompt_partions"][segment]), len(prompt_2["prompt_partions"][segment]))*2
+                max_len = max(len(prompt_1["prompt_partions"][segment]), len(prompt_2["prompt_partions"][segment])) + 10
 
-                input_ids = tokenizer(combine_str, return_tensors="pt").input_ids.to("cuda") 
-                outputs = model.generate(input_ids, max_new_tokens=max_len, top_k = 5, do_sample=True)
-
-                decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
+                decoded_output = tokenize_and_gen(model, tokenizer, combine_str, max_len)
+                decoded_output = decoded_output if ":" not in decoded_output else decoded_output[decoded_output.index(":")+2:]
                 decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output)
+                decoded_output_sub = re.sub("\"", "", decoded_output_sub)
                 print(f'Combination output was {decoded_output_sub=}')
 
                 prompt_dict["prompt_partions"][segment] = decoded_output_sub
@@ -146,7 +151,7 @@ def main():
     parser.add_argument('--n_prompts', type=int, help='number of prompts to generate per iteration', default=15)
     parser.add_argument('--top_k', type=int, help='number of prompts keep for future generations', default=5)
     parser.add_argument('--combinations', type=int, help='number of combinations to generate', default=15)
-    parser.add_argument('--metric', type=str, help='metric to keep top_k prompts of previous iteration', default="precision")
+    parser.add_argument('--metric', type=str, help='metric to keep top_k prompts of previous iteration', default="precision_macro")
     parser.add_argument('--min_precision', type=float, help='minimum precision for a prompt to be considered', default=0.50)
     parser.add_argument('--max_recall', type=float, help='maximum recall for a prompt to be considered', default=0.92)
 
@@ -157,6 +162,7 @@ def main():
     #model = exllama_set_max_input_length(model, 4096)
 
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
+    tokenizer.pad_token_id = tokenizer.eos_token_id
 
     # Load dataset, queries, qrels and prompts
     queries = json.load(open(args.queries))
@@ -175,8 +181,11 @@ def main():
         curr_prompts = combine_curr_prompts(model, tokenizer, prompts["combine_prompt"], relevant_prompt_segments, curr_prompts + curr_parent_prompts, args.combinations)
 
         # Evaluate new prompts
+        print("\n\n\n\nEND PROMPTS OF ITER " + str(i))
+        print(curr_prompts)
+        quit()
         for prompt in tqdm(curr_prompts):
-            prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, queries, qrels, prompt, args, used_set)["metrics"]
+            prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, queries, qrels, prompt["id"], prompt["prompt"], args, used_set)["metrics"]
         
         curr_prompts = curr_prompts + curr_parent_prompts
 

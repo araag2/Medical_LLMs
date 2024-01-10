@@ -12,7 +12,7 @@ from sklearn.metrics import f1_score, precision_score, recall_score
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "5"
 
 def safe_open_w(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -40,7 +40,7 @@ def textlabel_2_binarylabel(text_label: list[str]) -> int:
             return 1
         elif label.lower() in CONTRADICTION_LABELS:
             return 0
-    print(f'Text label: [{text_label=}.] This label executed a Random choice because the label was not found.')
+    print(f'Text label: [{text_label=}.] This label output a random option because the label was not found.')
     #return random.randint(0,1)
     return 1
 
@@ -68,15 +68,17 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     res_labels = {}
     with torch.inference_mode():
         for q_id in tqdm(queries):
-            input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
-            #input_ids = tokenizer(queries[q_id]["text"], return_tensors="pt").input_ids.to("cuda")
-            outputs = model.generate(input_ids, max_new_tokens=30, top_k = 5, do_sample=True)
-            decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
+            tokenized = tokenizer(queries[q_id]["text"], return_tensors="pt")
+            tokenized["input_ids"] = tokenized.input_ids.to(device="cuda")
+            tokenized["attention_mask"] = tokenized.attention_mask.to(device="cuda")
+            outputs =  model.generate(**tokenized, max_new_tokens=30, top_k = 5, do_sample=True)
+
+            decoded_output = tokenizer.decode(outputs[0][tokenized["input_ids"].shape[1]:]).strip()
             decoded_output_sub = re.sub("[,!\.]+", " ", decoded_output)
             decoded_output_sub = re.sub("(\\n)+", " ", decoded_output_sub)
             decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output_sub)
-            print(f'The postprocessed decoded output was {decoded_output_sub.split(" ")[:10]=}')
-            res_labels[q_id] = textlabel_2_binarylabel(decoded_output_sub.split(" ")[:10])
+            print(f'The postprocessed decoded output was {decoded_output_sub.split(" ")[:30]=}')
+            res_labels[q_id] = textlabel_2_binarylabel(decoded_output_sub.split(" ")[:30])
     return res_labels
 
 def single_query_inference(model : object, tokenizer : object, prompt : str) -> str:
@@ -114,11 +116,15 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
         res_labels[0].append(gold_labels[q_id]["gold_label"])
         res_labels[1].append(pred_labels[q_id])
 
-    precision = precision_score(res_labels[0], res_labels[1])
-    recall = recall_score(res_labels[0], res_labels[1])
-    f1 = f1_score(res_labels[0], res_labels[1])
+    precision_micro = precision_score(res_labels[0], res_labels[1], average="micro")
+    precision_macro = precision_score(res_labels[0], res_labels[1], average="macro")
+    recall_micro = recall_score(res_labels[0], res_labels[1], average="micro")
+    recall_macro = recall_score(res_labels[0], res_labels[1], average="macro")
+    f1_bin = f1_score(res_labels[0], res_labels[1])
+    f1_micro = f1_score(res_labels[0], res_labels[1], average="micro")
+    f1_macro = f1_score(res_labels[0], res_labels[1], average="macro")
 
-    return {"f1" : f1, "precision" : precision, "recall" : recall}
+    return {"precison_micro" : precision_micro, "precision_macro" : precision_macro, "recall_micro" : recall_micro, "recall_macro" : recall_macro, "f1_bin" : f1_bin, "f1_micro" : f1_micro, "f1_macro" : f1_macro}
 
 def output_task_results(output_dir : str, model_name : str, used_set : str, results : dict):
     with safe_open_w(f'{output_dir}task_output/{model_name.split("/")[-1]}_0-shot_{used_set}-set.json') as output_file:
@@ -134,7 +140,7 @@ def output_full_metrics(args : dict, prompt_id : str, full_prompt : str, used_se
     results["prompt"] = full_prompt
     results["set"] = used_set
     results["metrics"] = metrics
-    results["formated_metrics"] =f'| {args.model.split("/")[-1]}-{prompt_id}   | {metrics["f1"]} | {metrics["precision"]} | {metrics["recall"]} | - |'
+    results["formated_metrics"] =f'| {args.model.split("/")[-1]}-{prompt_id}   | {metrics["f1_macro"]} | {metrics["precision_macro"]} | {metrics["recall_macro"]} | - |'
 
     with safe_open_w(f'{args.output_dir}combination_output/{timestamp}_{args.model.split("/")[-1]}_{used_set}-set.json') as output_file:
         output_file.write(json.dumps(results, ensure_ascii=False, indent=4))
@@ -168,12 +174,11 @@ def generate_pos_prompts(mistral_prompts : dict):
 
     return prompt_combinations
 
-
 def main():
     parser = argparse.ArgumentParser()
 
     #TheBloke/Llama-2-70B-Chat-GPTQ
-    parser.add_argument('--model', type=str, help='name of the model used to fine-tune prompts for', default='mistralai/Mistral-7B-Instruct-v0.2')
+    parser.add_argument('--model', type=str, help='name of the model used to fine-tune prompts for', default='Upstage/SOLAR-10.7B-Instruct-v1.0')
 
     used_set = "dev" # train | dev | test
 
@@ -196,6 +201,7 @@ def main():
     #model = exllama_set_max_input_length(model, 4096)
 
     tokenizer = AutoTokenizer.from_pretrained(args.model)
+    tokenizer.pad_token_id = tokenizer.eos_token_id
 
     # Load dataset, queries, qrels and prompts
     queries = json.load(open(args.queries))
