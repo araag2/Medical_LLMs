@@ -116,15 +116,17 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
         res_labels[0].append(gold_labels[q_id]["gold_label"])
         res_labels[1].append(pred_labels[q_id])
 
+    precison_bin = precision_score(res_labels[0], res_labels[1])
     precision_micro = precision_score(res_labels[0], res_labels[1], average="micro")
     precision_macro = precision_score(res_labels[0], res_labels[1], average="macro")
+    recall_bin = recall_score(res_labels[0], res_labels[1])
     recall_micro = recall_score(res_labels[0], res_labels[1], average="micro")
     recall_macro = recall_score(res_labels[0], res_labels[1], average="macro")
     f1_bin = f1_score(res_labels[0], res_labels[1])
     f1_micro = f1_score(res_labels[0], res_labels[1], average="micro")
     f1_macro = f1_score(res_labels[0], res_labels[1], average="macro")
 
-    return {"precison_micro" : precision_micro, "precision_macro" : precision_macro, "recall_micro" : recall_micro, "recall_macro" : recall_macro, "f1_bin" : f1_bin, "f1_micro" : f1_micro, "f1_macro" : f1_macro}
+    return {"precison_bin" :precison_bin, "precison_micro" : precision_micro, "precision_macro" : precision_macro, "recall_bin" : recall_bin,"recall_micro" : recall_micro, "recall_macro" : recall_macro, "f1_bin" : f1_bin, "f1_micro" : f1_micro, "f1_macro" : f1_macro}
 
 def output_task_results(output_dir : str, model_name : str, used_set : str, results : dict):
     with safe_open_w(f'{output_dir}task_output/{model_name.split("/")[-1]}_0-shot_{used_set}-set.json') as output_file:
@@ -178,7 +180,9 @@ def main():
     parser = argparse.ArgumentParser()
 
     #TheBloke/Llama-2-70B-Chat-GPTQ
-    parser.add_argument('--model', type=str, help='name of the model used to fine-tune prompts for', default='Upstage/SOLAR-10.7B-Instruct-v1.0')
+    #mistralai/Mistral-7B-Instruct-v0.2
+    #Upstage/SOLAR-10.7B-Instruct-v1.0
+    parser.add_argument('--model', type=str, help='name of the model used to fine-tune prompts for', default='mistralai/Mistral-7B-Instruct-v0.2')
 
     used_set = "dev" # train | dev | test
 

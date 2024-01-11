@@ -182,7 +182,8 @@ def main():
 
         # Evaluate new prompts
         print("\n\n\n\nEND PROMPTS OF ITER " + str(i))
-        print(curr_prompts)
+        with safe_open_w(f'{args.output_dir}prompt-comb_iter-{i}.json') as f:
+            json.dump(curr_prompts, f, indent=4)
         quit()
         for prompt in tqdm(curr_prompts):
             prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, queries, qrels, prompt["id"], prompt["prompt"], args, used_set)["metrics"]
