@@ -124,6 +124,7 @@ def main():
     #parser.add_argument('--model_optimize_name', type=str, help='name of the model used to fine-tune prompts for', default='TheBloke/qCammel-70-x-GPTQ')
 
     parser.add_argument('--model_name', type=str, help='name of the model used to generate and combine prompts', default='mistralai/Mistral-7B-Instruct-v0.2')
+    parser.add_argument('--model', type=str, help='name of the model used to generate and combine prompts', default='mistralai/Mistral-7B-Instruct-v0.2')
 
     used_set = "train" # train | dev | test
 
@@ -151,7 +152,7 @@ def main():
     parser.add_argument('--n_prompts', type=int, help='number of prompts to generate per iteration', default=15)
     parser.add_argument('--top_k', type=int, help='number of prompts keep for future generations', default=5)
     parser.add_argument('--combinations', type=int, help='number of combinations to generate', default=15)
-    parser.add_argument('--metric', type=str, help='metric to keep top_k prompts of previous iteration', default="precision_macro")
+    parser.add_argument('--metric', type=str, help='metric to keep top_k prompts of previous iteration', default="f1_macro")
     parser.add_argument('--min_precision', type=float, help='minimum precision for a prompt to be considered', default=0.50)
     parser.add_argument('--max_recall', type=float, help='maximum recall for a prompt to be considered', default=0.92)
 
@@ -181,10 +182,10 @@ def main():
         curr_prompts = combine_curr_prompts(model, tokenizer, prompts["combine_prompt"], relevant_prompt_segments, curr_prompts + curr_parent_prompts, args.combinations)
 
         # Evaluate new prompts
-        print("\n\n\n\nEND PROMPTS OF ITER " + str(i))
-        with safe_open_w(f'{args.output_dir}prompt-comb_iter-{i}.json') as f:
-            json.dump(curr_prompts, f, indent=4)
-        quit()
+        #print("\n\n\n\nEND PROMPTS OF ITER " + str(i))
+        #with safe_open_w(f'{args.output_dir}prompt-comb_iter-{i}.json') as f:
+        #    json.dump(curr_prompts, f, indent=4)
+
         for prompt in tqdm(curr_prompts):
             prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, queries, qrels, prompt["id"], prompt["prompt"], args, used_set)["metrics"]
         
