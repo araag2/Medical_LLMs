@@ -81,7 +81,7 @@ def mutate_parent_prompts(model : object, tokenizer : object, mutate_prompt : st
                 decoded_output = decoded_output if ":" not in decoded_output else decoded_output[decoded_output.index(":")+2:]
                 decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output)
                 decoded_output_sub = re.sub("\"", "", decoded_output_sub)
-                print(f'Mutation output was {decoded_output_sub=}')
+                #print(f'Mutation output was {decoded_output_sub=}')
                 prompt_dict["prompt_partions"][segment] = decoded_output_sub
 
             prompt_dict["prompt"] = "\n\n".join(prompt_dict["prompt_partions"]) 
@@ -108,7 +108,7 @@ def combine_curr_prompts(model : object, tokenizer : object, combine_prompt : st
                 decoded_output = decoded_output if ":" not in decoded_output else decoded_output[decoded_output.index(":")+2:]
                 decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output)
                 decoded_output_sub = re.sub("\"", "", decoded_output_sub)
-                print(f'Combination output was {decoded_output_sub=}')
+                #print(f'Combination output was {decoded_output_sub=}')
 
                 prompt_dict["prompt_partions"][segment] = decoded_output_sub
 
@@ -187,7 +187,7 @@ def main():
         #    json.dump(curr_prompts, f, indent=4)
 
         for prompt in tqdm(curr_prompts):
-            prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, queries, qrels, prompt["id"], prompt["prompt"], args, used_set)["metrics"]
+            prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, queries, qrels, prompt["id"], prompt["prompt"], args, used_set)
         
         curr_prompts = curr_prompts + curr_parent_prompts
 

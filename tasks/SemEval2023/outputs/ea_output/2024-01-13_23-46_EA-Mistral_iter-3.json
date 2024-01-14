@@ -1,0 +1,482 @@
+[
+    {
+        "prompt": "\nTo examine semantic entailment relationships between statements and Clinical Trial Report (CTR) sections, including eligibility criteria, intervention details, results, and adverse events, it's vital to grasp CTR components and the connection between statements and this data. CTRs detail clinical trial methods and outcomes, testing treatment efficacy and safety. They consist of eligibility criteria, intervention, results, and adverse events sections.\n\n- Eligibility Criteria: Define patient participation conditions.\n- Intervention: Specify treatment type, dosage, frequency, and duration.\n- Results: Summarize participant data, including statistics, outcome measures, units, and conclusions.\n- Adverse Events: Document observed signs and symptoms.\n\nStatements convey claims related to this information and should harmonize with clinical trial data, find substantiation in the CTR, and avoid contradiction. \n\n\nDescriptions refer to the contents within one of the standard sections of a Clinical Trial Report (CTR). \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n\nReflect thoughtfully on the statement made by an authoritative healthcare figure or clinical trial expert about clinical trials. \n\n$hypothesis\n\nAnswer YES if the clinical trial report supports the statement and does not contradict any provided descriptions; otherwise, answer NO. ",
+        "prompt_partions": [
+            "\nTo examine semantic entailment relationships between statements and Clinical Trial Report (CTR) sections, including eligibility criteria, intervention details, results, and adverse events, it's vital to grasp CTR components and the connection between statements and this data. CTRs detail clinical trial methods and outcomes, testing treatment efficacy and safety. They consist of eligibility criteria, intervention, results, and adverse events sections.\n\n- Eligibility Criteria: Define patient participation conditions.\n- Intervention: Specify treatment type, dosage, frequency, and duration.\n- Results: Summarize participant data, including statistics, outcome measures, units, and conclusions.\n- Adverse Events: Document observed signs and symptoms.\n\nStatements convey claims related to this information and should harmonize with clinical trial data, find substantiation in the CTR, and avoid contradiction. ",
+            "\nDescriptions refer to the contents within one of the standard sections of a Clinical Trial Report (CTR). ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "\nReflect thoughtfully on the statement made by an authoritative healthcare figure or clinical trial expert about clinical trials. ",
+            "$hypothesis",
+            "Answer YES if the clinical trial report supports the statement and does not contradict any provided descriptions; otherwise, answer NO. "
+        ],
+        "id": "mutated_mutated_4_5_2_4",
+        "metrics": {
+            "precison_bin": 0.5637362637362637,
+            "precison_micro": 0.5682352941176471,
+            "precision_macro": 0.5685769926276255,
+            "recall_bin": 0.6035294117647059,
+            "recall_micro": 0.5682352941176471,
+            "recall_macro": 0.5682352941176471,
+            "f1_bin": 0.5829545454545454,
+            "f1_micro": 0.5682352941176471,
+            "f1_macro": 0.5676967849223946
+        }
+    },
+    {
+        "prompt": "\nTo assess semantic entailment relationships between clinical statements and Clinical Trial Report sections, including eligibility criteria, intervention details, results, and adverse events, it's important to grasp CTR components and the connection between statements and the data. CTRs detail study design, findings, and safety evaluations of novel therapies, and consist of eligibility criteria, intervention, results, and adverse events sections.\n\n- Eligibility Criteria: Define patient qualifications.\n- Intervention: Provide details on treatment type, dosage, frequency, and duration.\n- Results: Present summaries of outcomes, data, and conclusions.\n- Adverse Events: Document observed side effects.\n\nStatements convey information relating to the CTR, and it's necessary to ensure correspondence with report data and consistency to prevent contradiction. \n\n\nAccurate and comprehensive information from Clinical Trials' 'Results' and 'Methods' sections for those knowledgeable in clinical trial terminology - descriptions refer to the contents within one of these sections. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n\nReflect carefully and thoughtfully on the statement made by an authoritative figure in healthcare or clinical trial research about clinical trials. \n\n$hypothesis\n\nCheck the clinical trial report for accuracy, consistency, and support of the statement, and answer YES if the report validates its correctness, or NO if it contradicts it or lacks sufficient evidence. ",
+        "prompt_partions": [
+            "\nTo assess semantic entailment relationships between clinical statements and Clinical Trial Report sections, including eligibility criteria, intervention details, results, and adverse events, it's important to grasp CTR components and the connection between statements and the data. CTRs detail study design, findings, and safety evaluations of novel therapies, and consist of eligibility criteria, intervention, results, and adverse events sections.\n\n- Eligibility Criteria: Define patient qualifications.\n- Intervention: Provide details on treatment type, dosage, frequency, and duration.\n- Results: Present summaries of outcomes, data, and conclusions.\n- Adverse Events: Document observed side effects.\n\nStatements convey information relating to the CTR, and it's necessary to ensure correspondence with report data and consistency to prevent contradiction. ",
+            "\nAccurate and comprehensive information from Clinical Trials' 'Results' and 'Methods' sections for those knowledgeable in clinical trial terminology - descriptions refer to the contents within one of these sections. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "\nReflect carefully and thoughtfully on the statement made by an authoritative figure in healthcare or clinical trial research about clinical trials. ",
+            "$hypothesis",
+            "Check the clinical trial report for accuracy, consistency, and support of the statement, and answer YES if the report validates its correctness, or NO if it contradicts it or lacks sufficient evidence. "
+        ],
+        "id": "mutated_mutated_mutated_4_5_2_4",
+        "metrics": {
+            "precison_bin": 0.5608646188850968,
+            "precison_micro": 0.5629411764705883,
+            "precision_macro": 0.5630145262513182,
+            "recall_bin": 0.58,
+            "recall_micro": 0.5629411764705883,
+            "recall_macro": 0.5629411764705883,
+            "f1_bin": 0.5702718334297282,
+            "f1_micro": 0.5629411764705883,
+            "f1_macro": 0.5628139538183949
+        }
+    },
+    {
+        "prompt": "\nTo effectively determine semantic entailment between clinical statements and Clinical Trial Reports (CTRs), carefully examine the alignment and consistency of the statements with the CTR sections, including eligibility criteria, intervention details, results summaries, and adverse events. Ensure each statement harmonizes with the corresponding clinical trial information, and avoid contradictions for accurate interpretation and understanding. CTRs provide essential data on clinical trial methods and outcomes, consisting of eligibility criteria, intervention specifications, results summaries, and adverse event documentation.\n\n- Eligibility Criteria: Define the conditions for patient participation.\n- Intervention: Determine the type, dosage, frequency, and duration of treatment.\n- Results: Summarize data on participant statistics, outcome measures, units, and conclusions.\n- Adverse Events: Document observed signs and symptoms.\n\nClinical statements should correspond to the information provided in the CTR, ensuring substantiation and accuracy. \n\n.\n\nThe combined instruction refers to accurate and detailed descriptions of the methods used or findings obtained in the 'Results' or 'Methods' sections of clinical trial reports. These descriptions concern the contents within one standard section of a CTR. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nReflect thoughtfully on the statement made by an authoritative healthcare figure, such as a clinical trial expert or healthcare professional, regarding clinical trials. \n\n$hypothesis\n\n\nConfirm the accuracy and consistency of the statement with the clinical trial report information. Answer YES if the report supports the statement and no contradictions are present; otherwise, answer NO. ",
+        "prompt_partions": [
+            "\nTo effectively determine semantic entailment between clinical statements and Clinical Trial Reports (CTRs), carefully examine the alignment and consistency of the statements with the CTR sections, including eligibility criteria, intervention details, results summaries, and adverse events. Ensure each statement harmonizes with the corresponding clinical trial information, and avoid contradictions for accurate interpretation and understanding. CTRs provide essential data on clinical trial methods and outcomes, consisting of eligibility criteria, intervention specifications, results summaries, and adverse event documentation.\n\n- Eligibility Criteria: Define the conditions for patient participation.\n- Intervention: Determine the type, dosage, frequency, and duration of treatment.\n- Results: Summarize data on participant statistics, outcome measures, units, and conclusions.\n- Adverse Events: Document observed signs and symptoms.\n\nClinical statements should correspond to the information provided in the CTR, ensuring substantiation and accuracy. ",
+            ".\n\nThe combined instruction refers to accurate and detailed descriptions of the methods used or findings obtained in the 'Results' or 'Methods' sections of clinical trial reports. These descriptions concern the contents within one standard section of a CTR. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Reflect thoughtfully on the statement made by an authoritative healthcare figure, such as a clinical trial expert or healthcare professional, regarding clinical trials. ",
+            "$hypothesis",
+            "\nConfirm the accuracy and consistency of the statement with the clinical trial report information. Answer YES if the report supports the statement and no contradictions are present; otherwise, answer NO. "
+        ],
+        "id": "mutated_mutated_mutated_mutated_4_4_4_1",
+        "metrics": {
+            "precison_bin": 0.5405164737310775,
+            "precison_micro": 0.5535294117647059,
+            "precision_macro": 0.5596863131220379,
+            "recall_bin": 0.7141176470588235,
+            "recall_micro": 0.5535294117647059,
+            "recall_macro": 0.5535294117647058,
+            "f1_bin": 0.6153066396350735,
+            "f1_micro": 0.5535294117647059,
+            "f1_macro": 0.5417107830270672
+        }
+    },
+    {
+        "prompt": "\nTo determine semantic entailment between clinical statements and Clinical Trial Report (CTR) sections, examine the consistency of the clinical statements with the CTR data and the specific sections of interest, including eligibility criteria, intervention details, results summaries, and adverse events. Ensure that each clinical statement aligns with the clinical trial information found in the CTR, and avoid contradictions to ensure accurate interpretation and understanding. \n\n The instructions below refer to information from the 'Results' or 'Methods' sections of clinical trial reports, providing accurate and detailed descriptions of the methods used or findings obtained in the reported studies. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nReflect on the statement that is about to be made by a healthcare professional, clinical trial organizer, medical scientist, or clinical specialist. \n\n$hypothesis\n\n\nConfirm the accuracy and consistency of the statement with the clinical trial report information. ",
+        "prompt_partions": [
+            "\nTo determine semantic entailment between clinical statements and Clinical Trial Report (CTR) sections, examine the consistency of the clinical statements with the CTR data and the specific sections of interest, including eligibility criteria, intervention details, results summaries, and adverse events. Ensure that each clinical statement aligns with the clinical trial information found in the CTR, and avoid contradictions to ensure accurate interpretation and understanding. ",
+            " The instructions below refer to information from the 'Results' or 'Methods' sections of clinical trial reports, providing accurate and detailed descriptions of the methods used or findings obtained in the reported studies. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Reflect on the statement that is about to be made by a healthcare professional, clinical trial organizer, medical scientist, or clinical specialist. ",
+            "$hypothesis",
+            "\nConfirm the accuracy and consistency of the statement with the clinical trial report information. "
+        ],
+        "id": "mutated_mutated_mutated_4_4_4_1",
+        "metrics": {
+            "precison_bin": 0.5218068535825545,
+            "precison_micro": 0.5329411764705883,
+            "precision_macro": 0.5445572729451233,
+            "recall_bin": 0.788235294117647,
+            "recall_micro": 0.5329411764705883,
+            "recall_macro": 0.5329411764705883,
+            "f1_bin": 0.6279287722586692,
+            "f1_micro": 0.5329411764705883,
+            "f1_macro": 0.5003782881830471
+        }
+    },
+    {
+        "prompt": "\nTo determine semantic entailment between clinical statements and the respective sections of Clinical Trial Reports (CTRs), it's necessary to understand both the CTR structure and the relationship between clinical statements and this information. CTRs are essential for understanding the methodology, findings, and safety assessment of new treatments, and they consist of four main sections: eligibility criteria, intervention, results, and adverse events.\n\n1. Eligibility criteria: Define conditions for participant inclusion.\n2. Intervention: Outline treatment specifics, including dosage, frequency, and duration.\n3. Results: Summarize outcomes, statistics, units, and conclusions.\n4. Adverse events: Document observed signs and symptoms.\n\nClinical statements convey information about CTR data and may refer to a single report or comparisons between reports. To establish entailment, ensure consistency with CTR information, find verification within the appropriate CTR section, and avoid contradictions. \n\n Descriptions from CTR 'Results' or 'Methods' sections, accurate and detailed information. (Can be used as a shorthand reference for those familiar with the terminology used in clinical trials) \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n.\n\nReflect deeply on the statement about clinical trials made by a healthcare practitioner, clinical trial coordinator, or medical researcher. \n\n$hypothesis\n\nVerify and confirm the accuracy and consistency of the statement with the Clinical Trial Report information. ",
+        "prompt_partions": [
+            "\nTo determine semantic entailment between clinical statements and the respective sections of Clinical Trial Reports (CTRs), it's necessary to understand both the CTR structure and the relationship between clinical statements and this information. CTRs are essential for understanding the methodology, findings, and safety assessment of new treatments, and they consist of four main sections: eligibility criteria, intervention, results, and adverse events.\n\n1. Eligibility criteria: Define conditions for participant inclusion.\n2. Intervention: Outline treatment specifics, including dosage, frequency, and duration.\n3. Results: Summarize outcomes, statistics, units, and conclusions.\n4. Adverse events: Document observed signs and symptoms.\n\nClinical statements convey information about CTR data and may refer to a single report or comparisons between reports. To establish entailment, ensure consistency with CTR information, find verification within the appropriate CTR section, and avoid contradictions. ",
+            " Descriptions from CTR 'Results' or 'Methods' sections, accurate and detailed information. (Can be used as a shorthand reference for those familiar with the terminology used in clinical trials) ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            ".\n\nReflect deeply on the statement about clinical trials made by a healthcare practitioner, clinical trial coordinator, or medical researcher. ",
+            "$hypothesis",
+            "Verify and confirm the accuracy and consistency of the statement with the Clinical Trial Report information. "
+        ],
+        "id": "mutated_mutated_mutated_4_4_4_1",
+        "metrics": {
+            "precison_bin": 0.5163297045101088,
+            "precison_micro": 0.5247058823529411,
+            "precision_macro": 0.5335271710956342,
+            "recall_bin": 0.7811764705882352,
+            "recall_micro": 0.5247058823529411,
+            "recall_macro": 0.5247058823529411,
+            "f1_bin": 0.6217228464419475,
+            "f1_micro": 0.5247058823529411,
+            "f1_macro": 0.49124117005641676
+        }
+    },
+    {
+        "prompt": "\nTo derive valuable insights from the relationships between clinical trial report (CTR) sections and statements, it's essential to comprehend the CTR structure, including its key sections - enrollment criteria, treatment protocol, clinical outcomes, and safety profile. Statements are declarative sentences conveying assertions related to CTR content, applicable to an individual trial or for comparison between trials. Determine entailment by assessing if the claim aligns with the CTR data, is supported by it, and doesn't contradict it. The CTR sections consist of:\n\n1. Enrollment Criteria: Describes patient eligibility conditions.\n2. Treatment Protocol: Details treatment type, dosage, frequency, and duration.\n3. Clinical Outcomes: Reports participant demographics, outcome measures, units, and results.\n4. Safety Profile: Documents adverse events.\n\nStatements relate to this information, and entailment exists when the statement's assertion aligns, is supported, and doesn't contradict the CTR data. \n\n\nThe information in the clinical trial report is extracted directly for a clearer and more general expression. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nThoroughly consider the clinical trial statement from a reputable expert. \n\n$hypothesis\n\nDetermine the agreement between the statement and the Clinical Trial Report, ensuring that the statement does not contradict the report's information. ",
+        "prompt_partions": [
+            "\nTo derive valuable insights from the relationships between clinical trial report (CTR) sections and statements, it's essential to comprehend the CTR structure, including its key sections - enrollment criteria, treatment protocol, clinical outcomes, and safety profile. Statements are declarative sentences conveying assertions related to CTR content, applicable to an individual trial or for comparison between trials. Determine entailment by assessing if the claim aligns with the CTR data, is supported by it, and doesn't contradict it. The CTR sections consist of:\n\n1. Enrollment Criteria: Describes patient eligibility conditions.\n2. Treatment Protocol: Details treatment type, dosage, frequency, and duration.\n3. Clinical Outcomes: Reports participant demographics, outcome measures, units, and results.\n4. Safety Profile: Documents adverse events.\n\nStatements relate to this information, and entailment exists when the statement's assertion aligns, is supported, and doesn't contradict the CTR data. ",
+            "\nThe information in the clinical trial report is extracted directly for a clearer and more general expression. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Thoroughly consider the clinical trial statement from a reputable expert. ",
+            "$hypothesis",
+            "Determine the agreement between the statement and the Clinical Trial Report, ensuring that the statement does not contradict the report's information. "
+        ],
+        "id": "mutated_mutated_4_5_2_4",
+        "metrics": {
+            "precison_bin": 0.510569105691057,
+            "precison_micro": 0.5152941176470588,
+            "precision_macro": 0.519114340079571,
+            "recall_bin": 0.7388235294117647,
+            "recall_micro": 0.5152941176470588,
+            "recall_macro": 0.5152941176470588,
+            "f1_bin": 0.6038461538461538,
+            "f1_micro": 0.5152941176470588,
+            "f1_macro": 0.4898018648018648
+        }
+    },
+    {
+        "prompt": "\nTo determine the relationships between individual sections of Clinical Trial Reports (CTRs) and statements, it is crucial to understand the structure and content of a CTR. A comprehensive CTR consists of four primary sections:\n\n1. Eligibility Criteria: This outlines the patient inclusion conditions for valid and relevant trials.\n2. Intervention: This specifies the type, dosage, frequency, and duration of treatments under investigation.\n3. Results: This summarizes the trial outcomes, including demographics, measures, units, and conclusions.\n4. Adverse Events: This records any signs or symptoms observed during the trial, assessing the safety of the intervention.\n\nStatements are declarative sentences conveying claims related to the information in these sections. To evaluate the support relationship between a CTR section and a statement:\n\n1. Ensure the claim is applicable to the CTR section data.\n2. Confirm the information in the CTR supports the claim.\n3. Verify the claim is consistent with the CTR section's content.\n\nBy assessing statements in this manner, we can understand the clinical trial implications and findings. \n\nThe descriptions that follow derive directly from a particular Clinical Trial Report section. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nCarefully consider the statement about clinical trials formulated by an authority in the field. \n\n$hypothesis\n\nDetermine the statement's agreement with the Clinical Trial Report information and ensure it does not contradict the report's descriptions and data. ",
+        "prompt_partions": [
+            "\nTo determine the relationships between individual sections of Clinical Trial Reports (CTRs) and statements, it is crucial to understand the structure and content of a CTR. A comprehensive CTR consists of four primary sections:\n\n1. Eligibility Criteria: This outlines the patient inclusion conditions for valid and relevant trials.\n2. Intervention: This specifies the type, dosage, frequency, and duration of treatments under investigation.\n3. Results: This summarizes the trial outcomes, including demographics, measures, units, and conclusions.\n4. Adverse Events: This records any signs or symptoms observed during the trial, assessing the safety of the intervention.\n\nStatements are declarative sentences conveying claims related to the information in these sections. To evaluate the support relationship between a CTR section and a statement:\n\n1. Ensure the claim is applicable to the CTR section data.\n2. Confirm the information in the CTR supports the claim.\n3. Verify the claim is consistent with the CTR section's content.\n\nBy assessing statements in this manner, we can understand the clinical trial implications and findings. ",
+            "The descriptions that follow derive directly from a particular Clinical Trial Report section. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Carefully consider the statement about clinical trials formulated by an authority in the field. ",
+            "$hypothesis",
+            "Determine the statement's agreement with the Clinical Trial Report information and ensure it does not contradict the report's descriptions and data. "
+        ],
+        "id": "mutated_mutated_2_1_2_1",
+        "metrics": {
+            "precison_bin": 0.510654490106545,
+            "precison_micro": 0.5164705882352941,
+            "precision_macro": 0.5234619600791792,
+            "recall_bin": 0.7894117647058824,
+            "recall_micro": 0.5164705882352941,
+            "recall_macro": 0.5164705882352941,
+            "f1_bin": 0.6201478743068393,
+            "f1_micro": 0.5164705882352941,
+            "f1_macro": 0.4775496653087594
+        }
+    },
+    {
+        "prompt": "\nTo determine the semantic entailment relationship between Clinical Trial Report (CTR) sections, including eligibility criteria, intervention details, results, and adverse events, and statements, follow these steps:\n\n1. Grasp the CTR components: Eligibility, Intervention, Results, and Adverse Events.\n2. Determine if a statement applies to the given component.\n3. Verify that the statement's content aligns with, and is supported by, the component's information.\n4. Ensure consistency between the statement and the component's content.\n\nThis process offers insights into the clinical trial's significance and discoveries. \n\nThe following descriptions originate from the Clinical Trial Report section. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nEvaluate carefully the clinical trials statement from a reputable source or authoritative healthcare figure. \n\n$hypothesis\n\nVerify that the statement aligns with and supports the clinical trial report's facts and findings, without introducing any conflicting information. ",
+        "prompt_partions": [
+            "\nTo determine the semantic entailment relationship between Clinical Trial Report (CTR) sections, including eligibility criteria, intervention details, results, and adverse events, and statements, follow these steps:\n\n1. Grasp the CTR components: Eligibility, Intervention, Results, and Adverse Events.\n2. Determine if a statement applies to the given component.\n3. Verify that the statement's content aligns with, and is supported by, the component's information.\n4. Ensure consistency between the statement and the component's content.\n\nThis process offers insights into the clinical trial's significance and discoveries. ",
+            "The following descriptions originate from the Clinical Trial Report section. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Evaluate carefully the clinical trials statement from a reputable source or authoritative healthcare figure. ",
+            "$hypothesis",
+            "Verify that the statement aligns with and supports the clinical trial report's facts and findings, without introducing any conflicting information. "
+        ],
+        "id": "mutated_mutated_mutated_4_5_2_4",
+        "metrics": {
+            "precison_bin": 0.5082831325301205,
+            "precison_micro": 0.5129411764705882,
+            "precision_macro": 0.5189265125016194,
+            "recall_bin": 0.7941176470588235,
+            "recall_micro": 0.5129411764705882,
+            "recall_macro": 0.5129411764705882,
+            "f1_bin": 0.6198347107438016,
+            "f1_micro": 0.5129411764705882,
+            "f1_macro": 0.4711284846681365
+        }
+    },
+    {
+        "prompt": "\nTo ensure precise interpretation and comprehension of the connection between clinical statements and Clinical Trial Report (CTR) components, it is necessary to thoroughly understand the organization and content of a CTR. A comprehensive CTR consists of four main sections: eligibility, treatments, findings, and safety.\n\n1. Eligibility: Describes the patient qualifications for inclusion in valid and relevant trials.\n2. Treatments: Details the type, dosage, frequency, and duration of investigational interventions.\n3. Findings: Compiles the trial results, including demographic information, measurement tools, units, and conclusions.\n4. Safety: Documents any adverse reactions or events observed during the trial.\n\nTo determine the relationship between a clinical statement and a CTR component, follow these steps:\n\n1. Verify that the statement pertains to the component.\n2. Affirm that the information in the component supports the statement.\n3. Ensure the statement aligns with the content of the component.\n\nBy analyzing statements in relation to these CTR components, insights into the clinical trial significance and discoveries can be gained. \n\n\nThe following instructions accurately and precisely convey the study's methods and outcomes, drawn directly from a specific Clinical Trial Report section. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n\nEvaluate the upcoming clinical trials statement from a reputable healthcare expert, clinical trial organizer, medical researcher, or clinical specialist. \n\n$hypothesis\n\n- Verify that the statement conforms to the clinical trial report's facts and findings, ensuring no contradiction occurs. ",
+        "prompt_partions": [
+            "\nTo ensure precise interpretation and comprehension of the connection between clinical statements and Clinical Trial Report (CTR) components, it is necessary to thoroughly understand the organization and content of a CTR. A comprehensive CTR consists of four main sections: eligibility, treatments, findings, and safety.\n\n1. Eligibility: Describes the patient qualifications for inclusion in valid and relevant trials.\n2. Treatments: Details the type, dosage, frequency, and duration of investigational interventions.\n3. Findings: Compiles the trial results, including demographic information, measurement tools, units, and conclusions.\n4. Safety: Documents any adverse reactions or events observed during the trial.\n\nTo determine the relationship between a clinical statement and a CTR component, follow these steps:\n\n1. Verify that the statement pertains to the component.\n2. Affirm that the information in the component supports the statement.\n3. Ensure the statement aligns with the content of the component.\n\nBy analyzing statements in relation to these CTR components, insights into the clinical trial significance and discoveries can be gained. ",
+            "\nThe following instructions accurately and precisely convey the study's methods and outcomes, drawn directly from a specific Clinical Trial Report section. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "\nEvaluate the upcoming clinical trials statement from a reputable healthcare expert, clinical trial organizer, medical researcher, or clinical specialist. ",
+            "$hypothesis",
+            "- Verify that the statement conforms to the clinical trial report's facts and findings, ensuring no contradiction occurs. "
+        ],
+        "id": "mutated_mutated_mutated_mutated_2_1_2_1",
+        "metrics": {
+            "precison_bin": 0.5114942528735632,
+            "precison_micro": 0.5188235294117647,
+            "precision_macro": 0.5317211524108076,
+            "recall_bin": 0.8376470588235294,
+            "recall_micro": 0.5188235294117647,
+            "recall_macro": 0.5188235294117647,
+            "f1_bin": 0.6351471900089206,
+            "f1_micro": 0.5188235294117647,
+            "f1_macro": 0.4643784309284672
+        }
+    },
+    {
+        "prompt": "\nTo accurately evaluate the relationship between clinical trial reports (CTRs) and statements, it is necessary to understand the CTR structure, focusing on its essential sections: eligibility criteria, intervention details, results summaries, and adverse events. Statements correspond with declarative sentences related to CTR data and can be applied to individual trials or for comparisons between trials. Confirm that the statements are consistent with the trial data presented in these CTR sections, ensuring that their assertions correspond, are substantiated, and do not contradict the CTR information. By evaluating the semantic compatibility of the clinical statements with the CTR data, we can gain valuable insights into the relationship between the two and ensure the accuracy of our interpretations and comprehension. \n\n\nExtract and accurately and precisely convey the data from the clinical trial report for a more comprehensible and all-encompassing understanding. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n\nContemplate a trusted clinical trial statement from a healthcare expert or clinical specialist. \n\n$hypothesis\n\n- To guarantee the accuracy of the statement, compare it thoroughly with the Clinical Trial Report data, ensuring consistency and uniformity in meaning. ",
+        "prompt_partions": [
+            "\nTo accurately evaluate the relationship between clinical trial reports (CTRs) and statements, it is necessary to understand the CTR structure, focusing on its essential sections: eligibility criteria, intervention details, results summaries, and adverse events. Statements correspond with declarative sentences related to CTR data and can be applied to individual trials or for comparisons between trials. Confirm that the statements are consistent with the trial data presented in these CTR sections, ensuring that their assertions correspond, are substantiated, and do not contradict the CTR information. By evaluating the semantic compatibility of the clinical statements with the CTR data, we can gain valuable insights into the relationship between the two and ensure the accuracy of our interpretations and comprehension. ",
+            "\nExtract and accurately and precisely convey the data from the clinical trial report for a more comprehensible and all-encompassing understanding. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "\nContemplate a trusted clinical trial statement from a healthcare expert or clinical specialist. ",
+            "$hypothesis",
+            "- To guarantee the accuracy of the statement, compare it thoroughly with the Clinical Trial Report data, ensuring consistency and uniformity in meaning. "
+        ],
+        "id": "mutated_mutated_mutated_mutated_4_5_2_4",
+        "metrics": {
+            "precison_bin": 0.5089734386216799,
+            "precison_micro": 0.5147058823529411,
+            "precision_macro": 0.524845025499765,
+            "recall_bin": 0.8341176470588235,
+            "recall_micro": 0.5147058823529411,
+            "recall_macro": 0.5147058823529411,
+            "f1_bin": 0.6321890325456977,
+            "f1_micro": 0.5147058823529411,
+            "f1_macro": 0.45956901929791366
+        }
+    },
+    {
+        "prompt": "To determine semantic entailment between clinical statements and Clinical Trial Reports (CTRs), it's essential to comprehend both the CTR structure and the relationship between clinical statements and this information. A CTR consists of four main sections: eligibility criteria, intervention, results, and adverse events.\n\n1. Eligibility criteria: This outlines the conditions for participant inclusion.\n2. Intervention: This specifies the treatment type, dosage, frequency, and duration.\n3. Results: This summarizes the trial outcomes, including statistics, units, and conclusions.\n4. Adverse events: This records observed signs and symptoms, assessing the safety of the intervention.\n\nClinical statements convey information related to CTR data and may reference a single report or comparisons between reports. To establish entailment, ensure consistency with CTR information, find verification within the appropriate CTR section, verify applicability and support between statements and CTR sections, and avoid contradictions. \n\n Accurate and detailed information from Clinical Trial Reports' CTR 'Results' or 'Methods' sections can be used as shorthand references for those familiar with the terminology. \n\nOr, generate a longer combined instruction with explanations:\n The instructions provided below are derived from the 'Results' or 'Methods' sections of specific Clinical Trial Reports. These sections contain the most accurate and detailed information about the clinical trials, and can be used as valuable references for those who are well-versed in the terminology and concepts used in clinical research.  \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n\nThoroughly contemplate the clinical trials statement from a knowledgeable source. \n\n$hypothesis\n\n\nConfirm the statement's accuracy and consistency with the Clinical Trial Report information, ensuring agreement and absence of contradiction. ",
+        "prompt_partions": [
+            "To determine semantic entailment between clinical statements and Clinical Trial Reports (CTRs), it's essential to comprehend both the CTR structure and the relationship between clinical statements and this information. A CTR consists of four main sections: eligibility criteria, intervention, results, and adverse events.\n\n1. Eligibility criteria: This outlines the conditions for participant inclusion.\n2. Intervention: This specifies the treatment type, dosage, frequency, and duration.\n3. Results: This summarizes the trial outcomes, including statistics, units, and conclusions.\n4. Adverse events: This records observed signs and symptoms, assessing the safety of the intervention.\n\nClinical statements convey information related to CTR data and may reference a single report or comparisons between reports. To establish entailment, ensure consistency with CTR information, find verification within the appropriate CTR section, verify applicability and support between statements and CTR sections, and avoid contradictions. ",
+            " Accurate and detailed information from Clinical Trial Reports' CTR 'Results' or 'Methods' sections can be used as shorthand references for those familiar with the terminology. \n\nOr, generate a longer combined instruction with explanations:\n The instructions provided below are derived from the 'Results' or 'Methods' sections of specific Clinical Trial Reports. These sections contain the most accurate and detailed information about the clinical trials, and can be used as valuable references for those who are well-versed in the terminology and concepts used in clinical research.  ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "\nThoroughly contemplate the clinical trials statement from a knowledgeable source. ",
+            "$hypothesis",
+            "\nConfirm the statement's accuracy and consistency with the Clinical Trial Report information, ensuring agreement and absence of contradiction. "
+        ],
+        "id": "mutated_mutated_mutated_2_1_2_1",
+        "metrics": {
+            "precison_bin": 0.5046999276934201,
+            "precison_micro": 0.5076470588235295,
+            "precision_macro": 0.5126023297773095,
+            "recall_bin": 0.8211764705882353,
+            "recall_micro": 0.5076470588235295,
+            "recall_macro": 0.5076470588235295,
+            "f1_bin": 0.6251679355127632,
+            "f1_micro": 0.5076470588235295,
+            "f1_macro": 0.45397214256357954
+        }
+    },
+    {
+        "prompt": "To gain valuable insights from the relationship between clinical trial reports (CTRs) and statements, understanding the CTR structure, specifically its essential sections - eligibility criteria, intervention details, results, and adverse events - is crucial. Statements convey claims related to this information, harmonizing with clinical trial data, finding substantiation in the CTR, and avoiding contradiction. The CTR details clinical trial methods and outcomes, testing treatment efficacy and safety, and includes eligibility criteria, intervention, results, and adverse events sections. - Eligibility Criteria: Define patient participation conditions. - Intervention: Specify treatment type, dosage, frequency, and duration. - Results: Summarize participant data, including statistics, outcome measures, units, and conclusions. - Adverse Events: Document observed signs and symptoms. \n\nExtract and gather the data from the clinical trial report to enhance the overall clarity, applicability, and inclusivity of the information presented.\n\nGenerate the combined instruction with a brief explanation:\n\nTo facilitate a more comprehensive and inclusive understanding of the contents within a standard section of a Clinical Trial Report (CTR), please extract and gather the relevant data from the report. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n\nReflect thoughtfully on the trusted clinical trial statement from a credible source. \n\n$hypothesis\n\n1. Verify consistency between the statement and the Clinical Trial Report by examining them closely and checking for contradictions.\nAnswer YES if they agree, otherwise answer NO. ",
+        "prompt_partions": [
+            "To gain valuable insights from the relationship between clinical trial reports (CTRs) and statements, understanding the CTR structure, specifically its essential sections - eligibility criteria, intervention details, results, and adverse events - is crucial. Statements convey claims related to this information, harmonizing with clinical trial data, finding substantiation in the CTR, and avoiding contradiction. The CTR details clinical trial methods and outcomes, testing treatment efficacy and safety, and includes eligibility criteria, intervention, results, and adverse events sections. - Eligibility Criteria: Define patient participation conditions. - Intervention: Specify treatment type, dosage, frequency, and duration. - Results: Summarize participant data, including statistics, outcome measures, units, and conclusions. - Adverse Events: Document observed signs and symptoms. ",
+            "Extract and gather the data from the clinical trial report to enhance the overall clarity, applicability, and inclusivity of the information presented.\n\nGenerate the combined instruction with a brief explanation:\n\nTo facilitate a more comprehensive and inclusive understanding of the contents within a standard section of a Clinical Trial Report (CTR), please extract and gather the relevant data from the report. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "\nReflect thoughtfully on the trusted clinical trial statement from a credible source. ",
+            "$hypothesis",
+            "1. Verify consistency between the statement and the Clinical Trial Report by examining them closely and checking for contradictions.\nAnswer YES if they agree, otherwise answer NO. "
+        ],
+        "id": "mutated_mutated_mutated_4_5_2_4",
+        "metrics": {
+            "precison_bin": 0.5073580939032937,
+            "precison_micro": 0.5123529411764706,
+            "precision_macro": 0.522909816182416,
+            "recall_bin": 0.851764705882353,
+            "recall_micro": 0.5123529411764706,
+            "recall_macro": 0.5123529411764706,
+            "f1_bin": 0.6359244620114185,
+            "f1_micro": 0.5123529411764706,
+            "f1_macro": 0.44886160767534417
+        }
+    },
+    {
+        "prompt": "\nTo evaluate the relationships between individual sections of a Clinical Trial Report (CTR) and statements, it's necessary to understand the CTR's structure and content, comprised of four key sections: enrollment criteria, treatment protocol, clinical outcomes, and safety profile. Statements are declarative sentences expressing assertions related to the CTR's information.\n\nTo establish the alignment between a statement and a CTR section:\n\n1. Determine if the claim applies to the CTR section data.\n2. Confirm the CTR section supports the claim.\n3. Verify the claim doesn't contradict the CTR section content.\n\nBy evaluating statements in this manner, we can derive valuable insights from the relationships and understand the clinical trial implications and findings.\n\nThe combined instruction is concise and summarizes the main points from both instructions. It maintains the original intent while providing a clear and straightforward process for evaluating the relationship between statements and CTR sections. \n\nand without losing the intent and the main points from the original instructions.\nThe descriptions derived from a Clinical Trial Report are expressed in a clearer and more general manner. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nMeticulously evaluate the clinical trial statement from a trusted expert in the field. \n\n$hypothesis\n\n\nDetermine the statement's agreement with the Clinical Trial Report's descriptions and data, ensuring it does not contradict the report. ",
+        "prompt_partions": [
+            "\nTo evaluate the relationships between individual sections of a Clinical Trial Report (CTR) and statements, it's necessary to understand the CTR's structure and content, comprised of four key sections: enrollment criteria, treatment protocol, clinical outcomes, and safety profile. Statements are declarative sentences expressing assertions related to the CTR's information.\n\nTo establish the alignment between a statement and a CTR section:\n\n1. Determine if the claim applies to the CTR section data.\n2. Confirm the CTR section supports the claim.\n3. Verify the claim doesn't contradict the CTR section content.\n\nBy evaluating statements in this manner, we can derive valuable insights from the relationships and understand the clinical trial implications and findings.\n\nThe combined instruction is concise and summarizes the main points from both instructions. It maintains the original intent while providing a clear and straightforward process for evaluating the relationship between statements and CTR sections. ",
+            "and without losing the intent and the main points from the original instructions.\nThe descriptions derived from a Clinical Trial Report are expressed in a clearer and more general manner. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Meticulously evaluate the clinical trial statement from a trusted expert in the field. ",
+            "$hypothesis",
+            "\nDetermine the statement's agreement with the Clinical Trial Report's descriptions and data, ensuring it does not contradict the report. "
+        ],
+        "id": "mutated_mutated_mutated_2_1_2_1",
+        "metrics": {
+            "precison_bin": 0.502865329512894,
+            "precison_micro": 0.5047058823529412,
+            "precision_macro": 0.5080116121248681,
+            "recall_bin": 0.8258823529411765,
+            "recall_micro": 0.5047058823529412,
+            "recall_macro": 0.5047058823529412,
+            "f1_bin": 0.6251113089937668,
+            "f1_micro": 0.5047058823529412,
+            "f1_macro": 0.44773763023345187
+        }
+    },
+    {
+        "prompt": "eligibility criteria, intervention, clinical outcomes, and safety profile. Clinical statements convey information about CTR data and may refer to a single report or comparisons between reports. Entailment exists when the statement's assertion aligns, is supported, and doesn't contradict the CTR data within the appropriate section:\n\n1. Eligibility criteria: Define conditions for participant inclusion.\n2. Intervention: Outline treatment specifics, including dosage, frequency, and duration.\n3. Clinical outcomes: Summarize outcomes, statistics, units, and conclusions.\n4. Adverse events: Document observed signs and symptoms.\n\nEnsure consistency, find verification, and avoid contradictions. \n\nof the context, assuming familiarity with clinical trials.\n\n The clinical trial report's descriptions from the 'Results' or 'Methods' sections provide accurate and detailed information that can serve as a shorthand reference, clearer and more generally expressed, for those familiar with the terminology used in clinical trials. \n\nGenerate the combined instruction with explanation of the context.\n\n For those conducting research or analyzing clinical trial reports, it's essential to have access to precise and comprehensive descriptions of the study's methods and results. The 'Results' and 'Methods' sections in these reports contain accurate and detailed information that, when clearer and more generally expressed, can be used as a valuable shorthand reference for those familiar with the specific terminology of clinical trials.  \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n\nConsider the clinical trial statement made by a reputable healthcare practitioner, clinical trial coordinator, or medical researcher, reflecting deeply on its meaning and significance. \n\n$hypothesis\n\n\nAffirm the congruence between the statement and the Clinical Trial Report, ensuring consistency and agreement without contradiction.\n\nExplanation:\nThe main points of the two original instructions are to check the accuracy and consistency of the statement with the Clinical Trial Report and to determine the agreement between the statement and the Clinical Trial Report. To combine these instructions, the common goal is to ensure both consistency and agreement between the statement and the Clinical Trial Report. The combined instruction can be made shorter by using the term congruence to summarize the idea of consistency and agreement, and by ensuring that there is no contradiction. The instruction should inform the execution of the task by stating that the goal is to affirm or verify the agreement between",
+        "prompt_partions": [
+            "eligibility criteria, intervention, clinical outcomes, and safety profile. Clinical statements convey information about CTR data and may refer to a single report or comparisons between reports. Entailment exists when the statement's assertion aligns, is supported, and doesn't contradict the CTR data within the appropriate section:\n\n1. Eligibility criteria: Define conditions for participant inclusion.\n2. Intervention: Outline treatment specifics, including dosage, frequency, and duration.\n3. Clinical outcomes: Summarize outcomes, statistics, units, and conclusions.\n4. Adverse events: Document observed signs and symptoms.\n\nEnsure consistency, find verification, and avoid contradictions. ",
+            "of the context, assuming familiarity with clinical trials.\n\n The clinical trial report's descriptions from the 'Results' or 'Methods' sections provide accurate and detailed information that can serve as a shorthand reference, clearer and more generally expressed, for those familiar with the terminology used in clinical trials. \n\nGenerate the combined instruction with explanation of the context.\n\n For those conducting research or analyzing clinical trial reports, it's essential to have access to precise and comprehensive descriptions of the study's methods and results. The 'Results' and 'Methods' sections in these reports contain accurate and detailed information that, when clearer and more generally expressed, can be used as a valuable shorthand reference for those familiar with the specific terminology of clinical trials.  ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "\nConsider the clinical trial statement made by a reputable healthcare practitioner, clinical trial coordinator, or medical researcher, reflecting deeply on its meaning and significance. ",
+            "$hypothesis",
+            "\nAffirm the congruence between the statement and the Clinical Trial Report, ensuring consistency and agreement without contradiction.\n\nExplanation:\nThe main points of the two original instructions are to check the accuracy and consistency of the statement with the Clinical Trial Report and to determine the agreement between the statement and the Clinical Trial Report. To combine these instructions, the common goal is to ensure both consistency and agreement between the statement and the Clinical Trial Report. The combined instruction can be made shorter by using the term congruence to summarize the idea of consistency and agreement, and by ensuring that there is no contradiction. The instruction should inform the execution of the task by stating that the goal is to affirm or verify the agreement between"
+        ],
+        "id": "mutated_mutated_mutated_4_5_2_4",
+        "metrics": {
+            "precison_bin": 0.4918879056047198,
+            "precison_micro": 0.48705882352941177,
+            "precision_macro": 0.47995558070933664,
+            "recall_bin": 0.7847058823529411,
+            "recall_micro": 0.48705882352941177,
+            "recall_macro": 0.48705882352941177,
+            "f1_bin": 0.6047144152311876,
+            "f1_micro": 0.48705882352941177,
+            "f1_macro": 0.43719807863736937
+        }
+    },
+    {
+        "prompt": "\nTo assess if clinical statements semantically entail information within Clinical Trial Reports (CTRs), examine the consistency of the clinical statements with the CTR data and the specific sections of interest: inclusion and exclusion criteria, treatment details, trial results, and adverse events. Ensure that each clinical statement aligns with the clinical trial information found in the CTR and avoid contradictions. \n\nAccurate and detailed descriptions of methods used or findings obtained from the 'Results' or 'Methods' sections of clinical trial reports for those knowledgeable in clinical trial terminology. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nReflect deeply and carefully on the statement given by a healthcare professional, clinical trial organizer, medical researcher, or clinical specialist about clinical trials. \n\n$hypothesis\n\nTo ensure the accuracy and consistency of the statement, compare it to the clinical trial report information.\n\nExplanation:\nIn the combined instruction, the objective is to verify and maintain consistency between the statement and the clinical trial report. This is accomplished by comparing the two. The meaning and intent of the original instructions have been preserved, but the instruction has been simplified by removing redundant language and combining similar ideas. The instruction is now more concise and easier to understand. ",
+        "prompt_partions": [
+            "\nTo assess if clinical statements semantically entail information within Clinical Trial Reports (CTRs), examine the consistency of the clinical statements with the CTR data and the specific sections of interest: inclusion and exclusion criteria, treatment details, trial results, and adverse events. Ensure that each clinical statement aligns with the clinical trial information found in the CTR and avoid contradictions. ",
+            "Accurate and detailed descriptions of methods used or findings obtained from the 'Results' or 'Methods' sections of clinical trial reports for those knowledgeable in clinical trial terminology. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Reflect deeply and carefully on the statement given by a healthcare professional, clinical trial organizer, medical researcher, or clinical specialist about clinical trials. ",
+            "$hypothesis",
+            "To ensure the accuracy and consistency of the statement, compare it to the clinical trial report information.\n\nExplanation:\nIn the combined instruction, the objective is to verify and maintain consistency between the statement and the clinical trial report. This is accomplished by comparing the two. The meaning and intent of the original instructions have been preserved, but the instruction has been simplified by removing redundant language and combining similar ideas. The instruction is now more concise and easier to understand. "
+        ],
+        "id": "mutated_mutated_mutated_mutated_4_4_4_1",
+        "metrics": {
+            "precison_bin": 0.5003399048266486,
+            "precison_micro": 0.5005882352941177,
+            "precision_macro": 0.5012616554700928,
+            "recall_bin": 0.8658823529411764,
+            "recall_micro": 0.5005882352941177,
+            "recall_macro": 0.5005882352941177,
+            "f1_bin": 0.6342093925032315,
+            "f1_micro": 0.5005882352941177,
+            "f1_macro": 0.42368486307274644
+        }
+    },
+    {
+        "prompt": "\nTo examine semantic entailment relationships between statements and Clinical Trial Report (CTR) sections, it is essential to understand the structure and interconnectedness of CTR components and how statements relate to eligibility criteria, intervention details, results, and adverse events sections. CTRs detail clinical trial methods and outcomes, testing treatment efficacy and safety. They consist of sections on eligibility criteria (defining patient participation conditions), intervention (specifying treatment type, dosage, frequency, and duration), results (summarizing participant data, including statistics, outcome measures, units, and conclusions), and adverse events (documenting observed signs and symptoms). Statements convey claims related to this information and should harmonize with clinical trial data, find substantiation in the CTR, and avoid contradiction.\n\n\nThis combined instruction summarizes the main points from both instructions and clarifies the relationship between statements and the CTR sections, ensuring a clearer understanding of the task and the required alignment between statements and CTR data. It is longer than the original instructions to provide additional clarifications and definitions while avoiding incorrect information. However, it remains concise and direct, providing a clear path for executing the task. \n\nDescriptions refer to the contents of specific sections in a Clinical Trial Report, providing details and data in designated areas. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n\nConsider the statement of a trusted healthcare expert or clinical trial authority regarding clinical trials. Reflect carefully on their informed viewpoint. \n\n$hypothesis\n\n Answer YES if the clinical trial report conforms to the statement and matches the provided descriptions. Otherwise, answer NO. \nThis combined instruction summarizes the main points of the original instructions and keeps the meaning and intent consistent with the original while making the instruction shorter. ",
+        "prompt_partions": [
+            "\nTo examine semantic entailment relationships between statements and Clinical Trial Report (CTR) sections, it is essential to understand the structure and interconnectedness of CTR components and how statements relate to eligibility criteria, intervention details, results, and adverse events sections. CTRs detail clinical trial methods and outcomes, testing treatment efficacy and safety. They consist of sections on eligibility criteria (defining patient participation conditions), intervention (specifying treatment type, dosage, frequency, and duration), results (summarizing participant data, including statistics, outcome measures, units, and conclusions), and adverse events (documenting observed signs and symptoms). Statements convey claims related to this information and should harmonize with clinical trial data, find substantiation in the CTR, and avoid contradiction.\n\n\nThis combined instruction summarizes the main points from both instructions and clarifies the relationship between statements and the CTR sections, ensuring a clearer understanding of the task and the required alignment between statements and CTR data. It is longer than the original instructions to provide additional clarifications and definitions while avoiding incorrect information. However, it remains concise and direct, providing a clear path for executing the task. ",
+            "Descriptions refer to the contents of specific sections in a Clinical Trial Report, providing details and data in designated areas. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "\nConsider the statement of a trusted healthcare expert or clinical trial authority regarding clinical trials. Reflect carefully on their informed viewpoint. ",
+            "$hypothesis",
+            " Answer YES if the clinical trial report conforms to the statement and matches the provided descriptions. Otherwise, answer NO. \nThis combined instruction summarizes the main points of the original instructions and keeps the meaning and intent consistent with the original while making the instruction shorter. "
+        ],
+        "id": "mutated_mutated_mutated_4_5_2_4",
+        "metrics": {
+            "precison_bin": 0.5032981530343008,
+            "precison_micro": 0.5058823529411764,
+            "precision_macro": 0.5152360330388895,
+            "recall_bin": 0.8976470588235295,
+            "recall_micro": 0.5058823529411764,
+            "recall_macro": 0.5058823529411764,
+            "f1_bin": 0.6449704142011835,
+            "f1_micro": 0.5058823529411764,
+            "f1_macro": 0.4162956519748664
+        }
+    },
+    {
+        "prompt": "\nTo analyze semantic entailment between clinical statements and the respective sections of Clinical Trial Reports (CTRs), it's necessary to understand both the CTR structure and the relationship between clinical statements and this information. Clinical Trial Reports are crucial for understanding clinical trial methods and outcomes, and they consist of the following sections: eligibility criteria, intervention, results, and adverse events.\n\n1. Eligibility criteria: Define conditions for participant inclusion.\n2. Intervention: Outline treatment specifics, including dosage, frequency, and duration.\n3. Results: Summarize outcomes, presenting statistics, outcome measures, units, and conclusions.\n4. Adverse events: Document observed signs and symptoms.\n\nClinical statements must align with the CTR's information, be supported by the data, and refrain from contradiction. They may refer to a single CTR or comparisons between reports, and establishing entailment requires consistency with CTR information, verification within the appropriate CTR section, and avoiding contradictions. \n\n\nIn a Clinical Trial Report (CTR), the description refers to the accurate and detailed information provided in designated sections, such as 'Results' or 'Methods.'  \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nConsider the perspective of a reputable healthcare authority or clinical trial expert when evaluating statements about clinical trials. \n\n$hypothesis\n\n\n- Verify and confirm the accuracy and consistency of the statement with the Clinical Trial Report information.\n- Answer YES if the statement and report convey the same meaning and there is no discrepancy. \n\nThe combined instruction achieves the same objective as the original instructions but is more concise, clearer, and easier to read by using active voice and simpler language. ",
+        "prompt_partions": [
+            "\nTo analyze semantic entailment between clinical statements and the respective sections of Clinical Trial Reports (CTRs), it's necessary to understand both the CTR structure and the relationship between clinical statements and this information. Clinical Trial Reports are crucial for understanding clinical trial methods and outcomes, and they consist of the following sections: eligibility criteria, intervention, results, and adverse events.\n\n1. Eligibility criteria: Define conditions for participant inclusion.\n2. Intervention: Outline treatment specifics, including dosage, frequency, and duration.\n3. Results: Summarize outcomes, presenting statistics, outcome measures, units, and conclusions.\n4. Adverse events: Document observed signs and symptoms.\n\nClinical statements must align with the CTR's information, be supported by the data, and refrain from contradiction. They may refer to a single CTR or comparisons between reports, and establishing entailment requires consistency with CTR information, verification within the appropriate CTR section, and avoiding contradictions. ",
+            "\nIn a Clinical Trial Report (CTR), the description refers to the accurate and detailed information provided in designated sections, such as 'Results' or 'Methods.'  ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Consider the perspective of a reputable healthcare authority or clinical trial expert when evaluating statements about clinical trials. ",
+            "$hypothesis",
+            "\n- Verify and confirm the accuracy and consistency of the statement with the Clinical Trial Report information.\n- Answer YES if the statement and report convey the same meaning and there is no discrepancy. \n\nThe combined instruction achieves the same objective as the original instructions but is more concise, clearer, and easier to read by using active voice and simpler language. "
+        ],
+        "id": "mutated_mutated_mutated_mutated_4_4_4_1",
+        "metrics": {
+            "precison_bin": 0.4898785425101215,
+            "precison_micro": 0.4823529411764706,
+            "precision_macro": 0.4605356015302901,
+            "recall_bin": 0.8541176470588235,
+            "recall_micro": 0.4823529411764706,
+            "recall_macro": 0.4823529411764706,
+            "f1_bin": 0.6226415094339623,
+            "f1_micro": 0.4823529411764706,
+            "f1_macro": 0.3993357359903894
+        }
+    },
+    {
+        "prompt": "To examine semantic entailment relationships between clinical statements and the Clinical Trial Report (CTR), it is essential to comprehend CTR components and the connection between clinical statements and the specified sections: eligibility criteria, intervention details, results, and adverse events. CTRs provide information on clinical trial methods and outcomes, evaluating treatment efficacy and safety. The eligibility criteria, intervention, results, and adverse events sections of the CTR should be closely examined to confirm that all clinical statements align with this data and avoid contradictions. Clinical statements should be consistent with the patient participation conditions defined in the eligibility criteria section, specify the same treatment type, dosage, frequency, and duration as the intervention details section, harmonize with the statistics, outcome measures, units, and conclusions in the results section, and document observed signs and symptoms in the adverse events section. \n\nThe following descriptions accurately and precisely convey the methods and outcomes detailed within the 'Results' and 'Methods' sections of Clinical Trial Reports. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n\nContemplate carefully the statement from an authoritative healthcare figure, clinical trial organizer, medical researcher, or clinical specialist about clinical trials. \n\n$hypothesis\n\n- Confirm the statement's accuracy by comparing it with the clinical trial report information.\n- Keep consistency between the statement and clinical trial report data.\n\nExplanation:\nBoth instructions aim to ensure that the statement's validity aligns with the clinical trial report data. The combined instruction achieves the same objective by using clearer language, emphasizing the need for accuracy and consistency, and avoiding potential misunderstanding by using the term confirm instead of generate answers. By combining these instructions, the resulting instruction is more succinct and direct, providing clearer guidance for the execution of the task. ",
+        "prompt_partions": [
+            "To examine semantic entailment relationships between clinical statements and the Clinical Trial Report (CTR), it is essential to comprehend CTR components and the connection between clinical statements and the specified sections: eligibility criteria, intervention details, results, and adverse events. CTRs provide information on clinical trial methods and outcomes, evaluating treatment efficacy and safety. The eligibility criteria, intervention, results, and adverse events sections of the CTR should be closely examined to confirm that all clinical statements align with this data and avoid contradictions. Clinical statements should be consistent with the patient participation conditions defined in the eligibility criteria section, specify the same treatment type, dosage, frequency, and duration as the intervention details section, harmonize with the statistics, outcome measures, units, and conclusions in the results section, and document observed signs and symptoms in the adverse events section. ",
+            "The following descriptions accurately and precisely convey the methods and outcomes detailed within the 'Results' and 'Methods' sections of Clinical Trial Reports. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "\nContemplate carefully the statement from an authoritative healthcare figure, clinical trial organizer, medical researcher, or clinical specialist about clinical trials. ",
+            "$hypothesis",
+            "- Confirm the statement's accuracy by comparing it with the clinical trial report information.\n- Keep consistency between the statement and clinical trial report data.\n\nExplanation:\nBoth instructions aim to ensure that the statement's validity aligns with the clinical trial report data. The combined instruction achieves the same objective by using clearer language, emphasizing the need for accuracy and consistency, and avoiding potential misunderstanding by using the term confirm instead of generate answers. By combining these instructions, the resulting instruction is more succinct and direct, providing clearer guidance for the execution of the task. "
+        ],
+        "id": "mutated_mutated_mutated_4_5_2_4",
+        "metrics": {
+            "precison_bin": 0.5003178639542276,
+            "precison_micro": 0.5005882352941177,
+            "precision_macro": 0.5021274359141217,
+            "recall_bin": 0.9258823529411765,
+            "recall_micro": 0.5005882352941177,
+            "recall_macro": 0.5005882352941177,
+            "f1_bin": 0.6496079240610814,
+            "f1_micro": 0.5005882352941177,
+            "f1_macro": 0.390310615049988
+        }
+    },
+    {
+        "prompt": "\nTo assess the connection between statements and the respective components of a Clinical Trial Report (CTR), follow these steps:\n\n1. Determine if the statement pertains to a particular CTR component, i.e., eligibility, treatments, findings, or safety.\n2. Ensure consistency between the statement and the component's information by confirming that the statement's content substantiates the component's data and that there are no contradictions.\n\nBy evaluating the relationship between clinical statements and CTR components in this manner, you can gain a deeper understanding of the clinical trial's significance and uncover valuable insights. \n\n The descriptions that follow are accurate and detailed accounts of the methods used or findings obtained in the 'Results' or 'Methods' sections of clinical trial reports. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nEvaluate carefully the clinical trials statement made by a reputable healthcare professional, clinical trial organizer, medical scientist, or clinical specialist.\n\nExplanation: The combined instruction retains the main idea of both original instructions, which is to carefully evaluate a statement about clinical trials, but it does so in a clearer, more concise way. The first instruction asks readers to evaluate the statement, and the second instruction specifies that the statement is made by a reputable healthcare professional, clinical trial organizer, medical scientist, or clinical specialist. The combined instruction achieves the same effect in fewer words by combining the two ideas. Additionally, the instruction is more direct and clearer in terms of the execution of the task, it informs the readers exactly what they are expected to do, and it also avoids repetition and redundancy of information. \n\n$hypothesis\n\nConfirm the accuracy and consistency of the statement with the Clinical Trial Report's facts and findings, without conflicting them. \n\nThis combined instruction is clear and concise and effectively communicates the objective of the task, while maintaining the original intent of the instructions. ",
+        "prompt_partions": [
+            "\nTo assess the connection between statements and the respective components of a Clinical Trial Report (CTR), follow these steps:\n\n1. Determine if the statement pertains to a particular CTR component, i.e., eligibility, treatments, findings, or safety.\n2. Ensure consistency between the statement and the component's information by confirming that the statement's content substantiates the component's data and that there are no contradictions.\n\nBy evaluating the relationship between clinical statements and CTR components in this manner, you can gain a deeper understanding of the clinical trial's significance and uncover valuable insights. ",
+            " The descriptions that follow are accurate and detailed accounts of the methods used or findings obtained in the 'Results' or 'Methods' sections of clinical trial reports. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Evaluate carefully the clinical trials statement made by a reputable healthcare professional, clinical trial organizer, medical scientist, or clinical specialist.\n\nExplanation: The combined instruction retains the main idea of both original instructions, which is to carefully evaluate a statement about clinical trials, but it does so in a clearer, more concise way. The first instruction asks readers to evaluate the statement, and the second instruction specifies that the statement is made by a reputable healthcare professional, clinical trial organizer, medical scientist, or clinical specialist. The combined instruction achieves the same effect in fewer words by combining the two ideas. Additionally, the instruction is more direct and clearer in terms of the execution of the task, it informs the readers exactly what they are expected to do, and it also avoids repetition and redundancy of information. ",
+            "$hypothesis",
+            "Confirm the accuracy and consistency of the statement with the Clinical Trial Report's facts and findings, without conflicting them. \n\nThis combined instruction is clear and concise and effectively communicates the objective of the task, while maintaining the original intent of the instructions. "
+        ],
+        "id": "mutated_mutated_mutated_mutated_4_4_4_1",
+        "metrics": {
+            "precison_bin": 0.5003150598613737,
+            "precison_micro": 0.5005882352941177,
+            "precision_macro": 0.5023699193112179,
+            "recall_bin": 0.9341176470588235,
+            "recall_micro": 0.5005882352941177,
+            "recall_macro": 0.5005882352941177,
+            "f1_bin": 0.6516208453016004,
+            "f1_micro": 0.5005882352941177,
+            "f1_macro": 0.38500045380344816
+        }
+    },
+    {
+        "prompt": "\nTo ensure accurate interpretation and understanding of clinical statements in relation to Clinical Trial Reports (CTRs), examine the consistency of the clinical statements with the CTR data and the specified sections: eligibility criteria, intervention details, results summaries, and adverse events. Confirm that each clinical statement aligns with the relevant information in the CTR and preclude any contradictions. \n\nInstructions below are drawn from the 'Results' or 'Methods' sections of clinical trial reports. They accurately and precisely convey the methods and outcomes used or obtained in the reported studies.\n\nGenerate the explanation of the combined instruction:\nThe combined instruction is designed to accurately and precisely convey the essential information from the 'Results' and 'Methods' sections of clinical trial reports, ensuring that the execution of the task is informed by accurate descriptions of the studies' methods and findings. This can be achieved by either summarizing the main points in a concise manner, or by providing detailed descriptions with necessary definitions and clarifications. The key objective is to create a clear and direct instruction that is more informative than the original instructions, while maintaining consistency with the intended meaning and avoiding incorrect information. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nConsider the statement of a healthcare expert, clinical trial organizer, medical researcher, or clinical specialist. \n\n$hypothesis\n\n- Ensure the statement's truthfulness and maintain uniformity with the clinical trial report data.\n- Confirm the accuracy and consistency of the statement with the clinical trial report information.\n\nExplanation:\n\nTo combine the given instructions, we need to rephrase the main idea while preserving their intent. Both instructions require checking the statement against the clinical trial report data to ensure accuracy and consistency. The first instruction emphasizes that the statement should align with the clinical trial report data, while the second instruction focuses on confirming the accuracy and consistency of the statement. To combine them, we can use the words ensure, truthfulness, maintain uniformity, accuracy, and consistency to convey the same meaning as in the original instructions while creating a shorter and clearer combined instruction. The combined instruction should be understood to mean that the statement must be checked against the clinical trial report data to ensure that it remains truthful and consistent with the trial results. ",
+        "prompt_partions": [
+            "\nTo ensure accurate interpretation and understanding of clinical statements in relation to Clinical Trial Reports (CTRs), examine the consistency of the clinical statements with the CTR data and the specified sections: eligibility criteria, intervention details, results summaries, and adverse events. Confirm that each clinical statement aligns with the relevant information in the CTR and preclude any contradictions. ",
+            "Instructions below are drawn from the 'Results' or 'Methods' sections of clinical trial reports. They accurately and precisely convey the methods and outcomes used or obtained in the reported studies.\n\nGenerate the explanation of the combined instruction:\nThe combined instruction is designed to accurately and precisely convey the essential information from the 'Results' and 'Methods' sections of clinical trial reports, ensuring that the execution of the task is informed by accurate descriptions of the studies' methods and findings. This can be achieved by either summarizing the main points in a concise manner, or by providing detailed descriptions with necessary definitions and clarifications. The key objective is to create a clear and direct instruction that is more informative than the original instructions, while maintaining consistency with the intended meaning and avoiding incorrect information. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Consider the statement of a healthcare expert, clinical trial organizer, medical researcher, or clinical specialist. ",
+            "$hypothesis",
+            "- Ensure the statement's truthfulness and maintain uniformity with the clinical trial report data.\n- Confirm the accuracy and consistency of the statement with the clinical trial report information.\n\nExplanation:\n\nTo combine the given instructions, we need to rephrase the main idea while preserving their intent. Both instructions require checking the statement against the clinical trial report data to ensure accuracy and consistency. The first instruction emphasizes that the statement should align with the clinical trial report data, while the second instruction focuses on confirming the accuracy and consistency of the statement. To combine them, we can use the words ensure, truthfulness, maintain uniformity, accuracy, and consistency to convey the same meaning as in the original instructions while creating a shorter and clearer combined instruction. The combined instruction should be understood to mean that the statement must be checked against the clinical trial report data to ensure that it remains truthful and consistent with the trial results. "
+        ],
+        "id": "mutated_mutated_mutated_mutated_4_4_4_1",
+        "metrics": {
+            "precison_bin": 0.4984912492456246,
+            "precison_micro": 0.4970588235294118,
+            "precision_macro": 0.47017585718095184,
+            "recall_bin": 0.971764705882353,
+            "recall_micro": 0.4970588235294118,
+            "recall_macro": 0.4970588235294118,
+            "f1_bin": 0.6589549262066215,
+            "f1_micro": 0.4970588235294118,
+            "f1_macro": 0.3507540588479916
+        }
+    }
+]
