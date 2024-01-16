@@ -32,8 +32,8 @@ def tokenize_and_gen(model : object, tokenizer : object, prompt : str, max_len :
         outputs =  model.generate(**tokenized, max_new_tokens=max_len, top_k = 5, do_sample=True, pad_token_id=tokenizer.eos_token_id)
     return process_decoded_output(tokenizer.decode(outputs[0][tokenized["input_ids"].shape[1]:]).strip())
 
-def combine_curr_prompts(model : object, tokenizer : object, combine_prompt : str, relevant_segments : str, prompts_to_combine : list[dict]) -> list[tuple(str, bool)]:
-    res = [[]] * len(relevant_segments)
+def combine_curr_prompts(model : object, tokenizer : object, combine_prompt : str, relevant_segments : str, prompts_to_combine : list[dict]) -> list[tuple]:
+    res = [[] for _ in range(len(relevant_segments))]
 
     for i, segment in enumerate(relevant_segments):
         seg_1 =  prompts_to_combine[0]["prompt_partions"][segment]
@@ -52,7 +52,7 @@ def combine_curr_prompts(model : object, tokenizer : object, combine_prompt : st
     return res
 
 def mutate_parent_prompts(model : object, tokenizer : object, mutate_prompt : str, relevant_segments : str, prompts_to_mutate : list[dict]) -> list[dict]:
-    res = [[]] * len(relevant_segments)
+    res = [[] for _ in range(len(relevant_segments))]
 
     for i, segment in enumerate(relevant_segments):
         seg_1 =  prompts_to_mutate[0]["prompt_partions"][segment]
@@ -71,11 +71,11 @@ def mutate_parent_prompts(model : object, tokenizer : object, mutate_prompt : st
 
     return res
 
-def sample_segments(curr_iter_segments : list(list[str]), relevant_segments : list[int], N : int) -> list[list[str]]:
-    sample_segments = [iter_segments for iter_segments in curr_iter_segments]
+def sample_segments(curr_iter_segments : list[list[str]], relevant_segments : list[int], N : int) -> list[list[str]]:
+    list_segments = [iter_segments for iter_segments in curr_iter_segments]
     sample_probabilities = []
 
-    for i,iter_segments in enumerate(sample_segments):
+    for i,iter_segments in enumerate(list_segments):
         iter_probabilities = ([], [])
         for j, segment in enumerate(iter_segments):
             iter_probabilities[0].append((i,j))
@@ -84,23 +84,23 @@ def sample_segments(curr_iter_segments : list(list[str]), relevant_segments : li
 
     sampled_segments_set = set()
 
-    while i < N:
+    while len(sampled_segments_set) < N:
         sample = [] 
         for i in range(len(relevant_segments)):
             sample.append(random.choices(sample_probabilities[i][0], weights= sample_probabilities[i][1], k=1)[0])
             
         sample = tuple(sample)
-        if sample not in sampled_segments_set and not all([True if s <= 1 else False for s in sample]):
+        if sample not in sampled_segments_set and not all([True if s[1] <= 1 else False for s in sample]):
             sampled_segments_set.add(sample)
-            i += 1
 
-    return [[sample_segments[i,j] for i,j in sample] for sample in sampled_segments_set]
+    return [[list_segments[i][j] for i,j in sample] for sample in sampled_segments_set]
 
-def generate_pairs(curr_iter_segments : list(list[str]), curr_parent_prompts : list[dict], relevant_segments : list[int], N : int) -> list[dict]:
+def generate_pairs(curr_iter_segments : list[list[str]], curr_parent_prompts : list[dict], relevant_segments : list[int], N : int) -> list[dict]:
 
     sampled_segments = sample_segments(curr_iter_segments, relevant_segments, N)
 
     partions = [p for p in curr_parent_prompts[0]["prompt_partions"]]
+    print(partions)
     combined_prompts = []
 
     for sampled_seg in sampled_segments:
@@ -114,6 +114,8 @@ def generate_pairs(curr_iter_segments : list(list[str]), curr_parent_prompts : l
 
         prompt_dict["prompt"] = "<s>[INST]" + "\n\n".join(prompt_dict["prompt_partions"]) + "[/INST]"
         combined_prompts.append(prompt_dict)
+
+        print(prompt_dict["prompt"])
 
     return combined_prompts
 
@@ -169,13 +171,13 @@ def main():
 
     curr_parent_prompts = [{key : prompt[key] for key in prompt if key in ["prompt", "metrics", "prompt_partions", "id"]} for prompt in prompts["scores_f1_macro"][:args.top_k]]
 
-    # Eval in partion set
-    for prompt in curr_parent_prompts:
-        prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, iter_queries, iter_qrels, prompt["id"], prompt["prompt"], args, used_set)
+    # Eval in partion set TODO: Uncomment
+    #for prompt in curr_parent_prompts:
+    #    prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, iter_queries, iter_qrels, prompt["id"], prompt["prompt"], args, #used_set)
 
     for i in tqdm(range(1, int(args.n_iterations)+1)):
         # Combine current prompts, generating new prompts
-        combination_prompts = combine_curr_prompts(model, tokenizer, prompts["combine_prompt"], relevant_prompt_segments, curr_prompts + curr_parent_prompts)
+        combination_prompts = combine_curr_prompts(model, tokenizer, prompts["combine_prompt"], relevant_prompt_segments, curr_parent_prompts)
 
         # Mutate current prompts, generating top_k new prompts
         mutation_prompts = mutate_parent_prompts(model, tokenizer, prompts["mutate_prompt"], relevant_prompt_segments, curr_parent_prompts)
