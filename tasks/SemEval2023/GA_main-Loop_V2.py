@@ -75,14 +75,14 @@ def sample_segments(curr_iter_segments : list(list[str]), relevant_segments : li
     sample_segments = [iter_segments for iter_segments in curr_iter_segments]
     sample_probabilities = []
 
-    for iter_segments in sample_segments:
+    for i,iter_segments in enumerate(sample_segments):
         iter_probabilities = ([], [])
         for j, segment in enumerate(iter_segments):
-            iter_probabilities[0].append(j)
+            iter_probabilities[0].append((i,j))
             iter_probabilities[1].append(3 if segment[1] else 1)
         sample_probabilities.append(iter_probabilities)
 
-    sampled_segments_lists = set()
+    sampled_segments_set = set()
 
     while i < N:
         sample = [] 
@@ -90,20 +90,28 @@ def sample_segments(curr_iter_segments : list(list[str]), relevant_segments : li
             sample.append(random.choices(sample_probabilities[i][0], weights= sample_probabilities[i][1], k=1)[0])
             
         sample = tuple(sample)
-        if sample not in sampled_segments_lists:
-            sampled_segments_lists.add(sample)
+        if sample not in sampled_segments_set and not all([True if s <= 1 else False for s in sample]):
+            sampled_segments_set.add(sample)
             i += 1
 
-    return sampled_segments_lists
+    return [[sample_segments[i,j] for i,j in sample] for sample in sampled_segments_set]
 
 def generate_pairs(curr_iter_segments : list(list[str]), curr_parent_prompts : list[dict], relevant_segments : list[int], N : int) -> list[dict]:
 
     sampled_segments = sample_segments(curr_iter_segments, relevant_segments, N)
 
+    partions = [p for p in curr_parent_prompts[0]["prompt_partions"]]
     combined_prompts = []
 
-    for segments in sampled_segments:
-        prompt_dict = {"prompt" : "", "prompt_partions" : "", "id" : "", "metrics" : ""}
+    for sampled_seg in sampled_segments:
+        prompt_dict = {"prompt" : "", "prompt_partions" : [""]*len(partions), "id" : ""}
+
+        for i in range(len(partions)):
+            if i not in relevant_segments:
+                prompt_dict["prompt_partions"][i] = partions[i]
+            else:
+                prompt_dict["prompt_partions"][i] = sampled_seg[relevant_segments.index(i)]
+
         prompt_dict["prompt"] = "<s>[INST]" + "\n\n".join(prompt_dict["prompt_partions"]) + "[/INST]"
         combined_prompts.append(prompt_dict)
 
@@ -134,7 +142,7 @@ def main():
 
     # GA parameters
     parser.add_argument('--n_iterations', type=int, help='number of iterations to run GA on', default=5)
-    parser.add_argument('--N', type=int, help='number of prompts to sample per iteration', default=25)
+    parser.add_argument('--N', type=int, help='number of prompts to sample per iteration', default=20)
     parser.add_argument('--top_k', type=int, help='number of prompts keep for future generations', default=2)
     parser.add_argument('--metric', type=str, help='metric to keep top_k prompts of previous iteration', default="f1_macro")
 
@@ -173,7 +181,7 @@ def main():
         mutation_prompts = mutate_parent_prompts(model, tokenizer, prompts["mutate_prompt"], relevant_prompt_segments, curr_parent_prompts)
 
         # Generate all possible combinations
-        curr_prompts = generate_pairs(curr_prompts)
+        curr_prompts = generate_pairs([combination_prompts[i] + mutation_prompts[i] for i in range(len(combination_prompts))], curr_parent_prompts, relevant_prompt_segments, args.N)
 
         for prompt in tqdm(curr_prompts):
             prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, iter_queries, iter_qrels, prompt["id"], prompt["prompt"], args, used_set)
