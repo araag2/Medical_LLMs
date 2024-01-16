@@ -21,7 +21,7 @@ def main():
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="../outputs/")
     args = parser.parse_args()
 
-    model = "mistralai/Mistral-7B-Instruct-v0.2"
+    model = "Upstage/SOLAR-10.7B-Instruct-v1.0"
 
     sorted_res = {"model" : model, "set" : "dev", "scores_f1_macro" : []}
     json_files = [json_f for json_f in os.listdir(args.sort_folder) if json_f.endswith('.json')]

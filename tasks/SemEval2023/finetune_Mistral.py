@@ -26,7 +26,7 @@ from transformers import (
     TrainingArguments,
 )
 from peft import LoraConfig,AutoPeftModelForCausalLM
-from trl import SFTTrainer
+from trl import SFTTrainer, DataCollatorForCompletionOnlyLM
 from typing import List, Type, Optional
 from tqdm import tqdm
 from datasets.arrow_dataset import Dataset
@@ -187,9 +187,14 @@ def main():
     
     os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
+    #TODO: Implement DataCollatorForCompletionOnlyLM
+    #labels with "YES" or "NO"
+    collator = DataCollatorForCompletionOnlyLM("Answer: ", tokenizer= tokenizer)
+
     ## Setting sft parameters
     trainer = SFTTrainer(
         model= model,
+        data_collator= collator,
         train_dataset= train_dataset,
         eval_dataset= eval_dataset,
         peft_config= peft_config,
