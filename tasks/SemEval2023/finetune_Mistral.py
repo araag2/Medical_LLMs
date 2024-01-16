@@ -56,7 +56,7 @@ def preprocess_dataset(args : argparse, prompt : str , split : str):
         example = set_examples[q_id]
         set_dict["id"].append(q_id)
         label = "YES" if example["gold_label"] == 1 else "NO"
-        set_dict["text"].append(f'{example["text"]} Answer: {label}</s>')
+        set_dict["text"].append(f'{example["text"]} Answer: {label}')
     return Dataset.from_dict(set_dict)
 
 def parse_args():
@@ -64,11 +64,11 @@ def parse_args():
 
     parser.add_argument('--model_name', type=str, default="mistralai/Mistral-7B-Instruct-v0.2", help='model to train')
     parser.add_argument('--exp_name', type=str, default="Mistral SemEval Fine-Tune", help='Describes the conducted experiment')
-    parser.add_argument('--run', type=int, default=1, help='run number for wandb logging')
+    parser.add_argument('--run', type=int, default=2, help='run number for wandb logging')
 
     # I/O paths for models, CT, queries and qrels
     #parser.add_argument('--load_dir', type=str, default="LMHead/", help='path to model load dir')
-    parser.add_argument('--save_dir', type=str, default="outputs/models/run_1/", help='path to model save dir')
+    parser.add_argument('--save_dir', type=str, default="outputs/models/run_2/", help='path to model save dir')
     #parser.add_argument("--CT_input", default="datasets/TREC2021/TREC2021_CT_corpus.json", type=str, help='path to JSON for MLM')
 
     parser.add_argument("--used_prompt", default="prompts/", type=str)
@@ -150,7 +150,7 @@ def main():
     model, peft_config, tokenizer = create_model_and_tokenizer(args)
 
     #TODO: Load the prompt correctly
-    prompt = "<s>[INST]The objective is to examine semantic entailment relationships between individual sections of Clinical Trial Reports (CTRs) and statements articulated by clinical domain experts. CTRs elaborate on the procedures and findings of clinical trials, scrutinizing the effectiveness and safety of novel treatments. Each trial involves cohorts or arms exposed to distinct treatments or exhibiting diverse baseline characteristics. Comprehensive CTRs comprise four sections: (1) ELIGIBILITY CRITERIA delineating conditions for patient inclusion, (2) INTERVENTION particulars specifying type, dosage, frequency, and duration of treatments, (3) RESULTS summary encompassing participant statistics, outcome measures, units, and conclusions, and (4) ADVERSE EVENTS cataloging signs and symptoms observed. Statements posit claims regarding the information within these sections, either for a single CTR or in comparative analysis of two. To establish entailment, the statement's assertion should harmonize with clinical trial data, find substantiation in the CTR, and avoid contradiction with the provided descriptions.\n\nThe following descriptions correspond to the information in one of the Clinical Trial Report (CTR) sections.\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nReflect upon the ensuing statement crafted by an expert in clinical trials.\n\n$hypothesis\n\nRespond with either YES or NO to indicate whether it is possible to determine the statement's validity based on the Clinical Trial Report (CTR) information, with the statement being supported by the CTR data and not contradicting the provided descriptions.[/INST]"
+    prompt = "[INST]The objective is to examine semantic entailment relationships between individual sections of Clinical Trial Reports (CTRs) and statements articulated by clinical domain experts. CTRs elaborate on the procedures and findings of clinical trials, scrutinizing the effectiveness and safety of novel treatments. Each trial involves cohorts or arms exposed to distinct treatments or exhibiting diverse baseline characteristics. Comprehensive CTRs comprise four sections: (1) ELIGIBILITY CRITERIA delineating conditions for patient inclusion, (2) INTERVENTION particulars specifying type, dosage, frequency, and duration of treatments, (3) RESULTS summary encompassing participant statistics, outcome measures, units, and conclusions, and (4) ADVERSE EVENTS cataloging signs and symptoms observed. Statements posit claims regarding the information within these sections, either for a single CTR or in comparative analysis of two. To establish entailment, the statement's assertion should harmonize with clinical trial data, find substantiation in the CTR, and avoid contradiction with the provided descriptions.\n\nThe following descriptions correspond to the information in one of the Clinical Trial Report (CTR) sections.\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nReflect upon the ensuing statement crafted by an expert in clinical trials.\n\n$hypothesis\n\nRespond with either YES or NO to indicate whether it is possible to determine the statement's validity based on the Clinical Trial Report (CTR) information, with the statement being supported by the CTR data and not contradicting the provided descriptions.[/INST]"
 
     # Load dataset
     train_dataset = preprocess_dataset(args, prompt, "train")
@@ -189,7 +189,7 @@ def main():
 
     #TODO: Implement DataCollatorForCompletionOnlyLM
     #labels with "YES" or "NO"
-    collator = DataCollatorForCompletionOnlyLM("Answer: ", tokenizer= tokenizer)
+    collator = DataCollatorForCompletionOnlyLM("Answer:", tokenizer= tokenizer)
 
     ## Setting sft parameters
     trainer = SFTTrainer(
@@ -198,7 +198,7 @@ def main():
         train_dataset= train_dataset,
         eval_dataset= eval_dataset,
         peft_config= peft_config,
-        max_seq_length= 4096,
+        max_seq_length= 6000,
         dataset_text_field= "text",
         tokenizer= tokenizer,
         args= training_arguments,
@@ -208,6 +208,7 @@ def main():
     ## Training
     trainer.train()
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    trainer.model.save_pretrained(create_path(f'{args.save_dir}end_model/'))
     trainer.model.save_pretrained(create_path(f'{args.save_dir}{args.model_name.split("/")[-1]}/{timestamp}/'))
 
     ## TODO: Reload the base model and merge the weights
