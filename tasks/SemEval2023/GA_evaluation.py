@@ -95,7 +95,7 @@ def single_query_inference(model : object, tokenizer : object, prompt : str) -> 
 def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
     res_labels = [[],[]]
     for q_id in pred_labels:
-        print(f'{gold_labels[q_id]["gold_label"]=} {pred_labels[q_id]=}')
+        #print(f'{gold_labels[q_id]["gold_label"]=} {pred_labels[q_id]=}')
         res_labels[0].append(gold_labels[q_id]["gold_label"])
         res_labels[1].append(pred_labels[q_id])
 

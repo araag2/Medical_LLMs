@@ -100,7 +100,6 @@ def generate_pairs(curr_iter_segments : list[list[str]], curr_parent_prompts : l
     sampled_segments = sample_segments(curr_iter_segments, relevant_segments, N)
 
     partions = [p for p in curr_parent_prompts[0]["prompt_partions"]]
-    print(partions)
     combined_prompts = []
 
     for sampled_seg in sampled_segments:
@@ -110,12 +109,10 @@ def generate_pairs(curr_iter_segments : list[list[str]], curr_parent_prompts : l
             if i not in relevant_segments:
                 prompt_dict["prompt_partions"][i] = partions[i]
             else:
-                prompt_dict["prompt_partions"][i] = sampled_seg[relevant_segments.index(i)]
+                prompt_dict["prompt_partions"][i] = sampled_seg[relevant_segments.index(i)][0]
 
         prompt_dict["prompt"] = "<s>[INST]" + "\n\n".join(prompt_dict["prompt_partions"]) + "[/INST]"
         combined_prompts.append(prompt_dict)
-
-        print(prompt_dict["prompt"])
 
     return combined_prompts
 
@@ -143,8 +140,8 @@ def main():
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/ea_output/")
 
     # GA parameters
-    parser.add_argument('--n_iterations', type=int, help='number of iterations to run GA on', default=5)
-    parser.add_argument('--N', type=int, help='number of prompts to sample per iteration', default=20)
+    parser.add_argument('--n_iterations', type=int, help='number of iterations to run GA on', default=3)
+    parser.add_argument('--N', type=int, help='number of prompts to sample per iteration', default=15)
     parser.add_argument('--top_k', type=int, help='number of prompts keep for future generations', default=2)
     parser.add_argument('--metric', type=str, help='metric to keep top_k prompts of previous iteration', default="f1_macro")
 
@@ -171,9 +168,9 @@ def main():
 
     curr_parent_prompts = [{key : prompt[key] for key in prompt if key in ["prompt", "metrics", "prompt_partions", "id"]} for prompt in prompts["scores_f1_macro"][:args.top_k]]
 
-    # Eval in partion set TODO: Uncomment
-    #for prompt in curr_parent_prompts:
-    #    prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, iter_queries, iter_qrels, prompt["id"], prompt["prompt"], args, #used_set)
+    # Eval in partion set
+    for prompt in curr_parent_prompts:
+        prompt["metrics"] = GA_evaluation.full_evaluate_prompt(model, tokenizer, iter_queries, iter_qrels, prompt["id"], prompt["prompt"], args,used_set)
 
     for i in tqdm(range(1, int(args.n_iterations)+1)):
         # Combine current prompts, generating new prompts
