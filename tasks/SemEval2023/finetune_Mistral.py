@@ -80,7 +80,7 @@ def parse_args():
     parser.add_argument("--batch_size", default=1, type=int)
     parser.add_argument("--pooling", default="mean")
     parser.add_argument("--train_epochs", default=5, type=int)
-    parser.add_argument("--lr", type=float, default=5e-5)
+    parser.add_argument("--lr", type=float, default=2e-4)
 
     # Lora Hyperparameters
     parser.add_argument("--lora_r", type=int, default=16)
@@ -210,6 +210,8 @@ def main():
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     trainer.model.save_pretrained(create_path(f'{args.save_dir}end_model/'))
     trainer.model.save_pretrained(create_path(f'{args.save_dir}{args.model_name.split("/")[-1]}/{timestamp}/'))
+    wandb.finish()
+    model.config.use_cache = True
 
     ## TODO: Reload the base model and merge the weights
     #base_model_reload = AutoModelForCausalLM.from_pretrained(
@@ -217,6 +219,7 @@ def main():
     #   return_dict=True,torch_dtype=torch.bfloat16,
     #   device_map= {"": 0}
     #)
+    # new_model = AutoModelForCausalLM.from_pretrained(f'models/run_2/checkpoint-2125')
     #model = PeftModel.from_pretrained(base_model_reload, new_model)
     #model = model.merge_and_unload()
 

@@ -150,7 +150,8 @@ def main():
     # GA parameters
     parser.add_argument('--n_iterations', type=int, help='number of iterations to run GA on', default=5)
     parser.add_argument('--n_prompts', type=int, help='number of prompts to generate per iteration', default=15)
-    parser.add_argument('--top_k', type=int, help='number of prompts keep for future generations', default=5)
+    parser.add_argument('--top_k', type=int, help='number of prompts keep for future generations', default=5
+    )
     parser.add_argument('--combinations', type=int, help='number of combinations to generate', default=20)
     parser.add_argument('--metric', type=str, help='metric to keep top_k prompts of previous iteration', default="f1_macro")
     parser.add_argument('--min_precision', type=float, help='minimum precision for a prompt to be considered', default=0.50)

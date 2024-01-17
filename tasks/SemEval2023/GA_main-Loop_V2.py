@@ -8,6 +8,7 @@ import itertools
 import re
 import GA_evaluation
 
+from itertools import product
 from datetime import datetime
 from tqdm import tqdm
 from sklearn.metrics import f1_score, precision_score, recall_score
@@ -79,21 +80,21 @@ def sample_segments(curr_iter_segments : list[list[str]], relevant_segments : li
         iter_probabilities = ([], [])
         for j, segment in enumerate(iter_segments):
             iter_probabilities[0].append((i,j))
-            iter_probabilities[1].append(3 if segment[1] else 1)
+            # TO:DO - We can change the weights here
+            iter_probabilities[1].append(1 if segment[1] else 0)
         sample_probabilities.append(iter_probabilities)
 
-    sampled_segments_set = set()
+    
+    combinations = []
+    for comb in product(*sample_probabilities):
+        c_iter = [[], 1]
+        for c in comb:
+            c_iter[0].append(c[0])
+            c_iter[1] += c[1]
+        combinations.append(c_iter)
 
-    while len(sampled_segments_set) < N:
-        sample = [] 
-        for i in range(len(relevant_segments)):
-            sample.append(random.choices(sample_probabilities[i][0], weights= sample_probabilities[i][1], k=1)[0])
-            
-        sample = tuple(sample)
-        if sample not in sampled_segments_set and not all([True if s[1] <= 1 else False for s in sample]):
-            sampled_segments_set.add(sample)
-
-    return [[list_segments[i][j] for i,j in sample] for sample in sampled_segments_set]
+    sample_segments = random.choices([c[0] for c in combinations], weights=[c[1] for c in combinations], k=N)
+    return [[list_segments[i][j] for i,j in sample] for sample in sample_segments]
 
 def generate_pairs(curr_iter_segments : list[list[str]], curr_parent_prompts : list[dict], relevant_segments : list[int], N : int) -> list[dict]:
 
@@ -111,7 +112,8 @@ def generate_pairs(curr_iter_segments : list[list[str]], curr_parent_prompts : l
             else:
                 prompt_dict["prompt_partions"][i] = sampled_seg[relevant_segments.index(i)][0]
 
-        prompt_dict["prompt"] = "<s>[INST]" + "\n\n".join(prompt_dict["prompt_partions"]) + "[/INST]"
+        #prompt_dict["prompt"] = "<s>[INST]" + "\n\n".join(prompt_dict["prompt_partions"]) + "[/INST]"
+        #prompt_dict["prompt"] = "\n\n".join(prompt_dict["prompt_partions"])                
         combined_prompts.append(prompt_dict)
 
     return combined_prompts
