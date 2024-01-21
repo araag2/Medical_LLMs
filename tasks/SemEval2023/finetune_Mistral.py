@@ -77,7 +77,7 @@ def parse_args():
 
     #Model Hyperparamenters
     parser.add_argument("--max_length", type=int, default=4096)
-    parser.add_argument("--batch_size", default=16, type=int)
+    parser.add_argument("--batch_size", default=2, type=int)
     parser.add_argument("--pooling", default="mean")
     parser.add_argument("--train_epochs", default=10, type=int)
     parser.add_argument("--lr", type=float, default=2e-5)

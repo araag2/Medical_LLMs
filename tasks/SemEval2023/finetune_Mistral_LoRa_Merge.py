@@ -136,7 +136,7 @@ def create_model_and_tokenizer(args : argparse):
 
     return model, peft_config, tokenizer
 
-def reload_and_merge_mode(args : argparse, new_model : AutoModelForCausalLM):
+def reload_and_merge_mode(args : argparse, new_model : str):
     bnb_config = BitsAndBytesConfig(
         load_in_4bit= True,
         bnb_4bit_quant_type= "nf4",
@@ -247,12 +247,12 @@ def main():
         ## Training
         trainer.train()
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        trainer.model.save_pretrained(create_path(f'{args.save_dir}end_model/'))
-        trainer.model.save_pretrained(create_path(f'{args.save_dir}{args.model_name.split("/")[-1]}/{timestamp}/'))
+        create_path(f'{args.save_dir}end_model/')
+        trainer.model.save_pretrained(f'{args.save_dir}end_model/')
         wandb.finish()
         model.config.use_cache = True
 
-        model = reload_and_merge_mode(args, trainer.model)
+        model = reload_and_merge_mode(args, f'{args.save_dir}end_model/')
 
 
 if __name__ == '__main__':

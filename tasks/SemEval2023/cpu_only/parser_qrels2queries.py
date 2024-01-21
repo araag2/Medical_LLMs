@@ -18,9 +18,9 @@ def safe_open_w(path: str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', type=str, help='path to input dir/file', default='../qrels/qrles2024_pratice-test.json')
-    parser.add_argument('--output', type=str, help='path to output dir/file', default='../queries/queries2024_pratice-test.json')
-    parser.add_argument('--corpus', type=str, help='path to CT Corpus', default='../CT_json/SemEval_CT-corpus.json')
+    parser.add_argument('--input', type=str, help='path to input dir/file', default='queries/queries2024_test.json')
+    parser.add_argument('--output', type=str, help='path to output dir/file', default='queries/queries2024_test_f.json')
+    parser.add_argument('--corpus', type=str, help='path to CT Corpus', default='CT_json/SemEval_CT-corpus.json')
     args = parser.parse_args() 
 
     qrels = json.load(open(args.input))

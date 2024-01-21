@@ -64,6 +64,12 @@ def create_qid_prompt_label_dict(queries : dict, qrels : dict, prompt : str) -> 
         }
     return queries_dict
 
+def create_qdid_prompt(queries : dict, prompt : str) -> dict:
+    queries_dict = {}
+    for q_id in queries:
+        queries_dict[q_id] = generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompt)
+    return queries_dict
+
 def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
     res_labels = {}
     with torch.inference_mode():
@@ -80,17 +86,6 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
             #print(f'The postprocessed decoded output was {decoded_output_sub.split(" ")[:30]=}')
             res_labels[q_id] = textlabel_2_binarylabel(decoded_output_sub.split(" ")[:30])
     return res_labels
-
-def single_query_inference(model : object, tokenizer : object, prompt : str) -> str:
-    with torch.inference_mode():
-        input_ids = tokenizer(prompt, return_tensors="pt").input_ids.to("cuda")
-        outputs = model.generate(input_ids, do_sample=True, top_k = 10, max_new_tokens=50)
-        decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
-        decoded_output_sub = re.sub("[,!\.]+", " ", decoded_output)
-        decoded_output_sub = re.sub("(\\n)+", " ", decoded_output_sub)
-        decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output_sub)
-        print(f'The postprocessed decoded output was {decoded_output_sub=}')
-    return decoded_output_sub
 
 def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
     res_labels = [[],[]]
@@ -110,10 +105,6 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
     f1_macro = f1_score(res_labels[0], res_labels[1], average="macro")
 
     return {"precison_bin" :precison_bin, "precison_micro" : precision_micro, "precision_macro" : precision_macro, "recall_bin" : recall_bin,"recall_micro" : recall_micro, "recall_macro" : recall_macro, "f1_bin" : f1_bin, "f1_micro" : f1_micro, "f1_macro" : f1_macro}
-
-def output_task_results(output_dir : str, model_name : str, used_set : str, results : dict):
-    with safe_open_w(f'{output_dir}task_output/{model_name.split("/")[-1]}_0-shot_{used_set}-set.json') as output_file:
-        output_file.write(json.dumps(results, ensure_ascii=False, indent=4))
 
 def output_full_metrics(args : dict, prompt_id : str, full_prompt : str, used_set : str, metrics : dict):
 
@@ -142,6 +133,19 @@ def full_evaluate_prompt(model: object, tokenizer: object, queries: dict, qrels:
     output_full_metrics(args, prompt_id, prompt, used_set, metrics)
 
     return metrics
+
+def output_prompt_labels(model : object, tokenizer : object, queries : dict, prompt : str, args : object, used_set : str):
+    # Replace prompt with query info
+    queries_dict = create_qdid_prompt(queries, prompt)
+
+    # 0-shot inference from queries
+    pred_labels = query_inference(model, tokenizer, queries_dict)
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+
+    # Output results
+    with safe_open_w(f'{args.output_dir}{timestamp}_{args.model.split("/")[-1]}_{used_set}-set.json') as output_file:
+        output_file.write(json.dumps(label_2_SemEval2024(pred_labels), ensure_ascii=False, indent=4))
 
 def generate_pos_prompts(mistral_prompts : dict):
     prompt_combinations = { "base_mistral_prompts" : {field : mistral_prompts[field] for field in mistral_prompts}, "combination_prompts" : {}}
