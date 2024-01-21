@@ -11,7 +11,7 @@ from tqdm import tqdm
 from sklearn.metrics import f1_score, precision_score, recall_score
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+#os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 #os.environ["CUDA_VISIBLE_DEVICES"] = "5"
 
 def safe_open_w(path: str):

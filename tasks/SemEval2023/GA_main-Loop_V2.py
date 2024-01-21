@@ -14,6 +14,7 @@ from tqdm import tqdm
 from sklearn.metrics import f1_score, precision_score, recall_score
 from transformers import GPTQConfig, LlamaTokenizer, LlamaForCausalLM, AutoTokenizer, AutoModelForCausalLM
 
+#os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 
 def safe_open_w(path: str):
@@ -77,13 +78,10 @@ def sample_segments(curr_iter_segments : list[list[str]], relevant_segments : li
     sample_probabilities = []
 
     for i,iter_segments in enumerate(list_segments):
-        iter_probabilities = ([], [])
+        iter_probabilities = []
         for j, segment in enumerate(iter_segments):
-            iter_probabilities[0].append((i,j))
-            # TO:DO - We can change the weights here
-            iter_probabilities[1].append(1 if segment[1] else 0)
+            iter_probabilities.append(((i,j), 0 if segment[1] else 1))
         sample_probabilities.append(iter_probabilities)
-
     
     combinations = []
     for comb in product(*sample_probabilities):
@@ -92,6 +90,8 @@ def sample_segments(curr_iter_segments : list[list[str]], relevant_segments : li
             c_iter[0].append(c[0])
             c_iter[1] += c[1]
         combinations.append(c_iter)
+
+    print(f'Combinations : {combinations}')
 
     sample_segments = random.choices([c[0] for c in combinations], weights=[c[1] for c in combinations], k=N)
     return [[list_segments[i][j] for i,j in sample] for sample in sample_segments]
@@ -112,7 +112,7 @@ def generate_pairs(curr_iter_segments : list[list[str]], curr_parent_prompts : l
             else:
                 prompt_dict["prompt_partions"][i] = sampled_seg[relevant_segments.index(i)][0]
 
-        #prompt_dict["prompt"] = "<s>[INST]" + "\n\n".join(prompt_dict["prompt_partions"]) + "[/INST]"
+        prompt_dict["prompt"] = "<s>[INST]" + "\n\n".join(prompt_dict["prompt_partions"]) + "[/INST]"
         #prompt_dict["prompt"] = "\n\n".join(prompt_dict["prompt_partions"])                
         combined_prompts.append(prompt_dict)
 
@@ -139,11 +139,11 @@ def main():
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/EA_Mistral_Prompts_2.json")
 
     # Output directory
-    parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/ea_output/")
+    parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/ea_output/explore/")
 
     # GA parameters
-    parser.add_argument('--n_iterations', type=int, help='number of iterations to run GA on', default=3)
-    parser.add_argument('--N', type=int, help='number of prompts to sample per iteration', default=15)
+    parser.add_argument('--n_iterations', type=int, help='number of iterations to run GA on', default=5)
+    parser.add_argument('--N', type=int, help='number of prompts to sample per iteration', default=25)
     parser.add_argument('--top_k', type=int, help='number of prompts keep for future generations', default=2)
     parser.add_argument('--metric', type=str, help='metric to keep top_k prompts of previous iteration', default="f1_macro")
 
@@ -162,7 +162,7 @@ def main():
     prompts = json.load(open(args.prompts))
 
     # Partion of queries and qrels to use
-    iter_choices = random.sample([key for key in queries], k=300)
+    iter_choices = random.sample([key for key in queries], k=1)
     iter_queries = {key : queries[key] for key in iter_choices}
     iter_qrels = {key : qrels[key] for key in iter_choices}
     

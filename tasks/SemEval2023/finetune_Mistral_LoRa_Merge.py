@@ -64,11 +64,11 @@ def parse_args():
 
     parser.add_argument('--model_name', type=str, default="mistralai/Mistral-7B-Instruct-v0.2", help='model to train')
     parser.add_argument('--exp_name', type=str, default="Mistral SemEval Fine-Tune", help='Describes the conducted experiment')
-    parser.add_argument('--run', type=int, default=4, help='run number for wandb logging')
+    parser.add_argument('--run', type=int, default=5, help='run number for wandb logging')
 
     # I/O paths for models, CT, queries and qrels
     #parser.add_argument('--load_dir', type=str, default="LMHead/", help='path to model load dir')
-    parser.add_argument('--save_dir', type=str, default="outputs/models/run_4/", help='path to model save dir')
+    parser.add_argument('--save_dir', type=str, default="outputs/models/run_5/", help='path to model save dir')
     #parser.add_argument("--CT_input", default="datasets/TREC2021/TREC2021_CT_corpus.json", type=str, help='path to JSON for MLM')
 
     parser.add_argument("--used_prompt", default="prompts/", type=str)
@@ -136,11 +136,49 @@ def create_model_and_tokenizer(args : argparse):
 
     return model, peft_config, tokenizer
 
+def reload_and_merge_mode(args : argparse, new_model : AutoModelForCausalLM):
+    bnb_config = BitsAndBytesConfig(
+        load_in_4bit= True,
+        bnb_4bit_quant_type= "nf4",
+        bnb_4bit_compute_dtype= torch.bfloat16,
+        bnb_4bit_use_double_quant= False,
+    )
+
+    model = AutoModelForCausalLM.from_pretrained(
+        args.model_name,
+        quantization_config= bnb_config,
+        device_map= {"": 0},
+        # use_auth_token=True,
+        # revision="refs/pr/35"
+    )
+
+    peft_config = LoraConfig(
+        r = args.lora_r,
+        lora_alpha= args.lora_alpha,
+        lora_dropout= args.lora_dropout,
+        # target_modules=["query_key_value"],
+        bias="none",
+        task_type="CAUSAL_LM",
+        target_modules=["q_proj","k_proj","v_proj","o_proj","gate_proj"],
+    )
+
+    model = PeftModel.from_pretrained(model, new_model)
+    model = model.merge_and_unload()
+    model = get_peft_model(model, peft_config)
+
+    #### LLAMA STUFF
+    model.config.use_cache = False
+    model.config.pretraining_tp = 1
+    model.gradient_checkpointing_enable()
+    model = prepare_model_for_kbit_training(model)
+
+    return model
+
 def main():
     args = parse_args()
 
     wandb.init(
-        project="SemEval_Mistra",
+        project="SemEval_Mistral",
         name = f'{args.model_name}/{args.exp_name}/run-{args.run}',
         group = f'{args.model_name}/{args.exp_name}',
         config = { arg : getattr(args, arg) for arg in vars(args)}
@@ -156,72 +194,65 @@ def main():
     train_dataset = preprocess_dataset(args, prompt, "train")
     eval_dataset = preprocess_dataset(args, prompt, "dev")
 
-    training_arguments = TrainingArguments(
-        output_dir = args.save_dir,
-        overwrite_output_dir=True,
-        evaluation_strategy="epoch",
-        save_strategy="epoch",
-        save_total_limit= 10,
-        num_train_epochs = args.train_epochs,
-        per_device_train_batch_size= args.batch_size,
-        optim = "paged_adamw_8bit",
-        logging_steps= 25,
-        learning_rate= args.lr,
-        weight_decay= 0.001,
-        bf16= False,
-        #max_grad_norm= 0.3,
-        #max_steps= -1,
-        #warmup_ratio= 0.3,
-        group_by_length= True,
-        lr_scheduler_type= "constant",
-
-        #model load
-        load_best_model_at_end= True,
-
-        #Speed and memory optimization parameters
-        gradient_accumulation_steps= args.gradient_accumulation_steps,
-        gradient_checkpointing= args.gradient_checkpointing,
-        fp16= args.fp16,
-        report_to="wandb"
-    )
-    
     os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-    #TODO: Implement DataCollatorForCompletionOnlyLM
-    #labels with "YES" or "NO"
-    collator = DataCollatorForCompletionOnlyLM("Answer:", tokenizer= tokenizer)
+    for i in range(args.train_epochs):
+        training_arguments = TrainingArguments(
+            output_dir = args.save_dir,
+            overwrite_output_dir=True,
+            evaluation_strategy="epoch",
+            save_strategy="epoch",
+            save_total_limit= 1,
+            num_train_epochs = 1,
+            per_device_train_batch_size= args.batch_size,
+            optim = "paged_adamw_8bit",
+            logging_steps= 25,
+            learning_rate= args.lr,
+            weight_decay= 0.001,
+            bf16= False,
+            #max_grad_norm= 0.3,
+            #max_steps= -1,
+            #warmup_ratio= 0.3,
+            group_by_length= True,
+            lr_scheduler_type= "constant",
 
-    ## Setting sft parameters
-    trainer = SFTTrainer(
-        model= model,
-        data_collator= collator,
-        train_dataset= train_dataset,
-        eval_dataset= eval_dataset,
-        peft_config= peft_config,
-        max_seq_length= 6000,
-        dataset_text_field= "text",
-        tokenizer= tokenizer,
-        args= training_arguments,
-        packing= False,
-    )
+            #model load
+            load_best_model_at_end= True,
 
-    ## Training
-    trainer.train()
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    trainer.model.save_pretrained(create_path(f'{args.save_dir}end_model/'))
-    trainer.model.save_pretrained(create_path(f'{args.save_dir}{args.model_name.split("/")[-1]}/{timestamp}/'))
-    wandb.finish()
-    model.config.use_cache = True
+            #Speed and memory optimization parameters
+            gradient_accumulation_steps= args.gradient_accumulation_steps,
+            gradient_checkpointing= args.gradient_checkpointing,
+            fp16= args.fp16,
+            report_to="wandb"
+        )
 
-    ## TODO: Reload the base model and merge the weights
-    #base_model_reload = AutoModelForCausalLM.from_pretrained(
-    #   base_model, low_cpu_mem_usage=True,
-    #   return_dict=True,torch_dtype=torch.bfloat16,
-    #   device_map= {"": 0}
-    #)
-    # new_model = AutoModelForCausalLM.from_pretrained(f'models/run_2/checkpoint-2125')
-    #model = PeftModel.from_pretrained(base_model_reload, new_model)
-    #model = model.merge_and_unload()
+        #TODO: Implement DataCollatorForCompletionOnlyLM
+        #labels with "YES" or "NO"
+        collator = DataCollatorForCompletionOnlyLM("Answer:", tokenizer= tokenizer)
+
+        ## Setting sft parameters
+        trainer = SFTTrainer(
+            model= model,
+            data_collator= collator,
+            train_dataset= train_dataset,
+            eval_dataset= eval_dataset,
+            peft_config= peft_config,
+            max_seq_length= 6000,
+            dataset_text_field= "text",
+            tokenizer= tokenizer,
+            args= training_arguments,
+            packing= False,
+        )
+
+        ## Training
+        trainer.train()
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        trainer.model.save_pretrained(create_path(f'{args.save_dir}end_model/'))
+        trainer.model.save_pretrained(create_path(f'{args.save_dir}{args.model_name.split("/")[-1]}/{timestamp}/'))
+        wandb.finish()
+        model.config.use_cache = True
+
+        model = reload_and_merge_mode(args, trainer.model)
 
 
 if __name__ == '__main__':
