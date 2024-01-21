@@ -41,7 +41,7 @@ def main():
        device_map= {"": 0}
     )
     #new_model = AutoModelForCausalLM.from_pretrained(f'outputs/models/run_2/checkpoint-2125/')
-    model = PeftModel.from_pretrained(base_model_reload, f'outputs/models/run_2/checkpoint-2125/')
+    model = PeftModel.from_pretrained(base_model_reload, f'outputs/models/run_2/checkpoint-1275/')
     model = model.merge_and_unload()
 
     tokenizer = AutoTokenizer.from_pretrained(args.model)

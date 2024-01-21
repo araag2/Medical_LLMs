@@ -91,8 +91,6 @@ def sample_segments(curr_iter_segments : list[list[str]], relevant_segments : li
             c_iter[1] += c[1]
         combinations.append(c_iter)
 
-    print(f'Combinations : {combinations}')
-
     sample_segments = random.choices([c[0] for c in combinations], weights=[c[1] for c in combinations], k=N)
     return [[list_segments[i][j] for i,j in sample] for sample in sample_segments]
 
@@ -162,7 +160,7 @@ def main():
     prompts = json.load(open(args.prompts))
 
     # Partion of queries and qrels to use
-    iter_choices = random.sample([key for key in queries], k=1)
+    iter_choices = random.sample([key for key in queries], k=300)
     iter_queries = {key : queries[key] for key in iter_choices}
     iter_qrels = {key : qrels[key] for key in iter_choices}
     

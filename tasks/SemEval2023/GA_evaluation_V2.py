@@ -13,7 +13,6 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 
 #os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 #os.environ["CUDA_VISIBLE_DEVICES"] = "5"
-
 def safe_open_w(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     return open(path, 'w', encoding='utf8')
@@ -31,6 +30,7 @@ def generate_query_from_prompt(text_to_replace: dict, prompt: str) -> str:
     prompt = prompt.replace("$hypothesis", text_to_replace["hypothesis"])
     return prompt
 
+BEST_F1 = 0.0
 ENTAILMENT_LABELS = {"entailment", "yes", "y"}
 CONTRADICTION_LABELS = {"contradiction", "no", "not", "n"}
 
@@ -116,6 +116,7 @@ def output_task_results(output_dir : str, model_name : str, used_set : str, resu
         output_file.write(json.dumps(results, ensure_ascii=False, indent=4))
 
 def output_full_metrics(args : dict, prompt_id : str, full_prompt : str, used_set : str, metrics : dict):
+    global BEST_F1
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
 
@@ -127,8 +128,11 @@ def output_full_metrics(args : dict, prompt_id : str, full_prompt : str, used_se
     results["metrics"] = metrics
     results["formated_metrics"] =f'| {args.model.split("/")[-1]}-{prompt_id}   | {metrics["f1_macro"]} | {metrics["precision_macro"]} | {metrics["recall_macro"]} | - |'
 
-    with safe_open_w(f'{args.output_dir}combination_output/{timestamp}_{args.model.split("/")[-1]}_{used_set}-set.json') as output_file:
-        output_file.write(json.dumps(results, ensure_ascii=False, indent=4))
+
+    if metrics["f1_macro"] > BEST_F1:
+        BEST_F1 = metrics["f1_macro"]    
+        with safe_open_w(f'{args.output_dir}combination_output/{timestamp}_{args.model.split("/")[-1]}_{used_set}-set.json') as output_file:
+            output_file.write(json.dumps(results, ensure_ascii=False, indent=4))
 
 def full_evaluate_prompt(model: object, tokenizer: object, queries: dict, qrels: dict, prompt_id : str, prompt: str, args : object, used_set : str) -> dict:
     # Replace prompt with query info

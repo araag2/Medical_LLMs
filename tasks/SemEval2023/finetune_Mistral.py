@@ -64,7 +64,7 @@ def parse_args():
 
     parser.add_argument('--model_name', type=str, default="mistralai/Mistral-7B-Instruct-v0.2", help='model to train')
     parser.add_argument('--exp_name', type=str, default="Mistral SemEval Fine-Tune", help='Describes the conducted experiment')
-    parser.add_argument('--run', type=int, default=4, help='run number for wandb logging')
+    parser.add_argument('--run', type=int, default=6, help='run number for wandb logging')
 
     # I/O paths for models, CT, queries and qrels
     #parser.add_argument('--load_dir', type=str, default="LMHead/", help='path to model load dir')
@@ -77,10 +77,10 @@ def parse_args():
 
     #Model Hyperparamenters
     parser.add_argument("--max_length", type=int, default=4096)
-    parser.add_argument("--batch_size", default=1, type=int)
+    parser.add_argument("--batch_size", default=16, type=int)
     parser.add_argument("--pooling", default="mean")
     parser.add_argument("--train_epochs", default=10, type=int)
-    parser.add_argument("--lr", type=float, default=5e-5)
+    parser.add_argument("--lr", type=float, default=2e-5)
 
     # Lora Hyperparameters
     parser.add_argument("--lora_r", type=int, default=32)
