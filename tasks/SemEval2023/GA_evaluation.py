@@ -119,17 +119,17 @@ def output_mistakes(args : dict, mistakes : list, prompt : str, queries : dict, 
         "og_queries" : {}
     }
 
-    for q_id in mistakes["mistakes"]:
+    for dict_q_id in mistakes["mistakes"]:
+        q_id = dict_q_id["q_id"]
         mistakes["og_queries"][q_id] = queries[q_id]
         mistakes["og_queries"][q_id]["gold_label"] = qrels[q_id]["Label"]
-        mistakes["mistake_stats"][mistakes["og_queries"][q_id]["type"]] += 1
+        mistakes["mistake_stats"][mistakes["og_queries"][q_id]["Type"]] += 1
         mistakes["mistake_stats"][qrels[q_id]["Label"]] += 1
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
 
     with safe_open_w(f'{args.output_dir}mistakes/{timestamp}_{args.model.split("/")[-1]}_{used_set}-set.json') as output_file:
         output_file.write(json.dumps(mistakes, ensure_ascii=False, indent=4))
-
 
 def output_full_metrics(args : dict, prompt_id : str, full_prompt : str, used_set : str, metrics : dict):
 
@@ -155,7 +155,7 @@ def full_evaluate_prompt(model: object, tokenizer: object, queries: dict, qrels:
 
     # Compute metrics
     metrics, mistakes = calculate_metrics(pred_labels, queries_dict)
-    output_mistakes(args, mistakes, prompt_id, queries, qrels, mistakes, used_set)
+    output_mistakes(args, mistakes, prompt, queries, qrels, used_set)
     
     output_full_metrics(args, prompt_id, prompt, used_set, metrics)
     return metrics

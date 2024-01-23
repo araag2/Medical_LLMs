@@ -160,7 +160,7 @@ def main():
     prompts = json.load(open(args.prompts))
 
     # Partion of queries and qrels to use
-    iter_choices = random.sample([key for key in queries], k=300)
+    iter_choices = random.sample([key for key in queries], k=1700)
     iter_queries = {key : queries[key] for key in iter_choices}
     iter_qrels = {key : qrels[key] for key in iter_choices}
     
