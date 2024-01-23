@@ -81,17 +81,6 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
             res_labels[q_id] = textlabel_2_binarylabel(decoded_output_sub.split(" ")[:30])
     return res_labels
 
-def single_query_inference(model : object, tokenizer : object, prompt : str) -> str:
-    with torch.inference_mode():
-        input_ids = tokenizer(prompt, return_tensors="pt").input_ids.to("cuda")
-        outputs = model.generate(input_ids, do_sample=True, top_k = 10, max_new_tokens=50)
-        decoded_output = tokenizer.decode(outputs[0][input_ids[0].shape[0]:]).strip()
-        decoded_output_sub = re.sub("[,!\.]+", " ", decoded_output)
-        decoded_output_sub = re.sub("(\\n)+", " ", decoded_output_sub)
-        decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output_sub)
-        print(f'The postprocessed decoded output was {decoded_output_sub=}')
-    return decoded_output_sub
-
 def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
     res_labels = [[],[]]
     for q_id in pred_labels:

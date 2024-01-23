@@ -1,0 +1,650 @@
+[
+    {
+        "prompt": "<s>[INST]Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.\n\nThe given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nBased on the clinical trial report, can you determine if the statement is valid? (Answer with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.",
+            "The given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. ",
+            "$hypothesis",
+            "Based on the clinical trial report, can you determine if the statement is valid? (Answer with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5875,
+            "precison_micro": 0.61,
+            "precision_macro": 0.6116071428571428,
+            "recall_bin": 0.6482758620689655,
+            "recall_micro": 0.61,
+            "recall_macro": 0.6112347052280311,
+            "f1_bin": 0.6163934426229508,
+            "f1_micro": 0.61,
+            "f1_macro": 0.6098916365657128
+        }
+    },
+    {
+        "prompt": "<s>[INST]Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. \n\nThe given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nAccording to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. ",
+            "The given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. ",
+            "$hypothesis",
+            "According to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.6014492753623188,
+            "precison_micro": 0.61,
+            "precision_macro": 0.6093666129898014,
+            "recall_bin": 0.5724137931034483,
+            "recall_micro": 0.61,
+            "recall_macro": 0.6087875417130144,
+            "f1_bin": 0.5865724381625442,
+            "f1_micro": 0.61,
+            "f1_macro": 0.6087436323304835
+        }
+    },
+    {
+        "prompt": "<s>[INST]Determine if clinical domain experts' statements align with the eligibility criteria, intervention descriptions, results, and adverse events listed in Clinical Trial Reports (CTRs). Ensure consistency between experts' claims and information in the designated CTR sections for accuracy. Each CTR includes sections on eligibility criteria, intervention details, results summary, and adverse events. Experts' statements must be related to the clinical trial data, supported by the CTR, and not contradictive. \n\n\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical experts, trial organizers, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nAccording to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Determine if clinical domain experts' statements align with the eligibility criteria, intervention descriptions, results, and adverse events listed in Clinical Trial Reports (CTRs). Ensure consistency between experts' claims and information in the designated CTR sections for accuracy. Each CTR includes sections on eligibility criteria, intervention details, results summary, and adverse events. Experts' statements must be related to the clinical trial data, supported by the CTR, and not contradictive. ",
+            "\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical experts, trial organizers, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "According to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5777777777777777,
+            "precison_micro": 0.61,
+            "precision_macro": 0.6180555555555556,
+            "recall_bin": 0.7172413793103448,
+            "recall_micro": 0.61,
+            "recall_macro": 0.6134593993325917,
+            "f1_bin": 0.64,
+            "f1_micro": 0.61,
+            "f1_macro": 0.6072727272727272
+        }
+    },
+    {
+        "prompt": "<s>[INST]Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. \n\n\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nAccording to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. ",
+            "\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. ",
+            "$hypothesis",
+            "According to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5878378378378378,
+            "precison_micro": 0.6033333333333334,
+            "precision_macro": 0.6031294452347085,
+            "recall_bin": 0.6,
+            "recall_micro": 0.6033333333333334,
+            "recall_macro": 0.603225806451613,
+            "f1_bin": 0.5938566552901025,
+            "f1_micro": 0.6033333333333334,
+            "f1_macro": 0.6031172527264845
+        }
+    },
+    {
+        "prompt": "<s>[INST]Check that the clinical domain experts' statements agree with the data and findings presented in the designated parts of Clinical Trial Reports (CTRs). CTRs provide information on clinical trials' design and results, evaluating treatment efficacy and safety. Ensure experts' statements align with the CTR data for each report or comparison. Maintain consistency for accuracy. \n\n\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nAccording to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Check that the clinical domain experts' statements agree with the data and findings presented in the designated parts of Clinical Trial Reports (CTRs). CTRs provide information on clinical trials' design and results, evaluating treatment efficacy and safety. Ensure experts' statements align with the CTR data for each report or comparison. Maintain consistency for accuracy. ",
+            "\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. ",
+            "$hypothesis",
+            "According to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5899280575539568,
+            "precison_micro": 0.6,
+            "precision_macro": 0.5993118548639349,
+            "recall_bin": 0.5655172413793104,
+            "recall_micro": 0.6,
+            "recall_macro": 0.5988876529477196,
+            "f1_bin": 0.5774647887323944,
+            "f1_micro": 0.6,
+            "f1_macro": 0.5988589766446781
+        }
+    },
+    {
+        "prompt": "<s>[INST]Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.\n\nThe given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nExperts in clinical domains, clinical trial coordinators, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nIs the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.",
+            "The given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Experts in clinical domains, clinical trial coordinators, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "Is the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5759493670886076,
+            "precison_micro": 0.5966666666666667,
+            "precision_macro": 0.5978338384738813,
+            "recall_bin": 0.6275862068965518,
+            "recall_micro": 0.5966666666666667,
+            "recall_macro": 0.5976640711902114,
+            "f1_bin": 0.6006600660066006,
+            "f1_micro": 0.5966666666666667,
+            "f1_macro": 0.5966263292995966
+        }
+    },
+    {
+        "prompt": "<s>[INST]Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. \n\n\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nIs the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. ",
+            "\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. ",
+            "$hypothesis",
+            "Is the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5714285714285714,
+            "precison_micro": 0.5833333333333334,
+            "precision_macro": 0.5825892857142857,
+            "recall_bin": 0.5517241379310345,
+            "recall_micro": 0.5833333333333334,
+            "recall_macro": 0.5823136818687431,
+            "f1_bin": 0.5614035087719299,
+            "f1_micro": 0.5833333333333334,
+            "f1_macro": 0.5822890559732665
+        }
+    },
+    {
+        "prompt": "<s>[INST]Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.\n\nThe descriptions given and received correspond to the content in a specific CTR section. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nBased on the clinical trial report, can you determine if the statement is valid? (Answer with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.",
+            "The descriptions given and received correspond to the content in a specific CTR section. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. ",
+            "$hypothesis",
+            "Based on the clinical trial report, can you determine if the statement is valid? (Answer with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5605095541401274,
+            "precison_micro": 0.58,
+            "precision_macro": 0.5809540777693644,
+            "recall_bin": 0.6068965517241379,
+            "recall_micro": 0.58,
+            "recall_macro": 0.5808676307007786,
+            "f1_bin": 0.5827814569536424,
+            "f1_micro": 0.58,
+            "f1_macro": 0.5799813325036668
+        }
+    },
+    {
+        "prompt": "<s>[INST]Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. \n\nThe descriptions given and received correspond to the content in a specific CTR section. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nBased on the clinical trial report, can you determine if the statement is valid? (Answer with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. ",
+            "The descriptions given and received correspond to the content in a specific CTR section. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. ",
+            "$hypothesis",
+            "Based on the clinical trial report, can you determine if the statement is valid? (Answer with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5664335664335665,
+            "precison_micro": 0.58,
+            "precision_macro": 0.5793951271658278,
+            "recall_bin": 0.5586206896551724,
+            "recall_micro": 0.58,
+            "recall_macro": 0.5793103448275863,
+            "f1_bin": 0.5625000000000001,
+            "f1_micro": 0.58,
+            "f1_macro": 0.5793269230769231
+        }
+    },
+    {
+        "prompt": "<s>[INST]Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. \n\nThe given and provided descriptions correspond with the content in a specific section of Clinical Trial Reports (CTRs). \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical experts, trial organizers, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nBased on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') [/INST]",
+        "prompt_partions": [
+            "Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. ",
+            "The given and provided descriptions correspond with the content in a specific section of Clinical Trial Reports (CTRs). ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical experts, trial organizers, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "Based on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5502645502645502,
+            "precison_micro": 0.58,
+            "precision_macro": 0.5904475904475904,
+            "recall_bin": 0.7172413793103448,
+            "recall_micro": 0.58,
+            "recall_macro": 0.5844271412680756,
+            "f1_bin": 0.622754491017964,
+            "f1_micro": 0.58,
+            "f1_macro": 0.5745351402458241
+        }
+    },
+    {
+        "prompt": "<s>[INST]Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. \n\n\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nBased on the clinical trial report, can you determine if the statement is valid? (Answer with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. ",
+            "\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. ",
+            "$hypothesis",
+            "Based on the clinical trial report, can you determine if the statement is valid? (Answer with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.550561797752809,
+            "precison_micro": 0.5766666666666667,
+            "precision_macro": 0.5826579480567324,
+            "recall_bin": 0.6758620689655173,
+            "recall_micro": 0.5766666666666667,
+            "recall_macro": 0.5798665183537264,
+            "f1_bin": 0.6068111455108359,
+            "f1_micro": 0.5766666666666667,
+            "f1_macro": 0.5741636954991003
+        }
+    },
+    {
+        "prompt": "<s>[INST]Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. \n\nThe descriptions accord with the information in a CTR section, conveying relevant and corresponding details. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nBased on the clinical trial report, can you determine if the statement is valid? (Answer with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. ",
+            "The descriptions accord with the information in a CTR section, conveying relevant and corresponding details. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. ",
+            "$hypothesis",
+            "Based on the clinical trial report, can you determine if the statement is valid? (Answer with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5555555555555556,
+            "precison_micro": 0.5733333333333334,
+            "precision_macro": 0.5736961451247166,
+            "recall_bin": 0.5862068965517241,
+            "recall_micro": 0.5733333333333334,
+            "recall_macro": 0.5737486095661846,
+            "f1_bin": 0.5704697986577182,
+            "f1_micro": 0.5733333333333334,
+            "f1_macro": 0.5733143695275346
+        }
+    },
+    {
+        "prompt": "<s>[INST]Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.\n\nThe descriptions given and received correspond to the content in a specific CTR section. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical experts, trial organizers, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nIs the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.",
+            "The descriptions given and received correspond to the content in a specific CTR section. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical experts, trial organizers, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "Is the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5570469798657718,
+            "precison_micro": 0.5733333333333334,
+            "precision_macro": 0.5732254766878528,
+            "recall_bin": 0.5724137931034483,
+            "recall_micro": 0.5733333333333334,
+            "recall_macro": 0.5733036707452726,
+            "f1_bin": 0.564625850340136,
+            "f1_micro": 0.5733333333333334,
+            "f1_macro": 0.5731625983726824
+        }
+    },
+    {
+        "prompt": "<s>[INST]Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.\n\nThe given and provided descriptions correspond with the content in a specific section of Clinical Trial Reports (CTRs). \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical experts, trial organizers, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nIs the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.",
+            "The given and provided descriptions correspond with the content in a specific section of Clinical Trial Reports (CTRs). ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical experts, trial organizers, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "Is the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5526315789473685,
+            "precison_micro": 0.57,
+            "precision_macro": 0.5702347083926032,
+            "recall_bin": 0.5793103448275863,
+            "recall_micro": 0.57,
+            "recall_macro": 0.5703003337041157,
+            "f1_bin": 0.5656565656565657,
+            "f1_micro": 0.57,
+            "f1_macro": 0.56995699569957
+        }
+    },
+    {
+        "prompt": "<s>[INST]Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. \n\nThe descriptions given and received correspond to the content in a specific CTR section. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nExperts in clinical domains, clinical trial coordinators, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nAccording to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. ",
+            "The descriptions given and received correspond to the content in a specific CTR section. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Experts in clinical domains, clinical trial coordinators, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "According to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5412371134020618,
+            "precison_micro": 0.57,
+            "precision_macro": 0.581939311418012,
+            "recall_bin": 0.7241379310344828,
+            "recall_micro": 0.57,
+            "recall_macro": 0.5749721913236929,
+            "f1_bin": 0.6194690265486725,
+            "f1_micro": 0.57,
+            "f1_macro": 0.562608076492727
+        }
+    },
+    {
+        "prompt": "<s>[INST]Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. \n\nThe given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nIs the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. ",
+            "The given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. ",
+            "$hypothesis",
+            "Is the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.546875,
+            "precison_micro": 0.5566666666666666,
+            "precision_macro": 0.5554142441860466,
+            "recall_bin": 0.4827586206896552,
+            "recall_micro": 0.5566666666666666,
+            "recall_macro": 0.5542825361512792,
+            "f1_bin": 0.5128205128205128,
+            "f1_micro": 0.5566666666666666,
+            "f1_macro": 0.5530463420371676
+        }
+    },
+    {
+        "prompt": "<s>[INST]Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. \n\nThe given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical experts, trial organizers, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nAccording to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Confirm that clinical domain experts' declarations align with the data and conclusions in the designated sections of Clinical Trial Reports (CTRs). CTRs detail clinical trials' design and outcomes, assessing treatment effectiveness and safety. Experts' statements should concur with CTR data, applying to an individual report or comparison only. Ensure consistency for accuracy. ",
+            "The given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical experts, trial organizers, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "According to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.532258064516129,
+            "precison_micro": 0.5566666666666666,
+            "precision_macro": 0.5643746462931523,
+            "recall_bin": 0.6827586206896552,
+            "recall_micro": 0.5566666666666666,
+            "recall_macro": 0.560734149054505,
+            "f1_bin": 0.5981873111782477,
+            "f1_micro": 0.5566666666666666,
+            "f1_macro": 0.5518817596783432
+        }
+    },
+    {
+        "prompt": "<s>[INST]Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.\n\nThe given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nExperts in clinical domains, clinical trial coordinators, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nDetermine the factual accuracy of the statement based on the clinical trial findings. [/INST]",
+        "prompt_partions": [
+            "Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.",
+            "The given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Experts in clinical domains, clinical trial coordinators, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "Determine the factual accuracy of the statement based on the clinical trial findings. "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5329949238578681,
+            "precison_micro": 0.56,
+            "precision_macro": 0.5723227046473807,
+            "recall_bin": 0.7241379310344828,
+            "recall_micro": 0.56,
+            "recall_macro": 0.5652947719688542,
+            "f1_bin": 0.6140350877192983,
+            "f1_micro": 0.56,
+            "f1_macro": 0.551203590371277
+        }
+    },
+    {
+        "prompt": "<s>[INST]Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. \n\nThe descriptions accord with the information in a CTR section, conveying relevant and corresponding details. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n/s>\n\n$hypothesis\n\nIs the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. ",
+            "The descriptions accord with the information in a CTR section, conveying relevant and corresponding details. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "/s>",
+            "$hypothesis",
+            "Is the statement, as stated in the clinical trial report, accurate? (Answer with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5308056872037915,
+            "precison_micro": 0.56,
+            "precision_macro": 0.5800095851749294,
+            "recall_bin": 0.7724137931034483,
+            "recall_micro": 0.56,
+            "recall_macro": 0.5668520578420467,
+            "f1_bin": 0.6292134831460675,
+            "f1_micro": 0.56,
+            "f1_macro": 0.5441149382943452
+        }
+    },
+    {
+        "prompt": "<s>[INST]Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. \n\nThe given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n/s>\n\n$hypothesis\n\nAccording to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') [/INST]",
+        "prompt_partions": [
+            "Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. ",
+            "The given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "/s>",
+            "$hypothesis",
+            "According to the clinical trial findings, is the statement factually correct? (Reply with 'Yes' or 'No') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.525,
+            "precison_micro": 0.55,
+            "precision_macro": 0.5625,
+            "recall_bin": 0.7241379310344828,
+            "recall_micro": 0.55,
+            "recall_macro": 0.5556173526140156,
+            "f1_bin": 0.6086956521739131,
+            "f1_micro": 0.55,
+            "f1_macro": 0.5396419437340154
+        }
+    },
+    {
+        "prompt": "<s>[INST]Check that the clinical domain experts' statements agree with the data and findings presented in the designated parts of Clinical Trial Reports (CTRs). CTRs provide information on clinical trials' design and results, evaluating treatment efficacy and safety. Ensure experts' statements align with the CTR data for each report or comparison. Maintain consistency for accuracy. \n\nThe given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nExperts in clinical domains, clinical trial coordinators, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nBased on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') [/INST]",
+        "prompt_partions": [
+            "Check that the clinical domain experts' statements agree with the data and findings presented in the designated parts of Clinical Trial Reports (CTRs). CTRs provide information on clinical trials' design and results, evaluating treatment efficacy and safety. Ensure experts' statements align with the CTR data for each report or comparison. Maintain consistency for accuracy. ",
+            "The given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Experts in clinical domains, clinical trial coordinators, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "Based on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.518324607329843,
+            "precison_micro": 0.54,
+            "precision_macro": 0.5481531293529949,
+            "recall_bin": 0.6827586206896552,
+            "recall_micro": 0.54,
+            "recall_macro": 0.5446051167964405,
+            "f1_bin": 0.5892857142857144,
+            "f1_micro": 0.54,
+            "f1_macro": 0.5332792207792209
+        }
+    },
+    {
+        "prompt": "<s>[INST]Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.\n\nThe descriptions accord with the information in a CTR section, conveying relevant and corresponding details. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\n/s>\n\n$hypothesis\n\nDetermine the factual accuracy of the statement based on the clinical trial findings. [/INST]",
+        "prompt_partions": [
+            "Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.",
+            "The descriptions accord with the information in a CTR section, conveying relevant and corresponding details. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "/s>",
+            "$hypothesis",
+            "Determine the factual accuracy of the statement based on the clinical trial findings. "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5165876777251185,
+            "precison_micro": 0.54,
+            "precision_macro": 0.5560466478513233,
+            "recall_bin": 0.7517241379310344,
+            "recall_micro": 0.54,
+            "recall_macro": 0.546829810901001,
+            "f1_bin": 0.6123595505617977,
+            "f1_micro": 0.54,
+            "f1_macro": 0.5233928900349972
+        }
+    },
+    {
+        "prompt": "<s>[INST]Determine if clinical domain experts' statements align with the eligibility criteria, intervention descriptions, results, and adverse events listed in Clinical Trial Reports (CTRs). Ensure consistency between experts' claims and information in the designated CTR sections for accuracy. Each CTR includes sections on eligibility criteria, intervention details, results summary, and adverse events. Experts' statements must be related to the clinical trial data, supported by the CTR, and not contradictive. \n\n\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nExperts in clinical domains, clinical trial coordinators, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nBased on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') [/INST]",
+        "prompt_partions": [
+            "Determine if clinical domain experts' statements align with the eligibility criteria, intervention descriptions, results, and adverse events listed in Clinical Trial Reports (CTRs). Ensure consistency between experts' claims and information in the designated CTR sections for accuracy. Each CTR includes sections on eligibility criteria, intervention details, results summary, and adverse events. Experts' statements must be related to the clinical trial data, supported by the CTR, and not contradictive. ",
+            "\nThe descriptions presented here are consistent with the details found in the relevant section of Clinical Trial Reports. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Experts in clinical domains, clinical trial coordinators, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "Based on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5053191489361702,
+            "precison_micro": 0.5233333333333333,
+            "precision_macro": 0.5294452887537995,
+            "recall_bin": 0.6551724137931034,
+            "recall_micro": 0.5233333333333333,
+            "recall_macro": 0.5275862068965518,
+            "f1_bin": 0.5705705705705706,
+            "f1_micro": 0.5233333333333333,
+            "f1_macro": 0.5174950231130007
+        }
+    },
+    {
+        "prompt": "<s>[INST]Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. \n\nThe given and provided descriptions correspond with the content in a specific section of Clinical Trial Reports (CTRs). \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical experts, trial organizers, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nBased on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') [/INST]",
+        "prompt_partions": [
+            "Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. ",
+            "The given and provided descriptions correspond with the content in a specific section of Clinical Trial Reports (CTRs). ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical experts, trial organizers, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "Based on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.507537688442211,
+            "precison_micro": 0.5266666666666666,
+            "precision_macro": 0.5359470620428877,
+            "recall_bin": 0.696551724137931,
+            "recall_micro": 0.5266666666666666,
+            "recall_macro": 0.532146829810901,
+            "f1_bin": 0.5872093023255813,
+            "f1_micro": 0.5266666666666666,
+            "f1_macro": 0.5162609011627907
+        }
+    },
+    {
+        "prompt": "<s>[INST]Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.\n\nThe given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical experts, trial organizers, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nBased on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') [/INST]",
+        "prompt_partions": [
+            "Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.",
+            "The given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical experts, trial organizers, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "Based on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5073891625615764,
+            "precison_micro": 0.5266666666666666,
+            "precision_macro": 0.5371997359199634,
+            "recall_bin": 0.7103448275862069,
+            "recall_micro": 0.5266666666666666,
+            "recall_macro": 0.5325917686318131,
+            "f1_bin": 0.5919540229885057,
+            "f1_micro": 0.5266666666666666,
+            "f1_macro": 0.5142309797482212
+        }
+    },
+    {
+        "prompt": "<s>[INST]Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. \n\nThe given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nDetermine the factual accuracy of the statement based on the clinical trial findings. [/INST]",
+        "prompt_partions": [
+            "Establish semantic entailment between clinical trial report (CTR) sections and expert statements.\n\nCTRs consist of four sections: (1) Eligibility Criteria, specifying patient conditions for trial participation; (2) Intervention, detailing treatment type, dosage, frequency, and duration; (3) Results, providing trial participant count, outcome measures, units, and conclusions; (4) Adverse Events, listing observed signs and symptoms.\n\nExpert statements make claims about CTR information and can refer to single or multiple CTRs. To establish entailment, a statement must be related to the CTR data, supported by provided descriptions, and not contradictory. ",
+            "The given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. ",
+            "$hypothesis",
+            "Determine the factual accuracy of the statement based on the clinical trial findings. "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.5025380710659898,
+            "precison_micro": 0.52,
+            "precision_macro": 0.5279680646592084,
+            "recall_bin": 0.6827586206896552,
+            "recall_micro": 0.52,
+            "recall_macro": 0.5252502780867631,
+            "f1_bin": 0.5789473684210527,
+            "f1_micro": 0.52,
+            "f1_macro": 0.5104039167686658
+        }
+    },
+    {
+        "prompt": "<s>[INST]Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.\n\nThe descriptions given and received correspond to the content in a specific CTR section. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical experts, trial organizers, and medical researchers can suggest the following statement. \n\n$hypothesis\n\nBased on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') [/INST]",
+        "prompt_partions": [
+            "Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.",
+            "The descriptions given and received correspond to the content in a specific CTR section. ",
+            "Primary Trial:\n$primary_evidence",
+            "Secondary Trial:\n$secondary_evidence",
+            "Clinical experts, trial organizers, and medical researchers can suggest the following statement. ",
+            "$hypothesis",
+            "Based on the clinical trial results, is the statement true or false? (Answer with 'True' or 'False') "
+        ],
+        "id": "",
+        "metrics": {
+            "precison_bin": 0.4948453608247423,
+            "precison_micro": 0.51,
+            "precision_macro": 0.516290604940673,
+            "recall_bin": 0.6620689655172414,
+            "recall_micro": 0.51,
+            "recall_macro": 0.5149054505005561,
+            "f1_bin": 0.5663716814159292,
+            "f1_micro": 0.51,
+            "f1_macro": 0.5015766453056658
+        }
+    }
+]

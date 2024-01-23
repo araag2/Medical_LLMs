@@ -67,7 +67,7 @@ def create_qid_prompt_label_dict(queries : dict, qrels : dict, prompt : str) -> 
 def create_qdid_prompt(queries : dict, prompt : str) -> dict:
     queries_dict = {}
     for q_id in queries:
-        queries_dict[q_id] = generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompt)
+        queries_dict[q_id] = {"text" : generate_query_from_prompt(extract_info_from_query(queries[q_id]), prompt)}
     return queries_dict
 
 def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
@@ -89,10 +89,13 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
 
 def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
     res_labels = [[],[]]
+    mistakes = []
     for q_id in pred_labels:
         #print(f'{gold_labels[q_id]["gold_label"]=} {pred_labels[q_id]=}')
         res_labels[0].append(gold_labels[q_id]["gold_label"])
         res_labels[1].append(pred_labels[q_id])
+        if res_labels[0][-1] != res_labels[1][-1]:
+            mistakes.append({"q_id" : q_id, "gold_label" : res_labels[0][-1], "pred_label" : res_labels[1][-1]})
 
     precison_bin = precision_score(res_labels[0], res_labels[1])
     precision_micro = precision_score(res_labels[0], res_labels[1], average="micro")
@@ -104,7 +107,29 @@ def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
     f1_micro = f1_score(res_labels[0], res_labels[1], average="micro")
     f1_macro = f1_score(res_labels[0], res_labels[1], average="macro")
 
-    return {"precison_bin" :precison_bin, "precison_micro" : precision_micro, "precision_macro" : precision_macro, "recall_bin" : recall_bin,"recall_micro" : recall_micro, "recall_macro" : recall_macro, "f1_bin" : f1_bin, "f1_micro" : f1_micro, "f1_macro" : f1_macro}
+    return {"precison_bin" :precison_bin, "precison_micro" : precision_micro, "precision_macro" : precision_macro, "recall_bin" : recall_bin,"recall_micro" : recall_micro, "recall_macro" : recall_macro, "f1_bin" : f1_bin, "f1_micro" : f1_micro, "f1_macro" : f1_macro}, mistakes
+
+def output_mistakes(args : dict, mistakes : list, prompt : str, queries : dict, qrels : dict, used_set : str):
+    # Output Mistakes
+    mistakes = {
+        "prompt" : prompt,
+        "used_set" : used_set, 
+        "mistake_stats" : {"Total" : len(mistakes), "Single" : 0, "Comparison" : 0, "Entailment" : 0, "Contradiction" : 0}, 
+        "mistakes" : mistakes, 
+        "og_queries" : {}
+    }
+
+    for q_id in mistakes["mistakes"]:
+        mistakes["og_queries"][q_id] = queries[q_id]
+        mistakes["og_queries"][q_id]["gold_label"] = qrels[q_id]["Label"]
+        mistakes["mistake_stats"][mistakes["og_queries"][q_id]["type"]] += 1
+        mistakes["mistake_stats"][qrels[q_id]["Label"]] += 1
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+
+    with safe_open_w(f'{args.output_dir}mistakes/{timestamp}_{args.model.split("/")[-1]}_{used_set}-set.json') as output_file:
+        output_file.write(json.dumps(mistakes, ensure_ascii=False, indent=4))
+
 
 def output_full_metrics(args : dict, prompt_id : str, full_prompt : str, used_set : str, metrics : dict):
 
@@ -129,9 +154,10 @@ def full_evaluate_prompt(model: object, tokenizer: object, queries: dict, qrels:
     pred_labels = query_inference(model, tokenizer, queries_dict)
 
     # Compute metrics
-    metrics = calculate_metrics(pred_labels, queries_dict)
+    metrics, mistakes = calculate_metrics(pred_labels, queries_dict)
+    output_mistakes(args, mistakes, prompt_id, queries, qrels, mistakes, used_set)
+    
     output_full_metrics(args, prompt_id, prompt, used_set, metrics)
-
     return metrics
 
 def output_prompt_labels(model : object, tokenizer : object, queries : dict, prompt : str, args : object, used_set : str):
