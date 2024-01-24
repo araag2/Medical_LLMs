@@ -29,6 +29,7 @@ def main():
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2024_{used_set}.json')
     # "prompts/T5prompts.json"
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/EA_Mistral_Prompts_2.json")
+    parser.add_argument('--checkpoint', type=str, help='path to prompts file', default="outputs/models/run_2/checkpoint-1275/")
 
     # Output directory
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
@@ -40,8 +41,9 @@ def main():
        return_dict=True,torch_dtype=torch.bfloat16,
        device_map= {"": 0}
     )
+
     #new_model = AutoModelForCausalLM.from_pretrained(f'outputs/models/run_2/checkpoint-2125/')
-    model = PeftModel.from_pretrained(base_model_reload, f'outputs/models/run_2/checkpoint-1275/')
+    model = PeftModel.from_pretrained(base_model_reload, args.checkpoint)
     model = model.merge_and_unload()
 
     tokenizer = AutoTokenizer.from_pretrained(args.model)

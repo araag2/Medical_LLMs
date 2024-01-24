@@ -29,6 +29,7 @@ def main():
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2024_{used_set}.json')
     # "prompts/T5prompts.json"
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/EA_Mistral_Prompts_2.json")
+    parser.add_argument('--checkpoint', type=str, help='path to prompts file', default="outputs/models/run_6/checkpoint-2120/")
 
     # Output directory
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/test_set_results/")
@@ -41,7 +42,7 @@ def main():
        device_map= {"": 0}
     )
     #new_model = AutoModelForCausalLM.from_pretrained(f'outputs/models/run_2/checkpoint-2125/')
-    model = PeftModel.from_pretrained(base_model_reload, f'outputs/models/run_2/checkpoint-4250/')
+    model = PeftModel.from_pretrained(base_model_reload, args.checkpoint)
     model = model.merge_and_unload()
 
     tokenizer = AutoTokenizer.from_pretrained(args.model)
@@ -52,7 +53,7 @@ def main():
     qrels = json.load(open(args.qrels))
     #prompts = json.load(open(args.prompts))
 
-    prompt = "<s>[INST]The objective is to examine semantic entailment relationships between individual sections of Clinical Trial Reports (CTRs) and statements articulated by clinical domain experts. CTRs elaborate on the procedures and findings of clinical trials, scrutinizing the effectiveness and safety of novel treatments. Each trial involves cohorts or arms exposed to distinct treatments or exhibiting diverse baseline characteristics. Comprehensive CTRs comprise four sections: (1) ELIGIBILITY CRITERIA delineating conditions for patient inclusion, (2) INTERVENTION particulars specifying type, dosage, frequency, and duration of treatments, (3) RESULTS summary encompassing participant statistics, outcome measures, units, and conclusions, and (4) ADVERSE EVENTS cataloging signs and symptoms observed. Statements posit claims regarding the information within these sections, either for a single CTR or in comparative analysis of two. To establish entailment, the statement's assertion should harmonize with clinical trial data, find substantiation in the CTR, and avoid contradiction with the provided descriptions.\n\nThe following descriptions correspond to the information in one of the Clinical Trial Report (CTR) sections.\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nReflect upon the ensuing statement crafted by an expert in clinical trials.\n\n$hypothesis\n\nRespond with either YES or NO to indicate whether it is possible to determine the statement's validity based on the Clinical Trial Report (CTR) information, with the statement being supported by the CTR data and not contradicting the provided descriptions.[/INST] Answer: "
+    prompt = "<s>[INST]Consider the task of determining semantic entailment relations between individual sections of Clinical Trial Reports (CTRs) and statements made by clinical domain experts. Note that CTRs outline the methodology and findings of a clinical trial, which are conducted to assess the effectiveness and safety of new treatments. Each trial involves 1-2 patient groups, called cohorts or arms, and these groups may receive different treatments, or have different baseline characteristics. The complete CTRs contain 4 sections, corresponding to (1) a list of the ELIGIBILITY CRITERIA corresponding to the conditions for patients to be allowed to take part in the clinical trial, (2) a description for the INTERVENTION that specifies the type, dosage, frequency, and duration of treatments being studied, (3) a summary of the RESULTS, detailing aspects such as the number of participants in the trial, the outcome measures, the units, and the conclusions, and (4) a list of ADVERSE EVENTS corresponding to signs and symptoms observed in patients during the clinical trial. In turn, the statements are sentences that make some type of claim about the information contained in one of the aforementioned sections, either considering a single CTR or comparing two CTRs. In order for the entailment relationship to be established, the claim in the statement should be related to the clinical trial information, it should be supported by the CTR, and it must not contradict the provided descriptions.\n\nThe given and provided descriptions align with the information in a particular section of Clinical Trial Reports (CTRs), detailing relevant and matching content. \n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nClinical domain experts, clinical trial organizers, or medical researchers may propose the following statement. \n\n$hypothesis\n\nBased on the clinical trial report, can you determine if the statement is valid? (Answer with 'Yes' or 'No')[/INST] Answer: "
 
     GA_evaluation.output_prompt_labels(model, tokenizer, queries, prompt, args, used_set)
 
