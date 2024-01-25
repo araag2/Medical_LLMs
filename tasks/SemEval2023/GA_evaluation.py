@@ -170,7 +170,7 @@ def output_prompt_labels(model : object, tokenizer : object, queries : dict, pro
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
 
     # Output results
-    with safe_open_w(f'{args.output_dir}{timestamp}_{args.checkpoint.split("/")[-2]}_{args.checkpoint.split("/")[-1]}_{used_set}-set.json') as output_file:
+    with safe_open_w(f'{args.output_dir}{timestamp}_{args.checkpoint.split("/")[-3]}_{args.checkpoint.split("/")[-2]}_{used_set}-set.json') as output_file:
         output_file.write(json.dumps(label_2_SemEval2024(pred_labels), ensure_ascii=False, indent=4))
 
 def generate_pos_prompts(mistral_prompts : dict):

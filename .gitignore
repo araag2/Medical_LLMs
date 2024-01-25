@@ -161,6 +161,7 @@ datasets/TREC2022/
 datasets/TREC2023/
 datasets/SemEval2023/
 models/
+mistakes/
 SemEval_base/
 data_json/
 combination_output/
