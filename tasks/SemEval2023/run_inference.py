@@ -22,14 +22,14 @@ def main():
 
     parser.add_argument('--model', type=str, help='name of the model used to generate and combine prompts', default='mistralai/Mistral-7B-Instruct-v0.2')
 
-    used_set = "train" # train | dev | test
+    used_set = "test" # train | dev | test
 
     # Path to queries, qrels and prompt files
     parser.add_argument('--queries', type=str, help='path to queries file', default=f'queries/queries2024_{used_set}.json')
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2024_{used_set}.json')
     # "prompts/T5prompts.json"
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/EA_Mistral_Prompts_2.json")
-    parser.add_argument('--checkpoint', type=str, help='path to prompts file', default="outputs/models/run_2/checkpoint-1275/")
+    parser.add_argument('--checkpoint', type=str, help='path to prompts file', default="outputs/models/run_2/checkpoint-4250/")
 
     # Output directory
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")

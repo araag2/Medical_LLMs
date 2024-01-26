@@ -29,7 +29,7 @@ def main():
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2024_{used_set}.json')
     # "prompts/T5prompts.json"
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/EA_Mistral_Prompts_2.json")
-    parser.add_argument('--checkpoint', type=str, help='path to prompts file', default="outputs/models/run_6/checkpoint-425/")
+    parser.add_argument('--checkpoint', type=str, help='path to prompts file', default="outputs/models/run_8/end_model/")
 
     # Output directory
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/test_set_results/")

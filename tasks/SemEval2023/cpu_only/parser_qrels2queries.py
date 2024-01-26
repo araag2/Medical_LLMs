@@ -18,8 +18,8 @@ def safe_open_w(path: str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', type=str, help='path to input dir/file', default='qrels/qrels2024_train-expanded.json')
-    parser.add_argument('--output', type=str, help='path to output dir/file', default='queries/queries2024_train-expanded.json')
+    parser.add_argument('--input', type=str, help='path to input dir/file', default='qrels/qrels2024_train-dev_manual-Expand-2.json')
+    parser.add_argument('--output', type=str, help='path to output dir/file', default='queries/queries2024_train-dev_manual-Expand-2.json')
     parser.add_argument('--corpus', type=str, help='path to CT Corpus', default='CT_json/SemEval_CT-corpus.json')
     args = parser.parse_args() 
 
