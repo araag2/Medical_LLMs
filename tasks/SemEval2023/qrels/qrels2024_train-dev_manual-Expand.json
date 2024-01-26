@@ -573,7 +573,7 @@
         "Type": "Single",
         "Section_id": "Results",
         "Primary_id": "NCT01945775",
-        "Statement": "TO DO - (The shortest PFS in the Talazoparib group of the primary trial was over a month shorter than the Median PFS for that group.)",
+        "Statement": "The Median PFS in the Talazoparib group of the primary trial was over a month longer than the shortest PFS.",
         "Label": "Entailment"
     },
     "fa530b28-9142-49f2-aa80-4d04fa532910": {
@@ -623,7 +623,7 @@
         "Type": "Single",
         "Section_id": "Results",
         "Primary_id": "NCT00171704",
-        "Statement": "TO DO - (Most patients in the Letrozole group of the primary trial had a decreased Bone Mineral Density of the Lumbar Spine after 24 months.)",
+        "Statement": "A decreased Bone Mineral Density of the Lumbar Spine after 24 months was present in most patients in the Letrozole group of the primary trial.",
         "Label": "Entailment"
     },
     "2e4717fd-b349-48a3-b751-88674dfaaa18": {
@@ -652,14 +652,14 @@
         "Type": "Single",
         "Section_id": "Adverse Events",
         "Primary_id": "NCT00509769",
-        "Statement": "1 patient in the primary trial didn't have toxic hepatitis.",
+        "Statement": "No patient in the primary trial had toxic hepatitis.",
         "Label": "Contradiction"
     },
     "28e20650-e100-4e30-a319-5eceb69a979d_rephrase": {
         "Type": "Single",
         "Section_id": "Adverse Events",
         "Primary_id": "NCT00509769",
-        "Statement": "TO DO - (1 patient in the primary trial had toxic hepatitis.)",
+        "Statement": "The primary trial registered 1 patient with toxic hepatitis.",
         "Label": "Entailment"
     },
     "8cf0c320-9486-4531-9212-bb3284b734f1": {
@@ -667,7 +667,7 @@
         "Section_id": "Results",
         "Primary_id": "NCT02336737",
         "Secondary_id": "NCT01432886",
-        "Statement": "the secondary trial is testing for the DLT of its interventions, whereas the primary trial is evaluating the efficacy of lymph node detection through the use of SentiMag and SiennaXP. ",
+        "Statement": "The secondary trial is testing for the DLT of its interventions, whereas the primary trial is evaluating the efficacy of lymph node detection through the use of SentiMag and SiennaXP. ",
         "Label": "Entailment"
     },
     "8cf0c320-9486-4531-9212-bb3284b734f1_neg": {
@@ -683,7 +683,7 @@
         "Section_id": "Results",
         "Primary_id": "NCT02336737",
         "Secondary_id": "NCT01432886",
-        "Statement": "TO DO - (the secondary trial is testing for the DLT of its interventions, whereas the primary trial is evaluating the efficacy of lymph node detection through the use of SentiMag and SiennaXP. )",
+        "Statement": "The primary trial is evaluating the efficacy of lymph node detection through the use of SentiMag and SiennaXP, whereas the secondary trial is testing for the DLT of its interventions.",
         "Label": "Entailment"
     },
     "34a75478-e7cc-495e-86c3-d0accdaf1ddd": {
@@ -734,14 +734,14 @@
         "Type": "Single",
         "Section_id": "Adverse Events",
         "Primary_id": "NCT00924352",
-        "Statement": "One patient in the primary trial didn't have abnormally low red blood cells, white blood cells, and platelets.",
+        "Statement": "No patient in the primary trial had abnormally low red blood cells, white blood cells, and platelets.",
         "Label": "Contradiction"
     },
     "cfd93077-87c5-458b-8712-e1896929309d_rephrase": {
         "Type": "Single",
         "Section_id": "Adverse Events",
         "Primary_id": "NCT00924352",
-        "Statement": "TO DO - (One patient in the primary trial had abnormally low red blood cells, white blood cells, and platelets.)",
+        "Statement": "The primary trial registered a single patient with abnormally low red blood cells, white blood cells, and platelets.)",
         "Label": "Entailment"
     },
     "a3faaf85-62c6-430f-acf2-9c5992ee5221": {
@@ -757,7 +757,7 @@
         "Section_id": "Adverse Events",
         "Primary_id": "NCT00503906",
         "Secondary_id": "NCT01142661",
-        "Statement": "The adverse events in the primary trial where all equally prevalent, whereas in the secondary trial, progression of disease wasn't reported as the most common event.",
+        "Statement": "The adverse events in the primary trial wheren't all equally prevalent, whereas in the secondary trial, progression of disease was reported as the most common event.",
         "Label": "Contradiction"
     },
     "a3faaf85-62c6-430f-acf2-9c5992ee5221_rephrase": {
@@ -765,7 +765,7 @@
         "Section_id": "Adverse Events",
         "Primary_id": "NCT00503906",
         "Secondary_id": "NCT01142661",
-        "Statement": "TO DO - (The adverse events in the primary trial where all equally prevalent, whereas in the secondary trial, progression of disease was reported as the most common event.)",
+        "Statement": "In the secondary trial, progression of disease was reported as the most common event, whereas in the primary trial all where equally prevalent.",
         "Label": "Entailment"
     },
     "65e3afbb-70f6-4e1a-89e6-d819f8b95ab6": {
@@ -781,7 +781,7 @@
         "Section_id": "Adverse Events",
         "Primary_id": "NCT01931163",
         "Secondary_id": "NCT00274469",
-        "Statement": "Less than 5% of cohort 1 of the primary trial had High blood sugar, 0% of the secondary trial patients weren't recorded as having High blood sugar.",
+        "Statement": "More than 5% of cohort 1 of the primary trial had High blood sugar, 0% of the secondary trial patients were recorded as having High blood sugar.",
         "Label": "Contradiction"
     },
     "65e3afbb-70f6-4e1a-89e6-d819f8b95ab6_rephrase": {
@@ -789,7 +789,7 @@
         "Section_id": "Adverse Events",
         "Primary_id": "NCT01931163",
         "Secondary_id": "NCT00274469",
-        "Statement": "TO DO - (Less than 5% of cohort 1 of the primary trial had High blood sugar, 0% of the secondary trial patients were recorded as having High blood sugar.)",
+        "Statement": "No patients in the secondary trial were recorded as having High blood sugar, and less than 5% of cohort 1 of the primary trial had High blood sugar.",
         "Label": "Entailment"
     },
     "335936e4-9eaa-43b3-84fe-6f112c0d0226": {
@@ -863,14 +863,14 @@
         "Type": "Single",
         "Section_id": "Adverse Events",
         "Primary_id": "NCT00934856",
-        "Statement": "In total, across both cohorts of the primary trial, there weren't at least 2 patients with a fever.",
+        "Statement": "In total, across both cohorts of the primary trial, there were less than 2 patients with a fever.",
         "Label": "Contradiction"
     },
     "348c9273-6aa1-43a8-840d-3cf080874669_rephrase": {
         "Type": "Single",
         "Section_id": "Adverse Events",
         "Primary_id": "NCT00934856",
-        "Statement": "TO DO - (In total, across both cohorts of the primary trial, there were at least 2 patients with a fever.)",
+        "Statement": "There were at least 2 patients with a fever in total, across both cohorts of the primary trial.",
         "Label": "Entailment"
     },
     "dfe6228e-6bfb-49d3-b0b4-397aab177bea": {
@@ -891,7 +891,7 @@
         "Type": "Single",
         "Section_id": "Results",
         "Primary_id": "NCT00068588",
-        "Statement": "TO DO - (We cannot compare results between the two Arms of the primary trial as there were no patients in cohort 1.)",
+        "Statement": "Since there were no patients in cohort 1., we cannot compare results between the two Arms of the primary trial.",
         "Label": "Entailment"
     },
     "9f424ebb-63b8-4930-b2c1-cd46fff4d706": {
@@ -919,7 +919,7 @@
         "Type": "Single",
         "Section_id": "Results",
         "Primary_id": "NCT00324259",
-        "Statement": "TO DO - (Cohort 2 of the primary trial had one more patient with Stable disease than cohort 1.)",
+        "Statement": " One more patient with Stable disease was present in cohort 1. then cohort 2. of the primary trial.",
         "Label": "Entailment"
     },
     "6630047b-7ebc-4435-8203-cf6bbe6b6ee7": {
@@ -940,7 +940,7 @@
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT00331630",
-        "Statement": "TO DO - (Left ventricular ejection fraction > 50% is required for participation in the primary trial.)",
+        "Statement": "Participation in the primary trial requires a left ventricular ejection fraction > 50%.",
         "Label": "Entailment"
     },
     "039c3fc2-f798-4d97-b904-9aa7d363eeef": {
@@ -964,7 +964,7 @@
         "Section_id": "Eligibility",
         "Primary_id": "NCT00903162",
         "Secondary_id": "NCT01674062",
-        "Statement": "TO DO - (Patients with cancer in situ of the cervix are eligible for the primary trial and the secondary trial.)",
+        "Statement": "To be eligible for the primary trial and the secondary trial, patients can have cancer in situ of the cervix.",
         "Label": "Entailment"
     },
     "50a2a4a9-2b30-4901-b7bc-9c77b8ca870f": {
@@ -985,7 +985,7 @@
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT00121134",
-        "Statement": "TO DO - (the primary trial requires participants to have undergone PTR.)",
+        "Statement": "Undergoing PTR is a requirement to participate in the primary trial.",
         "Label": "Entailment"
     },
     "f8028143-35d1-4cc3-895a-acb577db4715": {
@@ -1021,7 +1021,7 @@
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT00853996",
-        "Statement": "TO DO - (Women classified as high-risk of developing breast cancer within the next 5 years and within her lifetime by the Gail model are eligible for the primary trial.)",
+        "Statement": "If a women is classified as high-risk of developing breast cancer within the next 5 years and within her lifetime by the Gail model, they are eligible for the primary trial.",
         "Label": "Entailment"
     },
     "a41bf7b0-9a09-4ce0-8832-f13758581f20": {
@@ -1072,7 +1072,7 @@
         "Type": "Single",
         "Section_id": "Results",
         "Primary_id": "NCT00431067",
-        "Statement": "TO DO - (More than 5% of the primary trial participants achieved Objective Response (OR).)",
+        "Statement": "In the primary trial, more than 5% of the participants achieved Objective Response (OR).",
         "Label": "Entailment"
     },
     "b3ccde30-cdfc-4e18-aee0-8b3a921dde39": {
@@ -1101,14 +1101,14 @@
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT02721147",
-        "Statement": "Stephanie hasn't been living with her husband for 31 years, she is eligible for the primary trial.",
+        "Statement": "Stephanie has been living with her husband for 31 years, she isn't eligible for the primary trial.",
         "Label": "Contradiction"
     },
     "4ab74186-5f4e-4139-af05-d4a9871a251d_rephrase": {
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT02721147",
-        "Statement": "TO DO - (Stephanie has been living with her husband for 31 years, she is eligible for the primary trial.)",
+        "Statement": "Stephanie has been living with her husband for 31 years, so she isn't excluded from the primary trial.",
         "Label": "Entailment"
     },
     "082ee581-f420-4892-b098-ce82c6ad0210": {
@@ -1129,14 +1129,14 @@
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT00982319",
-        "Statement": "Pre and Post menopausal women can enter the primary trial, as long as they do have prior hormone replacement therapy.",
+        "Statement": "Pre and Post menopausal women can enter the primary trial, as long as they have prior hormone replacement therapy.",
         "Label": "Contradiction"
     },
     "7bf084eb-873a-4011-9b98-3a899ee582ee_rephrase": {
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT00982319",
-        "Statement": "TO DO - (Pre and Post menopausal women can enter the primary trial, as long as they do not have prior hormone replacement therapy.)",
+        "Statement": "If a pre or post menopausal women has had prior hormone replacement therapy, they cannot enter the primary trial.",
         "Label": "Entailment"
     },
     "ef0406b4-34ad-4cbd-83a4-dd0f118c4d5a": {
@@ -1165,7 +1165,7 @@
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT00741260",
-        "Statement": "TO DO - (Patients with ERBB2 positive tumors are eligible for the primary trial.)",
+        "Statement": "Patients with ERBB2 positive tumors aren't excluded from the primary trial.)",
         "Label": "Entailment"
     },
     "f6c85ce8-e0fc-4186-a961-6207dd4cacd2": {
@@ -1186,7 +1186,7 @@
         "Type": "Single",
         "Section_id": "Results",
         "Primary_id": "NCT01268150",
-        "Statement": "TO DO - (Most patients in the primary trial treated with Eribulin Mesylate did not achieve complete response (CR) or partial response (PR).)",
+        "Statement": "Treament with Eribulin Mesylate did not make most patients in the primary trial achieve complete response (CR) or partial response (PR).",
         "Label": "Entailment"
     },
     "5bdd61d9-aadf-4944-afe3-a04242d9c2b2": {
@@ -1207,28 +1207,28 @@
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT02321527",
-        "Statement": "TO DO - (Patients with invasive breast cancer with a diameter of less than 4 cm are included in the primary trial.)",
+        "Statement": "If a patient has invasive breast cancer with a diameter of less than 4 cm, they are included in the primary trial.",
         "Label": "Entailment"
     },
     "b8ce7d6a-d707-48e0-816c-de7ac3a63823": {
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT01252277",
-        "Statement": "Fiona's sister, who is 34 years old was diagnosed with a ductal carcinoma, therefore fiona may be eligible for the primary trial.",
+        "Statement": "Fiona's sister, who is 34 years old was diagnosed with a ductal carcinoma, therefore Fiona may be eligible for the primary trial.",
         "Label": "Entailment"
     },
     "b8ce7d6a-d707-48e0-816c-de7ac3a63823_neg": {
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT01252277",
-        "Statement": "Fiona's sister, who is 34 years old was diagnosed with a ductal carcinoma, therefore fiona may not be eligible for the primary trial.",
+        "Statement": "Fiona's sister, who is 34 years old was diagnosed with a ductal carcinoma, therefore Fiona may not be eligible for the primary trial.",
         "Label": "Contradiction"
     },
     "b8ce7d6a-d707-48e0-816c-de7ac3a63823_rephrase": {
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT01252277",
-        "Statement": "TO DO - (Fiona's sister, who is 34 years old was diagnosed with a ductal carcinoma, therefore fiona may be eligible for the primary trial.)",
+        "Statement": "Since Fiona's sister, is 34 years old and was diagnosed with a ductal carcinoma, Fiona may be eligible for the primary trial.",
         "Label": "Entailment"
     },
     "53d88010-e7d7-41c7-b20d-6328c8e507d1": {
@@ -1274,7 +1274,7 @@
         "Section_id": "Intervention",
         "Primary_id": "NCT03346161",
         "Secondary_id": "NCT01000662",
-        "Statement": "TO DO - (The intervention for the primary trial does not require patients to undergo any medical treatment during the study, whereas in the secondary trial, all patients receive Radiation Therapy.)",
+        "Statement": " In the secondary trial, all patients receive Radiation Therapy, whereas the intervention for the primary trial does not require patients to undergo any medical treatment during the study.",
         "Label": "Entailment"
     },
     "6f533f52-c8e4-4983-8968-69af03a9e34a": {
@@ -1295,7 +1295,7 @@
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT01506609",
-        "Statement": "TO DO - (Patients with cytologically confirmed breast cancer, who's Locally recurrent disease is amenable to radiation with curative intent are not eligible for the primary trial.)",
+        "Statement": "An exclusion criteria of the primarly trial is having cytologically confirmed breast cancer, who's Locally recurrent disease is amenable to radiation with curative intent.",
         "Label": "Entailment"
     },
     "690b8562-7d68-4642-bacb-601f227bb763": {
@@ -1316,7 +1316,7 @@
         "Type": "Single",
         "Section_id": "Intervention",
         "Primary_id": "NCT00591864",
-        "Statement": "TO DO - (the primary trial does not have an intervention section.)",
+        "Statement": "An intervention section is not present in the primary trial.",
         "Label": "Entailment"
     },
     "75f94edd-dbde-4a19-be18-e67c767f6d8f": {
@@ -1347,7 +1347,7 @@
         "Section_id": "Results",
         "Primary_id": "NCT00687440",
         "Secondary_id": "NCT01307891",
-        "Statement": "TO DO - (the primary trial had a higher percentage of patients with at least partial response than either cohort of the secondary trial.)",
+        "Statement": "Either cohort of the secondary trial had a lower percentage of patients with at least partial response than the primary trial.",
         "Label": "Entailment"
     },
     "34ee4f66-e6f7-458c-964c-12fa730a9d56": {
@@ -1368,7 +1368,7 @@
         "Type": "Single",
         "Section_id": "Intervention",
         "Primary_id": "NCT02556632",
-        "Statement": "TO DO - (Both cohorts the primary trial apply the topical intervention for approximately every 4-6 hours every day for a week of the study.)",
+        "Statement": "The topical intervention for approximately every 4-6 hours every day for a week of the study is applied to both cohorts in the primary trial.",
         "Label": "Entailment"
     },
     "9b0451fe-f760-46d3-b555-0a9b83546e73": {
@@ -1404,7 +1404,7 @@
         "Type": "Single",
         "Section_id": "Eligibility",
         "Primary_id": "NCT00316199",
-        "Statement": "TO DO - (Only Chinese women with stage 4 or Unresectable, locally recurrent cancer breast cancer are eligible for the primary trial.)",
+        "Statement": "The primarly trial is only eligible to Chinese women with stage 4 or Unresectable, locally recurrent cancer breast cancer.",
         "Label": "Entailment"
     },
     "7c2dd3c3-8e72-451e-9fe7-c442f659bfc3": {
