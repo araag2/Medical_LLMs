@@ -18,8 +18,8 @@ def safe_open_w(path: str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', type=str, help='path to input dir/file', default='qrels/qrels2024_train-dev_manual-Expand-2.json')
-    parser.add_argument('--output', type=str, help='path to output dir/file', default='queries/queries2024_train-dev_manual-Expand-2.json')
+    parser.add_argument('--input', type=str, help='path to input dir/file', default='qrels/qrels2024_train-dev_manual-Expand.json')
+    parser.add_argument('--output', type=str, help='path to output dir/file', default='queries/queries2024_train-dev_manual-Expand.json')
     parser.add_argument('--corpus', type=str, help='path to CT Corpus', default='CT_json/SemEval_CT-corpus.json')
     args = parser.parse_args() 
 
@@ -31,6 +31,14 @@ if __name__ == '__main__':
     #TO:DO 
     for query in tqdm(qrels):  
         output_dict[query] = {}
+
+        if "TO DO" in qrels[query]["Statement"]:
+            neg_example = query.split("_")[0]+"_neg"
+            if neg_example in output_dict:
+                del output_dict[neg_example]
+            del output_dict[query]
+            continue
+
         for data_field in ['Type', 'Section_id', 'Primary_id', 'Secondary_id', 'Section_id', 'Statement']:
             if data_field in qrels[query]:
                output_dict[query][data_field] = qrels[query][data_field]

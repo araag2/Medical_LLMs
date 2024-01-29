@@ -87,6 +87,24 @@ def query_inference(model : object, tokenizer : object, queries : dict) -> dict:
             res_labels[q_id] = textlabel_2_binarylabel(decoded_output_sub.split(" ")[:30])
     return res_labels
 
+def query_inference_no_rand(model : object, tokenizer : object, queries : dict) -> dict:
+    res_labels = {}
+    with torch.inference_mode():
+        for q_id in tqdm(queries):
+            tokenized = tokenizer(queries[q_id]["text"], return_tensors="pt")
+            tokenized["input_ids"] = tokenized.input_ids.to(device="cuda")
+            tokenized["attention_mask"] = tokenized.attention_mask.to(device="cuda")
+            outputs =  model.generate(**tokenized, max_new_tokens=30, do_sample=False, pad_token_id=tokenizer.eos_token_id)
+
+            decoded_output = tokenizer.decode(outputs[0][tokenized["input_ids"].shape[1]:]).strip()
+            decoded_output_sub = re.sub("[,!\.]+", " ", decoded_output)
+            decoded_output_sub = re.sub("(\\n)+", " ", decoded_output_sub)
+            decoded_output_sub = re.sub("(<\/s>)+", " ", decoded_output_sub)
+            #print(f'The postprocessed decoded output was {decoded_output_sub.split(" ")[:30]=}')
+            res_labels[q_id] = textlabel_2_binarylabel(decoded_output_sub.split(" ")[:10])
+    return res_labels
+
+
 def calculate_metrics(pred_labels : dict, gold_labels : dict) -> dict:
     res_labels = [[],[]]
     mistakes = []
@@ -165,7 +183,7 @@ def output_prompt_labels(model : object, tokenizer : object, queries : dict, pro
     queries_dict = create_qdid_prompt(queries, prompt)
 
     # 0-shot inference from queries
-    pred_labels = query_inference(model, tokenizer, queries_dict)
+    pred_labels = query_inference_no_rand(model, tokenizer, queries_dict)
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
 

@@ -29,7 +29,7 @@ def main():
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2024_{used_set}.json')
     # "prompts/T5prompts.json"
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/EA_Mistral_Prompts_2.json")
-    parser.add_argument('--checkpoint', type=str, help='path to prompts file', default="outputs/models/run_8/checkpoint-1395/")
+    parser.add_argument('--checkpoint', type=str, help='path to prompts file', default="outputs/models/run_11/end_model/")
 
     # Output directory
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/test_set_results/")
@@ -44,6 +44,9 @@ def main():
     #new_model = AutoModelForCausalLM.from_pretrained(f'outputs/models/run_2/checkpoint-2125/')
     model = PeftModel.from_pretrained(base_model_reload, args.checkpoint)
     model = model.merge_and_unload()
+
+    model.save_pretrained("outputs/models/run_11/end_model/")
+    quit()
 
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     tokenizer.pad_token_id = tokenizer.eos_token_id

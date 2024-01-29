@@ -56,7 +56,7 @@ def preprocess_dataset(args : argparse, prompt : str , split : str):
         example = set_examples[q_id]
         set_dict["id"].append(q_id)
         label = "YES" if example["gold_label"] == 1 else "NO"
-        set_dict["text"].append(f'{example["text"]} Answer: {label}')
+        set_dict["text"].append(f'{example["text"][:22000]} Answer: {label}')
     return Dataset.from_dict(set_dict)
 
 def parse_args():
@@ -64,11 +64,11 @@ def parse_args():
 
     parser.add_argument('--model_name', type=str, default="mistralai/Mistral-7B-Instruct-v0.2", help='model to train')
     parser.add_argument('--exp_name', type=str, default="Mistral SemEval Fine-Tune", help='Describes the conducted experiment')
-    parser.add_argument('--run', type=int, default=8, help='run number for wandb logging')
+    parser.add_argument('--run', type=int, default=14, help='run number for wandb logging')
 
     # I/O paths for models, CT, queries and qrels
     #parser.add_argument('--load_dir', type=str, default="LMHead/", help='path to model load dir')
-    parser.add_argument('--save_dir', type=str, default="outputs/models/run_8/", help='path to model save dir')
+    parser.add_argument('--save_dir', type=str, default="outputs/models/run_14/", help='path to model save dir')
     #parser.add_argument("--CT_input", default="datasets/TREC2021/TREC2021_CT_corpus.json", type=str, help='path to JSON for MLM')
 
     parser.add_argument("--used_prompt", default="prompts/", type=str)
@@ -77,20 +77,20 @@ def parse_args():
 
     #Model Hyperparamenters
     parser.add_argument("--max_length", type=int, default=6000)
-    parser.add_argument("--batch_size", default=2, type=int)
+    parser.add_argument("--batch_size", default=1, type=int)
     parser.add_argument("--pooling", default="mean")
     parser.add_argument("--train_epochs", default=5, type=int)
     parser.add_argument("--lr", type=float, default=2e-5)
 
     # Lora Hyperparameters
-    parser.add_argument("--lora_r", type=int, default=32)
+    parser.add_argument("--lora_r", type=int, default=64)
     parser.add_argument("--lora_dropout", type=float, default=0.1)
-    parser.add_argument("--lora_alpha", type=float, default=32)
+    parser.add_argument("--lora_alpha", type=float, default=16)
 
     #Speed and memory optimization parameters
     parser.add_argument("--fp16", action="store_true", help="Whether to use 16-bit (mixed) precision instead of 32-bit")
     parser.add_argument("--gradient_accumulation_steps", type=int, default=4, help="Number of updates steps to accumulate before performing a backward/update pass.")
-    parser.add_argument("--gradient_checkpointing", action="store_true", help="If True, use gradient checkpointing to save memory at the expense of slower backward pass.")
+    parser.add_argument("--gradient_checkpointing", action="store_false", help="If True, use gradient checkpointing to save memory at the expense of slower backward pass.")
     args = parser.parse_args()
 
 
@@ -105,7 +105,7 @@ def create_model_and_tokenizer(args : argparse):
     )
 
     model = AutoModelForCausalLM.from_pretrained(
-        args.model_name,
+        "outputs/models/run_11/end_model/", #TO:DO change to args.model_name
         quantization_config= bnb_config,
         device_map= {"": 0},
         # use_auth_token=True,
@@ -153,7 +153,7 @@ def main():
     prompt = "<s>[INST]The objective is to examine semantic entailment relationships between individual sections of Clinical Trial Reports (CTRs) and statements articulated by clinical domain experts. CTRs elaborate on the procedures and findings of clinical trials, scrutinizing the effectiveness and safety of novel treatments. Each trial involves cohorts or arms exposed to distinct treatments or exhibiting diverse baseline characteristics. Comprehensive CTRs comprise four sections: (1) ELIGIBILITY CRITERIA delineating conditions for patient inclusion, (2) INTERVENTION particulars specifying type, dosage, frequency, and duration of treatments, (3) RESULTS summary encompassing participant statistics, outcome measures, units, and conclusions, and (4) ADVERSE EVENTS cataloging signs and symptoms observed. Statements posit claims regarding the information within these sections, either for a single CTR or in comparative analysis of two. To establish entailment, the statement's assertion should harmonize with clinical trial data, find substantiation in the CTR, and avoid contradiction with the provided descriptions.\n\nThe following descriptions correspond to the information in one of the Clinical Trial Report (CTR) sections.\n\nPrimary Trial:\n$primary_evidence\n\nSecondary Trial:\n$secondary_evidence\n\nReflect upon the ensuing statement crafted by an expert in clinical trials.\n\n$hypothesis\n\nRespond with either YES or NO to indicate whether it is possible to determine the statement's validity based on the Clinical Trial Report (CTR) information, with the statement being supported by the CTR data and not contradicting the provided descriptions.[/INST]"
 
     # Load dataset
-    train_dataset = preprocess_dataset(args, prompt, "train-dev_manual-Expand-2")
+    train_dataset = preprocess_dataset(args, prompt, "train-dev_manual-Expand")
     eval_dataset = preprocess_dataset(args, prompt, "dev")
 
     training_arguments = TrainingArguments(

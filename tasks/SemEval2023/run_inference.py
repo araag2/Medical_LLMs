@@ -29,22 +29,22 @@ def main():
     parser.add_argument('--qrels', type=str, help='path to qrels file', default=f'qrels/qrels2024_{used_set}.json')
     # "prompts/T5prompts.json"
     parser.add_argument('--prompts', type=str, help='path to prompts file', default="prompts/EA_Mistral_Prompts_2.json")
-    parser.add_argument('--checkpoint', type=str, help='path to prompts file', default="outputs/models/run_2/checkpoint-4250/")
+    parser.add_argument('--checkpoint', type=str, help='path to prompts file', default="outputs/models/run_11/end_model/")
 
     # Output directory
     parser.add_argument('--output_dir', type=str, help='path to output_dir', default="outputs/")
 
     args = parser.parse_args()
 
-    base_model_reload = AutoModelForCausalLM.from_pretrained(
-       args.model, low_cpu_mem_usage=True,
+    model = AutoModelForCausalLM.from_pretrained(
+       args.checkpoint, low_cpu_mem_usage=True,
        return_dict=True,torch_dtype=torch.bfloat16,
        device_map= {"": 0}
     )
 
-    #new_model = AutoModelForCausalLM.from_pretrained(f'outputs/models/run_2/checkpoint-2125/')
-    model = PeftModel.from_pretrained(base_model_reload, args.checkpoint)
-    model = model.merge_and_unload()
+    #model = AutoModelForCausalLM.from_pretrained(args.checkpoint)
+    #model = PeftModel.from_pretrained(base_model_reload, args.checkpoint)
+    #model = model.merge_and_unload()
 
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     tokenizer.pad_token_id = tokenizer.eos_token_id
